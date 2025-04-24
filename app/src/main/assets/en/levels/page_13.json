@@ -1,0 +1,89 @@
+{
+  "metadata": {
+    "title": "Paginated feed",
+    "numberOfItems": 150,
+    "itemsPerPage": 10,
+    "currentPage": 13
+  },
+  "links": [
+    {
+      "rel": "self",
+      "href": "levels/page_13.json",
+      "type": "application/opds+json"
+    },
+    {
+      "rel": "prev",
+      "href": "levels/page_12.json",
+      "type": "application/opds+json",
+      "title": "Previous Page"
+    },
+    {
+      "rel": "next",
+      "href": "levels/page_14.json",
+      "type": "application/opds+json",
+      "title": "Next Page"
+    }
+  ],
+  "navigation": [
+    {
+      "title": "Level 120",
+      "href": "levels/level_120.json",
+      "type": "application/opds+json",
+      "rel": "item"
+    },
+    {
+      "title": "Level 121",
+      "href": "levels/level_121.json",
+      "type": "application/opds+json",
+      "rel": "item"
+    },
+    {
+      "title": "Level 122",
+      "href": "levels/level_122.json",
+      "type": "application/opds+json",
+      "rel": "item"
+    },
+    {
+      "title": "Level 123",
+      "href": "levels/level_123.json",
+      "type": "application/opds+json",
+      "rel": "item"
+    },
+    {
+      "title": "Level 124",
+      "href": "levels/level_124.json",
+      "type": "application/opds+json",
+      "rel": "item"
+    },
+    {
+      "title": "Level 125",
+      "href": "levels/level_125.json",
+      "type": "application/opds+json",
+      "rel": "item"
+    },
+    {
+      "title": "Level 126",
+      "href": "levels/level_126.json",
+      "type": "application/opds+json",
+      "rel": "item"
+    },
+    {
+      "title": "Level 127",
+      "href": "levels/level_127.json",
+      "type": "application/opds+json",
+      "rel": "item"
+    },
+    {
+      "title": "Level 128",
+      "href": "levels/level_128.json",
+      "type": "application/opds+json",
+      "rel": "item"
+    },
+    {
+      "title": "Level 129",
+      "href": "levels/level_129.json",
+      "type": "application/opds+json",
+      "rel": "item"
+    }
+  ]
+}

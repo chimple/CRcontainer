@@ -1,0 +1,83 @@
+{
+  "metadata": {
+    "title": "Paginated feed",
+    "numberOfItems": 150,
+    "itemsPerPage": 10,
+    "currentPage": 1
+  },
+  "links": [
+    {
+      "rel": "self",
+      "href": "levels/page_1.json",
+      "type": "application/opds+json"
+    },
+    {
+      "rel": "next",
+      "href": "levels/page_2.json",
+      "type": "application/opds+json",
+      "title": "Next Page"
+    }
+  ],
+  "navigation": [
+    {
+      "title": "Level 0",
+      "href": "levels/level_0.json",
+      "type": "application/opds+json",
+      "rel": "item"
+    },
+    {
+      "title": "Level 1",
+      "href": "levels/level_1.json",
+      "type": "application/opds+json",
+      "rel": "item"
+    },
+    {
+      "title": "Level 2",
+      "href": "levels/level_2.json",
+      "type": "application/opds+json",
+      "rel": "item"
+    },
+    {
+      "title": "Level 3",
+      "href": "levels/level_3.json",
+      "type": "application/opds+json",
+      "rel": "item"
+    },
+    {
+      "title": "Level 4",
+      "href": "levels/level_4.json",
+      "type": "application/opds+json",
+      "rel": "item"
+    },
+    {
+      "title": "Level 5",
+      "href": "levels/level_5.json",
+      "type": "application/opds+json",
+      "rel": "item"
+    },
+    {
+      "title": "Level 6",
+      "href": "levels/level_6.json",
+      "type": "application/opds+json",
+      "rel": "item"
+    },
+    {
+      "title": "Level 7",
+      "href": "levels/level_7.json",
+      "type": "application/opds+json",
+      "rel": "item"
+    },
+    {
+      "title": "Level 8",
+      "href": "levels/level_8.json",
+      "type": "application/opds+json",
+      "rel": "item"
+    },
+    {
+      "title": "Level 9",
+      "href": "levels/level_9.json",
+      "type": "application/opds+json",
+      "rel": "item"
+    }
+  ]
+}

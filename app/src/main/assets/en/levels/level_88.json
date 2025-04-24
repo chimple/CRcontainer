@@ -1,0 +1,200 @@
+{
+  "metadata": {
+    "title": "Level 88",
+    "type": "LetterOnly",
+    "letterGroup": 16,
+    "puzzles": [
+      {
+        "SegmentNumber": 0,
+        "targetstones": [
+          {
+            "StoneText": "ice"
+          }
+        ],
+        "prompt": {
+          "PromptText": "ice",
+          "PromptAudio": "https://feedthemonster.curiouscontent.org/lang/english/audios/ice.mp3"
+        },
+        "foilstones": [
+          {
+            "StoneText": "sp"
+          },
+          {
+            "StoneText": "ide"
+          },
+          {
+            "StoneText": "ike"
+          },
+          {
+            "StoneText": "ipe"
+          },
+          {
+            "StoneText": "ipe"
+          },
+          {
+            "StoneText": "ame"
+          },
+          {
+            "StoneText": "ide"
+          },
+          {
+            "StoneText": "cr"
+          }
+        ]
+      },
+      {
+        "SegmentNumber": 1,
+        "targetstones": [
+          {
+            "StoneText": "ide"
+          }
+        ],
+        "prompt": {
+          "PromptText": "ide",
+          "PromptAudio": "https://feedthemonster.curiouscontent.org/lang/english/audios/ide.mp3"
+        },
+        "foilstones": [
+          {
+            "StoneText": "l"
+          },
+          {
+            "StoneText": "wr"
+          },
+          {
+            "StoneText": "bl"
+          },
+          {
+            "StoneText": "t"
+          },
+          {
+            "StoneText": "s"
+          },
+          {
+            "StoneText": "sh"
+          },
+          {
+            "StoneText": "qu"
+          },
+          {
+            "StoneText": "ite"
+          }
+        ]
+      },
+      {
+        "SegmentNumber": 2,
+        "targetstones": [
+          {
+            "StoneText": "ipe"
+          }
+        ],
+        "prompt": {
+          "PromptText": "ipe",
+          "PromptAudio": "https://feedthemonster.curiouscontent.org/lang/english/audios/ipe.mp3"
+        },
+        "foilstones": [
+          {
+            "StoneText": "wh"
+          },
+          {
+            "StoneText": "y"
+          },
+          {
+            "StoneText": "ipe"
+          },
+          {
+            "StoneText": "l"
+          },
+          {
+            "StoneText": "d"
+          },
+          {
+            "StoneText": "e"
+          }
+        ]
+      },
+      {
+        "SegmentNumber": 3,
+        "targetstones": [
+          {
+            "StoneText": "ite"
+          }
+        ],
+        "prompt": {
+          "PromptText": "ite",
+          "PromptAudio": "https://feedthemonster.curiouscontent.org/lang/english/audios/ite.mp3"
+        },
+        "foilstones": [
+          {
+            "StoneText": "d"
+          },
+          {
+            "StoneText": "fl"
+          },
+          {
+            "StoneText": "ide"
+          },
+          {
+            "StoneText": "l"
+          },
+          {
+            "StoneText": "y"
+          },
+          {
+            "StoneText": "e"
+          },
+          {
+            "StoneText": "ite"
+          }
+        ]
+      },
+      {
+        "SegmentNumber": 4,
+        "targetstones": [
+          {
+            "StoneText": "ipe"
+          }
+        ],
+        "prompt": {
+          "PromptText": "ipe",
+          "PromptAudio": "https://feedthemonster.curiouscontent.org/lang/english/audios/ipe.mp3"
+        },
+        "foilstones": [
+          {
+            "StoneText": "ipe"
+          },
+          {
+            "StoneText": "ipe"
+          },
+          {
+            "StoneText": "pr"
+          },
+          {
+            "StoneText": "e"
+          },
+          {
+            "StoneText": "wr"
+          },
+          {
+            "StoneText": "fr"
+          },
+          {
+            "StoneText": "n"
+          },
+          {
+            "StoneText": "ine"
+          },
+          {
+            "StoneText": "p"
+          }
+        ]
+      }
+    ]
+  },
+  "links": [
+    {
+      "rel": "self",
+      "href": "levels/level_88.json",
+      "type": "application/opds+json"
+    }
+  ]
+}

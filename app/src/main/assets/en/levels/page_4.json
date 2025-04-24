@@ -1,0 +1,89 @@
+{
+  "metadata": {
+    "title": "Paginated feed",
+    "numberOfItems": 150,
+    "itemsPerPage": 10,
+    "currentPage": 4
+  },
+  "links": [
+    {
+      "rel": "self",
+      "href": "levels/page_4.json",
+      "type": "application/opds+json"
+    },
+    {
+      "rel": "prev",
+      "href": "levels/page_3.json",
+      "type": "application/opds+json",
+      "title": "Previous Page"
+    },
+    {
+      "rel": "next",
+      "href": "levels/page_5.json",
+      "type": "application/opds+json",
+      "title": "Next Page"
+    }
+  ],
+  "navigation": [
+    {
+      "title": "Level 30",
+      "href": "levels/level_30.json",
+      "type": "application/opds+json",
+      "rel": "item"
+    },
+    {
+      "title": "Level 31",
+      "href": "levels/level_31.json",
+      "type": "application/opds+json",
+      "rel": "item"
+    },
+    {
+      "title": "Level 32",
+      "href": "levels/level_32.json",
+      "type": "application/opds+json",
+      "rel": "item"
+    },
+    {
+      "title": "Level 33",
+      "href": "levels/level_33.json",
+      "type": "application/opds+json",
+      "rel": "item"
+    },
+    {
+      "title": "Level 34",
+      "href": "levels/level_34.json",
+      "type": "application/opds+json",
+      "rel": "item"
+    },
+    {
+      "title": "Level 35",
+      "href": "levels/level_35.json",
+      "type": "application/opds+json",
+      "rel": "item"
+    },
+    {
+      "title": "Level 36",
+      "href": "levels/level_36.json",
+      "type": "application/opds+json",
+      "rel": "item"
+    },
+    {
+      "title": "Level 37",
+      "href": "levels/level_37.json",
+      "type": "application/opds+json",
+      "rel": "item"
+    },
+    {
+      "title": "Level 38",
+      "href": "levels/level_38.json",
+      "type": "application/opds+json",
+      "rel": "item"
+    },
+    {
+      "title": "Level 39",
+      "href": "levels/level_39.json",
+      "type": "application/opds+json",
+      "rel": "item"
+    }
+  ]
+}

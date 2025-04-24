@@ -1,0 +1,30 @@
+{
+  "metadata": {
+    "title": "Feed the Monster",
+    "language": "ENGLISH",
+    "version": "3.15",
+    "direction": "ltr"
+  },
+  "links": [
+    {
+      "rel": "self",
+      "href": "course.json",
+      "type": "application/opds+json"
+    }
+  ],
+  "groups": [
+    {
+      "metadata": {
+        "title": "Feed The Monster Levels"
+      },
+      "navigation": [
+        {
+          "title": "Levels (Page 1)",
+          "href": "levels/page_1.json",
+          "type": "application/opds+json",
+          "rel": "collection"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,236 @@
+{
+  "metadata": {
+    "title": "Level 60",
+    "type": "Word",
+    "letterGroup": 15,
+    "puzzles": [
+      {
+        "SegmentNumber": 0,
+        "targetstones": [
+          {
+            "StoneText": "c"
+          },
+          {
+            "StoneText": "a"
+          },
+          {
+            "StoneText": "t"
+          }
+        ],
+        "prompt": {
+          "PromptText": "cat",
+          "PromptAudio": "https://feedthemonster.curiouscontent.org/lang/english/audios/cat.mp3"
+        },
+        "foilstones": [
+          {
+            "StoneText": "t"
+          },
+          {
+            "StoneText": "y"
+          },
+          {
+            "StoneText": "p"
+          },
+          {
+            "StoneText": "a"
+          },
+          {
+            "StoneText": "s"
+          },
+          {
+            "StoneText": "b"
+          },
+          {
+            "StoneText": "o"
+          },
+          {
+            "StoneText": "a"
+          }
+        ]
+      },
+      {
+        "SegmentNumber": 1,
+        "targetstones": [
+          {
+            "StoneText": "p"
+          },
+          {
+            "StoneText": "a"
+          },
+          {
+            "StoneText": "n"
+          }
+        ],
+        "prompt": {
+          "PromptText": "pan",
+          "PromptAudio": "https://feedthemonster.curiouscontent.org/lang/english/audios/pan.mp3"
+        },
+        "foilstones": [
+          {
+            "StoneText": "y"
+          },
+          {
+            "StoneText": "p"
+          },
+          {
+            "StoneText": "x"
+          },
+          {
+            "StoneText": "a"
+          },
+          {
+            "StoneText": "t"
+          },
+          {
+            "StoneText": "t"
+          },
+          {
+            "StoneText": "p"
+          },
+          {
+            "StoneText": "a"
+          }
+        ]
+      },
+      {
+        "SegmentNumber": 2,
+        "targetstones": [
+          {
+            "StoneText": "m"
+          },
+          {
+            "StoneText": "a"
+          },
+          {
+            "StoneText": "t"
+          }
+        ],
+        "prompt": {
+          "PromptText": "mat",
+          "PromptAudio": "https://feedthemonster.curiouscontent.org/lang/english/audios/mat.mp3"
+        },
+        "foilstones": [
+          {
+            "StoneText": "p"
+          },
+          {
+            "StoneText": "m"
+          },
+          {
+            "StoneText": "a"
+          },
+          {
+            "StoneText": "w"
+          },
+          {
+            "StoneText": "a"
+          },
+          {
+            "StoneText": "a"
+          },
+          {
+            "StoneText": "a"
+          }
+        ]
+      },
+      {
+        "SegmentNumber": 3,
+        "targetstones": [
+          {
+            "StoneText": "p"
+          },
+          {
+            "StoneText": "a"
+          },
+          {
+            "StoneText": "t"
+          }
+        ],
+        "prompt": {
+          "PromptText": "pat",
+          "PromptAudio": "https://feedthemonster.curiouscontent.org/lang/english/audios/pat.mp3"
+        },
+        "foilstones": [
+          {
+            "StoneText": "l"
+          },
+          {
+            "StoneText": "i"
+          },
+          {
+            "StoneText": "a"
+          },
+          {
+            "StoneText": "t"
+          },
+          {
+            "StoneText": "t"
+          },
+          {
+            "StoneText": "a"
+          },
+          {
+            "StoneText": "t"
+          },
+          {
+            "StoneText": "c"
+          }
+        ]
+      },
+      {
+        "SegmentNumber": 4,
+        "targetstones": [
+          {
+            "StoneText": "t"
+          },
+          {
+            "StoneText": "a"
+          },
+          {
+            "StoneText": "n"
+          }
+        ],
+        "prompt": {
+          "PromptText": "tan",
+          "PromptAudio": "https://feedthemonster.curiouscontent.org/lang/english/audios/tan.mp3"
+        },
+        "foilstones": [
+          {
+            "StoneText": "p"
+          },
+          {
+            "StoneText": "t"
+          },
+          {
+            "StoneText": "j"
+          },
+          {
+            "StoneText": "m"
+          },
+          {
+            "StoneText": "p"
+          },
+          {
+            "StoneText": "a"
+          },
+          {
+            "StoneText": "n"
+          },
+          {
+            "StoneText": "t"
+          },
+          {
+            "StoneText": "m"
+          }
+        ]
+      }
+    ]
+  },
+  "links": [
+    {
+      "rel": "self",
+      "href": "levels/level_60.json",
+      "type": "application/opds+json"
+    }
+  ]
+}

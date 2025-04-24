@@ -1,0 +1,236 @@
+{
+  "metadata": {
+    "title": "Level 62",
+    "type": "Word",
+    "letterGroup": 15,
+    "puzzles": [
+      {
+        "SegmentNumber": 0,
+        "targetstones": [
+          {
+            "StoneText": "t"
+          },
+          {
+            "StoneText": "u"
+          },
+          {
+            "StoneText": "g"
+          }
+        ],
+        "prompt": {
+          "PromptText": "tug",
+          "PromptAudio": "https://feedthemonster.curiouscontent.org/lang/english/audios/tug.mp3"
+        },
+        "foilstones": [
+          {
+            "StoneText": "u"
+          },
+          {
+            "StoneText": "t"
+          },
+          {
+            "StoneText": "b"
+          },
+          {
+            "StoneText": "z"
+          },
+          {
+            "StoneText": "t"
+          },
+          {
+            "StoneText": "t"
+          },
+          {
+            "StoneText": "p"
+          },
+          {
+            "StoneText": "j"
+          }
+        ]
+      },
+      {
+        "SegmentNumber": 1,
+        "targetstones": [
+          {
+            "StoneText": "r"
+          },
+          {
+            "StoneText": "u"
+          },
+          {
+            "StoneText": "t"
+          }
+        ],
+        "prompt": {
+          "PromptText": "rut",
+          "PromptAudio": "https://feedthemonster.curiouscontent.org/lang/english/audios/rut.mp3"
+        },
+        "foilstones": [
+          {
+            "StoneText": "w"
+          },
+          {
+            "StoneText": "h"
+          },
+          {
+            "StoneText": "u"
+          },
+          {
+            "StoneText": "n"
+          },
+          {
+            "StoneText": "d"
+          },
+          {
+            "StoneText": "c"
+          },
+          {
+            "StoneText": "b"
+          },
+          {
+            "StoneText": "k"
+          }
+        ]
+      },
+      {
+        "SegmentNumber": 2,
+        "targetstones": [
+          {
+            "StoneText": "c"
+          },
+          {
+            "StoneText": "u"
+          },
+          {
+            "StoneText": "b"
+          }
+        ],
+        "prompt": {
+          "PromptText": "cub",
+          "PromptAudio": "https://feedthemonster.curiouscontent.org/lang/english/audios/cub.mp3"
+        },
+        "foilstones": [
+          {
+            "StoneText": "u"
+          },
+          {
+            "StoneText": "u"
+          },
+          {
+            "StoneText": "l"
+          },
+          {
+            "StoneText": "u"
+          },
+          {
+            "StoneText": "n"
+          },
+          {
+            "StoneText": "y"
+          },
+          {
+            "StoneText": "h"
+          }
+        ]
+      },
+      {
+        "SegmentNumber": 3,
+        "targetstones": [
+          {
+            "StoneText": "n"
+          },
+          {
+            "StoneText": "u"
+          },
+          {
+            "StoneText": "t"
+          }
+        ],
+        "prompt": {
+          "PromptText": "nut",
+          "PromptAudio": "https://feedthemonster.curiouscontent.org/lang/english/audios/nut.mp3"
+        },
+        "foilstones": [
+          {
+            "StoneText": "t"
+          },
+          {
+            "StoneText": "g"
+          },
+          {
+            "StoneText": "g"
+          },
+          {
+            "StoneText": "u"
+          },
+          {
+            "StoneText": "u"
+          },
+          {
+            "StoneText": "g"
+          },
+          {
+            "StoneText": "b"
+          },
+          {
+            "StoneText": "z"
+          }
+        ]
+      },
+      {
+        "SegmentNumber": 4,
+        "targetstones": [
+          {
+            "StoneText": "b"
+          },
+          {
+            "StoneText": "u"
+          },
+          {
+            "StoneText": "g"
+          }
+        ],
+        "prompt": {
+          "PromptText": "bug",
+          "PromptAudio": "https://feedthemonster.curiouscontent.org/lang/english/audios/bug.mp3"
+        },
+        "foilstones": [
+          {
+            "StoneText": "u"
+          },
+          {
+            "StoneText": "g"
+          },
+          {
+            "StoneText": "r"
+          },
+          {
+            "StoneText": "r"
+          },
+          {
+            "StoneText": "t"
+          },
+          {
+            "StoneText": "n"
+          },
+          {
+            "StoneText": "b"
+          },
+          {
+            "StoneText": "l"
+          },
+          {
+            "StoneText": "qu"
+          }
+        ]
+      }
+    ]
+  },
+  "links": [
+    {
+      "rel": "self",
+      "href": "levels/level_62.json",
+      "type": "application/opds+json"
+    }
+  ]
+}

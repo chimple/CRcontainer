@@ -1,0 +1,206 @@
+{
+  "metadata": {
+    "title": "Level 79",
+    "type": "LetterInWord",
+    "letterGroup": 15,
+    "puzzles": [
+      {
+        "SegmentNumber": 0,
+        "targetstones": [
+          {
+            "StoneText": "st"
+          }
+        ],
+        "prompt": {
+          "PromptText": "stale",
+          "PromptAudio": "https://feedthemonster.curiouscontent.org/lang/english/audios/st.mp3"
+        },
+        "foilstones": [
+          {
+            "StoneText": "fr"
+          },
+          {
+            "StoneText": "i"
+          },
+          {
+            "StoneText": "a"
+          },
+          {
+            "StoneText": "r"
+          },
+          {
+            "StoneText": "fr"
+          },
+          {
+            "StoneText": "st"
+          },
+          {
+            "StoneText": "pl"
+          },
+          {
+            "StoneText": "ap"
+          }
+        ]
+      },
+      {
+        "SegmentNumber": 1,
+        "targetstones": [
+          {
+            "StoneText": "pl"
+          }
+        ],
+        "prompt": {
+          "PromptText": "plane",
+          "PromptAudio": "https://feedthemonster.curiouscontent.org/lang/english/audios/pl.mp3"
+        },
+        "foilstones": [
+          {
+            "StoneText": "fr"
+          },
+          {
+            "StoneText": "h"
+          },
+          {
+            "StoneText": "i"
+          },
+          {
+            "StoneText": "j"
+          },
+          {
+            "StoneText": "ale"
+          },
+          {
+            "StoneText": "k"
+          },
+          {
+            "StoneText": "ale"
+          },
+          {
+            "StoneText": "fr"
+          }
+        ]
+      },
+      {
+        "SegmentNumber": 2,
+        "targetstones": [
+          {
+            "StoneText": "br"
+          }
+        ],
+        "prompt": {
+          "PromptText": "brake",
+          "PromptAudio": "https://feedthemonster.curiouscontent.org/lang/english/audios/br.mp3"
+        },
+        "foilstones": [
+          {
+            "StoneText": "ane"
+          },
+          {
+            "StoneText": "pl"
+          },
+          {
+            "StoneText": "ane"
+          },
+          {
+            "StoneText": "ake"
+          },
+          {
+            "StoneText": "ape"
+          },
+          {
+            "StoneText": "e"
+          },
+          {
+            "StoneText": "ake"
+          }
+        ]
+      },
+      {
+        "SegmentNumber": 3,
+        "targetstones": [
+          {
+            "StoneText": "cr"
+          }
+        ],
+        "prompt": {
+          "PromptText": "crane",
+          "PromptAudio": "https://feedthemonster.curiouscontent.org/lang/english/audios/cr.mp3"
+        },
+        "foilstones": [
+          {
+            "StoneText": "y"
+          },
+          {
+            "StoneText": "p"
+          },
+          {
+            "StoneText": "ad"
+          },
+          {
+            "StoneText": "gr"
+          },
+          {
+            "StoneText": "pl"
+          },
+          {
+            "StoneText": "st"
+          },
+          {
+            "StoneText": "h"
+          },
+          {
+            "StoneText": "ame"
+          }
+        ]
+      },
+      {
+        "SegmentNumber": 4,
+        "targetstones": [
+          {
+            "StoneText": "fr"
+          }
+        ],
+        "prompt": {
+          "PromptText": "frame",
+          "PromptAudio": "https://feedthemonster.curiouscontent.org/lang/english/audios/fr.mp3"
+        },
+        "foilstones": [
+          {
+            "StoneText": "qu"
+          },
+          {
+            "StoneText": "h"
+          },
+          {
+            "StoneText": "n"
+          },
+          {
+            "StoneText": "cr"
+          },
+          {
+            "StoneText": "br"
+          },
+          {
+            "StoneText": "fr"
+          },
+          {
+            "StoneText": "h"
+          },
+          {
+            "StoneText": "fl"
+          },
+          {
+            "StoneText": "qu"
+          }
+        ]
+      }
+    ]
+  },
+  "links": [
+    {
+      "rel": "self",
+      "href": "levels/level_79.json",
+      "type": "application/opds+json"
+    }
+  ]
+}
