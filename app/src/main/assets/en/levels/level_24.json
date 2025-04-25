@@ -2,20 +2,12 @@
   "metadata": {
     "title": "Level 24",
     "type": "LetterInWord",
-    "letterGroup": 7
-  },
-  "links": [
-    {
-      "rel": "self",
-      "href": "levels/level_24.json",
-      "type": "application/opds+json"
-    }
-  ],
-  "navigation": [
-    {
-      "title": "Segment 0",
-      "type": "application/json",
-      "properties": {
+    "letterGroup": 7,
+    "numberOfItems": 5,
+    "itemsPerPage": 5,
+    "currentPage": 1,
+    "segments": [
+      {
         "segmentNumber": 0,
         "prompt": {
           "PromptText": "rub",
@@ -37,12 +29,8 @@
             "StoneText": "l"
           }
         ]
-      }
-    },
-    {
-      "title": "Segment 1",
-      "type": "application/json",
-      "properties": {
+      },
+      {
         "segmentNumber": 1,
         "prompt": {
           "PromptText": "tub",
@@ -64,12 +52,8 @@
             "StoneText": "c"
           }
         ]
-      }
-    },
-    {
-      "title": "Segment 2",
-      "type": "application/json",
-      "properties": {
+      },
+      {
         "segmentNumber": 2,
         "prompt": {
           "PromptText": "cub",
@@ -91,12 +75,8 @@
             "StoneText": "i"
           }
         ]
-      }
-    },
-    {
-      "title": "Segment 3",
-      "type": "application/json",
-      "properties": {
+      },
+      {
         "segmentNumber": 3,
         "prompt": {
           "PromptText": "bun",
@@ -118,12 +98,8 @@
             "StoneText": "u"
           }
         ]
-      }
-    },
-    {
-      "title": "Segment 4",
-      "type": "application/json",
-      "properties": {
+      },
+      {
         "segmentNumber": 4,
         "prompt": {
           "PromptText": "run",
@@ -149,6 +125,13 @@
           }
         ]
       }
+    ]
+  },
+  "links": [
+    {
+      "rel": "self",
+      "href": "levels/level_24.json",
+      "type": "application/opds+json"
     }
   ]
 }

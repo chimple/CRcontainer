@@ -2,20 +2,12 @@
   "metadata": {
     "title": "Level 139",
     "type": "LetterOnly",
-    "letterGroup": 17
-  },
-  "links": [
-    {
-      "rel": "self",
-      "href": "levels/level_139.json",
-      "type": "application/opds+json"
-    }
-  ],
-  "navigation": [
-    {
-      "title": "Segment 0",
-      "type": "application/json",
-      "properties": {
+    "letterGroup": 17,
+    "numberOfItems": 5,
+    "itemsPerPage": 5,
+    "currentPage": 1,
+    "segments": [
+      {
         "segmentNumber": 0,
         "prompt": {
           "PromptText": "eat",
@@ -52,12 +44,8 @@
             "StoneText": "qu"
           }
         ]
-      }
-    },
-    {
-      "title": "Segment 1",
-      "type": "application/json",
-      "properties": {
+      },
+      {
         "segmentNumber": 1,
         "prompt": {
           "PromptText": "eet",
@@ -94,12 +82,8 @@
             "StoneText": "wh"
           }
         ]
-      }
-    },
-    {
-      "title": "Segment 2",
-      "type": "application/json",
-      "properties": {
+      },
+      {
         "segmentNumber": 2,
         "prompt": {
           "PromptText": "ean",
@@ -136,12 +120,8 @@
             "StoneText": "une"
           }
         ]
-      }
-    },
-    {
-      "title": "Segment 3",
-      "type": "application/json",
-      "properties": {
+      },
+      {
         "segmentNumber": 3,
         "prompt": {
           "PromptText": "eel",
@@ -181,12 +161,8 @@
             "StoneText": "ch"
           }
         ]
-      }
-    },
-    {
-      "title": "Segment 4",
-      "type": "application/json",
-      "properties": {
+      },
+      {
         "segmentNumber": 4,
         "prompt": {
           "PromptText": "eep",
@@ -221,6 +197,13 @@
           }
         ]
       }
+    ]
+  },
+  "links": [
+    {
+      "rel": "self",
+      "href": "levels/level_139.json",
+      "type": "application/opds+json"
     }
   ]
 }

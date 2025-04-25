@@ -2,20 +2,12 @@
   "metadata": {
     "title": "Level 81",
     "type": "Word",
-    "letterGroup": 15
-  },
-  "links": [
-    {
-      "rel": "self",
-      "href": "levels/level_81.json",
-      "type": "application/opds+json"
-    }
-  ],
-  "navigation": [
-    {
-      "title": "Segment 0",
-      "type": "application/json",
-      "properties": {
+    "letterGroup": 15,
+    "numberOfItems": 5,
+    "itemsPerPage": 5,
+    "currentPage": 1,
+    "segments": [
+      {
         "segmentNumber": 0,
         "prompt": {
           "PromptText": "crane",
@@ -64,12 +56,8 @@
             "StoneText": "r"
           }
         ]
-      }
-    },
-    {
-      "title": "Segment 1",
-      "type": "application/json",
-      "properties": {
+      },
+      {
         "segmentNumber": 1,
         "prompt": {
           "PromptText": "plane",
@@ -118,12 +106,8 @@
             "StoneText": "r"
           }
         ]
-      }
-    },
-    {
-      "title": "Segment 2",
-      "type": "application/json",
-      "properties": {
+      },
+      {
         "segmentNumber": 2,
         "prompt": {
           "PromptText": "frame",
@@ -169,12 +153,8 @@
             "StoneText": "a"
           }
         ]
-      }
-    },
-    {
-      "title": "Segment 3",
-      "type": "application/json",
-      "properties": {
+      },
+      {
         "segmentNumber": 3,
         "prompt": {
           "PromptText": "blade",
@@ -223,12 +203,8 @@
             "StoneText": "x"
           }
         ]
-      }
-    },
-    {
-      "title": "Segment 4",
-      "type": "application/json",
-      "properties": {
+      },
+      {
         "segmentNumber": 4,
         "prompt": {
           "PromptText": "pane",
@@ -278,6 +254,13 @@
           }
         ]
       }
+    ]
+  },
+  "links": [
+    {
+      "rel": "self",
+      "href": "levels/level_81.json",
+      "type": "application/opds+json"
     }
   ]
 }

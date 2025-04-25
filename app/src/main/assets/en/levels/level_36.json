@@ -2,20 +2,12 @@
   "metadata": {
     "title": "Level 36",
     "type": "LetterInWord",
-    "letterGroup": 6
-  },
-  "links": [
-    {
-      "rel": "self",
-      "href": "levels/level_36.json",
-      "type": "application/opds+json"
-    }
-  ],
-  "navigation": [
-    {
-      "title": "Segment 0",
-      "type": "application/json",
-      "properties": {
+    "letterGroup": 6,
+    "numberOfItems": 5,
+    "itemsPerPage": 5,
+    "currentPage": 1,
+    "segments": [
+      {
         "segmentNumber": 0,
         "prompt": {
           "PromptText": "fox",
@@ -49,12 +41,8 @@
             "StoneText": "f"
           }
         ]
-      }
-    },
-    {
-      "title": "Segment 1",
-      "type": "application/json",
-      "properties": {
+      },
+      {
         "segmentNumber": 1,
         "prompt": {
           "PromptText": "box",
@@ -91,12 +79,8 @@
             "StoneText": "d"
           }
         ]
-      }
-    },
-    {
-      "title": "Segment 2",
-      "type": "application/json",
-      "properties": {
+      },
+      {
         "segmentNumber": 2,
         "prompt": {
           "PromptText": "mop",
@@ -133,12 +117,8 @@
             "StoneText": "qu"
           }
         ]
-      }
-    },
-    {
-      "title": "Segment 3",
-      "type": "application/json",
-      "properties": {
+      },
+      {
         "segmentNumber": 3,
         "prompt": {
           "PromptText": "hot",
@@ -178,12 +158,8 @@
             "StoneText": "m"
           }
         ]
-      }
-    },
-    {
-      "title": "Segment 4",
-      "type": "application/json",
-      "properties": {
+      },
+      {
         "segmentNumber": 4,
         "prompt": {
           "PromptText": "hop",
@@ -215,6 +191,13 @@
           }
         ]
       }
+    ]
+  },
+  "links": [
+    {
+      "rel": "self",
+      "href": "levels/level_36.json",
+      "type": "application/opds+json"
     }
   ]
 }

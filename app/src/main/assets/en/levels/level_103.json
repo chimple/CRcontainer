@@ -2,20 +2,12 @@
   "metadata": {
     "title": "Level 103",
     "type": "LetterOnly",
-    "letterGroup": 15
-  },
-  "links": [
-    {
-      "rel": "self",
-      "href": "levels/level_103.json",
-      "type": "application/opds+json"
-    }
-  ],
-  "navigation": [
-    {
-      "title": "Segment 0",
-      "type": "application/json",
-      "properties": {
+    "letterGroup": 15,
+    "numberOfItems": 5,
+    "itemsPerPage": 5,
+    "currentPage": 1,
+    "segments": [
+      {
         "segmentNumber": 0,
         "prompt": {
           "PromptText": "f",
@@ -52,12 +44,8 @@
             "StoneText": "c"
           }
         ]
-      }
-    },
-    {
-      "title": "Segment 1",
-      "type": "application/json",
-      "properties": {
+      },
+      {
         "segmentNumber": 1,
         "prompt": {
           "PromptText": "fl",
@@ -94,12 +82,8 @@
             "StoneText": "b"
           }
         ]
-      }
-    },
-    {
-      "title": "Segment 2",
-      "type": "application/json",
-      "properties": {
+      },
+      {
         "segmentNumber": 2,
         "prompt": {
           "PromptText": "c",
@@ -133,12 +117,8 @@
             "StoneText": "o"
           }
         ]
-      }
-    },
-    {
-      "title": "Segment 3",
-      "type": "application/json",
-      "properties": {
+      },
+      {
         "segmentNumber": 3,
         "prompt": {
           "PromptText": "cl",
@@ -175,12 +155,8 @@
             "StoneText": "ice"
           }
         ]
-      }
-    },
-    {
-      "title": "Segment 4",
-      "type": "application/json",
-      "properties": {
+      },
+      {
         "segmentNumber": 4,
         "prompt": {
           "PromptText": "pr",
@@ -221,6 +197,13 @@
           }
         ]
       }
+    ]
+  },
+  "links": [
+    {
+      "rel": "self",
+      "href": "levels/level_103.json",
+      "type": "application/opds+json"
     }
   ]
 }

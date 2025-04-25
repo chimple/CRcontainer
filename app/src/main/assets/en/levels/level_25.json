@@ -2,20 +2,12 @@
   "metadata": {
     "title": "Level 25",
     "type": "LetterInWord",
-    "letterGroup": 7
-  },
-  "links": [
-    {
-      "rel": "self",
-      "href": "levels/level_25.json",
-      "type": "application/opds+json"
-    }
-  ],
-  "navigation": [
-    {
-      "title": "Segment 0",
-      "type": "application/json",
-      "properties": {
+    "letterGroup": 7,
+    "numberOfItems": 5,
+    "itemsPerPage": 5,
+    "currentPage": 1,
+    "segments": [
+      {
         "segmentNumber": 0,
         "prompt": {
           "PromptText": "bug",
@@ -37,12 +29,8 @@
             "StoneText": "b"
           }
         ]
-      }
-    },
-    {
-      "title": "Segment 1",
-      "type": "application/json",
-      "properties": {
+      },
+      {
         "segmentNumber": 1,
         "prompt": {
           "PromptText": "rug",
@@ -64,12 +52,8 @@
             "StoneText": "y"
           }
         ]
-      }
-    },
-    {
-      "title": "Segment 2",
-      "type": "application/json",
-      "properties": {
+      },
+      {
         "segmentNumber": 2,
         "prompt": {
           "PromptText": "tug",
@@ -94,12 +78,8 @@
             "StoneText": "u"
           }
         ]
-      }
-    },
-    {
-      "title": "Segment 3",
-      "type": "application/json",
-      "properties": {
+      },
+      {
         "segmentNumber": 3,
         "prompt": {
           "PromptText": "cut",
@@ -121,12 +101,8 @@
             "StoneText": "a"
           }
         ]
-      }
-    },
-    {
-      "title": "Segment 4",
-      "type": "application/json",
-      "properties": {
+      },
+      {
         "segmentNumber": 4,
         "prompt": {
           "PromptText": "nut",
@@ -149,6 +125,13 @@
           }
         ]
       }
+    ]
+  },
+  "links": [
+    {
+      "rel": "self",
+      "href": "levels/level_25.json",
+      "type": "application/opds+json"
     }
   ]
 }

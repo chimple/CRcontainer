@@ -2,20 +2,12 @@
   "metadata": {
     "title": "Level 47",
     "type": "Word",
-    "letterGroup": 12
-  },
-  "links": [
-    {
-      "rel": "self",
-      "href": "levels/level_47.json",
-      "type": "application/opds+json"
-    }
-  ],
-  "navigation": [
-    {
-      "title": "Segment 0",
-      "type": "application/json",
-      "properties": {
+    "letterGroup": 12,
+    "numberOfItems": 5,
+    "itemsPerPage": 5,
+    "currentPage": 1,
+    "segments": [
+      {
         "segmentNumber": 0,
         "prompt": {
           "PromptText": "wed",
@@ -43,12 +35,8 @@
             "StoneText": "e"
           }
         ]
-      }
-    },
-    {
-      "title": "Segment 1",
-      "type": "application/json",
-      "properties": {
+      },
+      {
         "segmentNumber": 1,
         "prompt": {
           "PromptText": "ted",
@@ -76,12 +64,8 @@
             "StoneText": "y"
           }
         ]
-      }
-    },
-    {
-      "title": "Segment 2",
-      "type": "application/json",
-      "properties": {
+      },
+      {
         "segmentNumber": 2,
         "prompt": {
           "PromptText": "jet",
@@ -109,12 +93,8 @@
             "StoneText": "r"
           }
         ]
-      }
-    },
-    {
-      "title": "Segment 3",
-      "type": "application/json",
-      "properties": {
+      },
+      {
         "segmentNumber": 3,
         "prompt": {
           "PromptText": "den",
@@ -145,12 +125,8 @@
             "StoneText": "w"
           }
         ]
-      }
-    },
-    {
-      "title": "Segment 4",
-      "type": "application/json",
-      "properties": {
+      },
+      {
         "segmentNumber": 4,
         "prompt": {
           "PromptText": "wet",
@@ -179,6 +155,13 @@
           }
         ]
       }
+    ]
+  },
+  "links": [
+    {
+      "rel": "self",
+      "href": "levels/level_47.json",
+      "type": "application/opds+json"
     }
   ]
 }

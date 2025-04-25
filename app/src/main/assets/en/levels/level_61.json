@@ -2,20 +2,12 @@
   "metadata": {
     "title": "Level 61",
     "type": "Word",
-    "letterGroup": 15
-  },
-  "links": [
-    {
-      "rel": "self",
-      "href": "levels/level_61.json",
-      "type": "application/opds+json"
-    }
-  ],
-  "navigation": [
-    {
-      "title": "Segment 0",
-      "type": "application/json",
-      "properties": {
+    "letterGroup": 15,
+    "numberOfItems": 5,
+    "itemsPerPage": 5,
+    "currentPage": 1,
+    "segments": [
+      {
         "segmentNumber": 0,
         "prompt": {
           "PromptText": "pin",
@@ -58,12 +50,8 @@
             "StoneText": "f"
           }
         ]
-      }
-    },
-    {
-      "title": "Segment 1",
-      "type": "application/json",
-      "properties": {
+      },
+      {
         "segmentNumber": 1,
         "prompt": {
           "PromptText": "fin",
@@ -106,12 +94,8 @@
             "StoneText": "e"
           }
         ]
-      }
-    },
-    {
-      "title": "Segment 2",
-      "type": "application/json",
-      "properties": {
+      },
+      {
         "segmentNumber": 2,
         "prompt": {
           "PromptText": "zip",
@@ -151,12 +135,8 @@
             "StoneText": "z"
           }
         ]
-      }
-    },
-    {
-      "title": "Segment 3",
-      "type": "application/json",
-      "properties": {
+      },
+      {
         "segmentNumber": 3,
         "prompt": {
           "PromptText": "lip",
@@ -199,12 +179,8 @@
             "StoneText": "n"
           }
         ]
-      }
-    },
-    {
-      "title": "Segment 4",
-      "type": "application/json",
-      "properties": {
+      },
+      {
         "segmentNumber": 4,
         "prompt": {
           "PromptText": "bit",
@@ -251,6 +227,13 @@
           }
         ]
       }
+    ]
+  },
+  "links": [
+    {
+      "rel": "self",
+      "href": "levels/level_61.json",
+      "type": "application/opds+json"
     }
   ]
 }
