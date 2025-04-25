@@ -2,10 +2,25 @@
   "metadata": {
     "title": "Level 114",
     "type": "Word",
-    "letterGroup": 18,
-    "puzzles": [
-      {
-        "SegmentNumber": 0,
+    "letterGroup": 18
+  },
+  "links": [
+    {
+      "rel": "self",
+      "href": "levels/level_114.json",
+      "type": "application/opds+json"
+    }
+  ],
+  "navigation": [
+    {
+      "title": "Segment 0",
+      "type": "application/json",
+      "properties": {
+        "segmentNumber": 0,
+        "prompt": {
+          "PromptText": "blue",
+          "PromptAudio": "https://feedthemonster.curiouscontent.org/lang/english/audios/blue.mp3"
+        },
         "targetstones": [
           {
             "StoneText": "b"
@@ -20,10 +35,6 @@
             "StoneText": "e"
           }
         ],
-        "prompt": {
-          "PromptText": "blue",
-          "PromptAudio": "https://feedthemonster.curiouscontent.org/lang/english/audios/blue.mp3"
-        },
         "foilstones": [
           {
             "StoneText": "ike"
@@ -50,9 +61,17 @@
             "StoneText": "ale"
           }
         ]
-      },
-      {
-        "SegmentNumber": 1,
+      }
+    },
+    {
+      "title": "Segment 1",
+      "type": "application/json",
+      "properties": {
+        "segmentNumber": 1,
+        "prompt": {
+          "PromptText": "flute",
+          "PromptAudio": "https://feedthemonster.curiouscontent.org/lang/english/audios/flute.mp3"
+        },
         "targetstones": [
           {
             "StoneText": "f"
@@ -70,10 +89,6 @@
             "StoneText": "e"
           }
         ],
-        "prompt": {
-          "PromptText": "flute",
-          "PromptAudio": "https://feedthemonster.curiouscontent.org/lang/english/audios/flute.mp3"
-        },
         "foilstones": [
           {
             "StoneText": "t"
@@ -100,9 +115,17 @@
             "StoneText": "ame"
           }
         ]
-      },
-      {
-        "SegmentNumber": 2,
+      }
+    },
+    {
+      "title": "Segment 2",
+      "type": "application/json",
+      "properties": {
+        "segmentNumber": 2,
+        "prompt": {
+          "PromptText": "cute",
+          "PromptAudio": "https://feedthemonster.curiouscontent.org/lang/english/audios/cute.mp3"
+        },
         "targetstones": [
           {
             "StoneText": "c"
@@ -117,10 +140,6 @@
             "StoneText": "e"
           }
         ],
-        "prompt": {
-          "PromptText": "cute",
-          "PromptAudio": "https://feedthemonster.curiouscontent.org/lang/english/audios/cute.mp3"
-        },
         "foilstones": [
           {
             "StoneText": "e"
@@ -147,9 +166,17 @@
             "StoneText": "m"
           }
         ]
-      },
-      {
-        "SegmentNumber": 3,
+      }
+    },
+    {
+      "title": "Segment 3",
+      "type": "application/json",
+      "properties": {
+        "segmentNumber": 3,
+        "prompt": {
+          "PromptText": "fume",
+          "PromptAudio": "https://feedthemonster.curiouscontent.org/lang/english/audios/fume.mp3"
+        },
         "targetstones": [
           {
             "StoneText": "f"
@@ -164,10 +191,6 @@
             "StoneText": "e"
           }
         ],
-        "prompt": {
-          "PromptText": "fume",
-          "PromptAudio": "https://feedthemonster.curiouscontent.org/lang/english/audios/fume.mp3"
-        },
         "foilstones": [
           {
             "StoneText": "f"
@@ -191,9 +214,17 @@
             "StoneText": "use"
           }
         ]
-      },
-      {
-        "SegmentNumber": 4,
+      }
+    },
+    {
+      "title": "Segment 4",
+      "type": "application/json",
+      "properties": {
+        "segmentNumber": 4,
+        "prompt": {
+          "PromptText": "glue",
+          "PromptAudio": "https://feedthemonster.curiouscontent.org/lang/english/audios/glue.mp3"
+        },
         "targetstones": [
           {
             "StoneText": "g"
@@ -208,10 +239,6 @@
             "StoneText": "e"
           }
         ],
-        "prompt": {
-          "PromptText": "glue",
-          "PromptAudio": "https://feedthemonster.curiouscontent.org/lang/english/audios/glue.mp3"
-        },
         "foilstones": [
           {
             "StoneText": "wh"
@@ -242,13 +269,6 @@
           }
         ]
       }
-    ]
-  },
-  "links": [
-    {
-      "rel": "self",
-      "href": "levels/level_114.json",
-      "type": "application/opds+json"
     }
   ]
 }

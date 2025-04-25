@@ -2,10 +2,25 @@
   "metadata": {
     "title": "Level 64",
     "type": "Word",
-    "letterGroup": 16,
-    "puzzles": [
-      {
-        "SegmentNumber": 0,
+    "letterGroup": 16
+  },
+  "links": [
+    {
+      "rel": "self",
+      "href": "levels/level_64.json",
+      "type": "application/opds+json"
+    }
+  ],
+  "navigation": [
+    {
+      "title": "Segment 0",
+      "type": "application/json",
+      "properties": {
+        "segmentNumber": 0,
+        "prompt": {
+          "PromptText": "wed",
+          "PromptAudio": "https://feedthemonster.curiouscontent.org/lang/english/audios/wed.mp3"
+        },
         "targetstones": [
           {
             "StoneText": "w"
@@ -17,10 +32,6 @@
             "StoneText": "d"
           }
         ],
-        "prompt": {
-          "PromptText": "wed",
-          "PromptAudio": "https://feedthemonster.curiouscontent.org/lang/english/audios/wed.mp3"
-        },
         "foilstones": [
           {
             "StoneText": "v"
@@ -47,9 +58,17 @@
             "StoneText": "n"
           }
         ]
-      },
-      {
-        "SegmentNumber": 1,
+      }
+    },
+    {
+      "title": "Segment 1",
+      "type": "application/json",
+      "properties": {
+        "segmentNumber": 1,
+        "prompt": {
+          "PromptText": "ted",
+          "PromptAudio": "https://feedthemonster.curiouscontent.org/lang/english/audios/ted.mp3"
+        },
         "targetstones": [
           {
             "StoneText": "t"
@@ -61,10 +80,6 @@
             "StoneText": "d"
           }
         ],
-        "prompt": {
-          "PromptText": "ted",
-          "PromptAudio": "https://feedthemonster.curiouscontent.org/lang/english/audios/ted.mp3"
-        },
         "foilstones": [
           {
             "StoneText": "t"
@@ -91,9 +106,17 @@
             "StoneText": "w"
           }
         ]
-      },
-      {
-        "SegmentNumber": 2,
+      }
+    },
+    {
+      "title": "Segment 2",
+      "type": "application/json",
+      "properties": {
+        "segmentNumber": 2,
+        "prompt": {
+          "PromptText": "jet",
+          "PromptAudio": "https://feedthemonster.curiouscontent.org/lang/english/audios/jet.mp3"
+        },
         "targetstones": [
           {
             "StoneText": "j"
@@ -105,10 +128,6 @@
             "StoneText": "t"
           }
         ],
-        "prompt": {
-          "PromptText": "jet",
-          "PromptAudio": "https://feedthemonster.curiouscontent.org/lang/english/audios/jet.mp3"
-        },
         "foilstones": [
           {
             "StoneText": "p"
@@ -129,9 +148,17 @@
             "StoneText": "t"
           }
         ]
-      },
-      {
-        "SegmentNumber": 3,
+      }
+    },
+    {
+      "title": "Segment 3",
+      "type": "application/json",
+      "properties": {
+        "segmentNumber": 3,
+        "prompt": {
+          "PromptText": "den",
+          "PromptAudio": "https://feedthemonster.curiouscontent.org/lang/english/audios/den.mp3"
+        },
         "targetstones": [
           {
             "StoneText": "d"
@@ -143,10 +170,6 @@
             "StoneText": "n"
           }
         ],
-        "prompt": {
-          "PromptText": "den",
-          "PromptAudio": "https://feedthemonster.curiouscontent.org/lang/english/audios/den.mp3"
-        },
         "foilstones": [
           {
             "StoneText": "d"
@@ -170,9 +193,17 @@
             "StoneText": "u"
           }
         ]
-      },
-      {
-        "SegmentNumber": 4,
+      }
+    },
+    {
+      "title": "Segment 4",
+      "type": "application/json",
+      "properties": {
+        "segmentNumber": 4,
+        "prompt": {
+          "PromptText": "wet",
+          "PromptAudio": "https://feedthemonster.curiouscontent.org/lang/english/audios/wet.mp3"
+        },
         "targetstones": [
           {
             "StoneText": "w"
@@ -184,10 +215,6 @@
             "StoneText": "t"
           }
         ],
-        "prompt": {
-          "PromptText": "wet",
-          "PromptAudio": "https://feedthemonster.curiouscontent.org/lang/english/audios/wet.mp3"
-        },
         "foilstones": [
           {
             "StoneText": "w"
@@ -218,13 +245,6 @@
           }
         ]
       }
-    ]
-  },
-  "links": [
-    {
-      "rel": "self",
-      "href": "levels/level_64.json",
-      "type": "application/opds+json"
     }
   ]
 }

@@ -2,10 +2,25 @@
   "metadata": {
     "title": "Level 148",
     "type": "Word",
-    "letterGroup": 16,
-    "puzzles": [
-      {
-        "SegmentNumber": 0,
+    "letterGroup": 16
+  },
+  "links": [
+    {
+      "rel": "self",
+      "href": "levels/level_148.json",
+      "type": "application/opds+json"
+    }
+  ],
+  "navigation": [
+    {
+      "title": "Segment 0",
+      "type": "application/json",
+      "properties": {
+        "segmentNumber": 0,
+        "prompt": {
+          "PromptText": "sheep",
+          "PromptAudio": "https://feedthemonster.curiouscontent.org/lang/english/audios/sheep.mp3"
+        },
         "targetstones": [
           {
             "StoneText": "s"
@@ -23,10 +38,6 @@
             "StoneText": "p"
           }
         ],
-        "prompt": {
-          "PromptText": "sheep",
-          "PromptAudio": "https://feedthemonster.curiouscontent.org/lang/english/audios/sheep.mp3"
-        },
         "foilstones": [
           {
             "StoneText": "br"
@@ -53,9 +64,17 @@
             "StoneText": "t"
           }
         ]
-      },
-      {
-        "SegmentNumber": 1,
+      }
+    },
+    {
+      "title": "Segment 1",
+      "type": "application/json",
+      "properties": {
+        "segmentNumber": 1,
+        "prompt": {
+          "PromptText": "wheel",
+          "PromptAudio": "https://feedthemonster.curiouscontent.org/lang/english/audios/wheel.mp3"
+        },
         "targetstones": [
           {
             "StoneText": "w"
@@ -73,10 +92,6 @@
             "StoneText": "l"
           }
         ],
-        "prompt": {
-          "PromptText": "wheel",
-          "PromptAudio": "https://feedthemonster.curiouscontent.org/lang/english/audios/wheel.mp3"
-        },
         "foilstones": [
           {
             "StoneText": "w"
@@ -103,9 +118,17 @@
             "StoneText": "p"
           }
         ]
-      },
-      {
-        "SegmentNumber": 2,
+      }
+    },
+    {
+      "title": "Segment 2",
+      "type": "application/json",
+      "properties": {
+        "segmentNumber": 2,
+        "prompt": {
+          "PromptText": "tree",
+          "PromptAudio": "https://feedthemonster.curiouscontent.org/lang/english/audios/tree.mp3"
+        },
         "targetstones": [
           {
             "StoneText": "t"
@@ -120,10 +143,6 @@
             "StoneText": "e"
           }
         ],
-        "prompt": {
-          "PromptText": "tree",
-          "PromptAudio": "https://feedthemonster.curiouscontent.org/lang/english/audios/tree.mp3"
-        },
         "foilstones": [
           {
             "StoneText": "z"
@@ -144,9 +163,17 @@
             "StoneText": "y"
           }
         ]
-      },
-      {
-        "SegmentNumber": 3,
+      }
+    },
+    {
+      "title": "Segment 3",
+      "type": "application/json",
+      "properties": {
+        "segmentNumber": 3,
+        "prompt": {
+          "PromptText": "wheat",
+          "PromptAudio": "https://feedthemonster.curiouscontent.org/lang/english/audios/wheat.mp3"
+        },
         "targetstones": [
           {
             "StoneText": "w"
@@ -164,10 +191,6 @@
             "StoneText": "t"
           }
         ],
-        "prompt": {
-          "PromptText": "wheat",
-          "PromptAudio": "https://feedthemonster.curiouscontent.org/lang/english/audios/wheat.mp3"
-        },
         "foilstones": [
           {
             "StoneText": "w"
@@ -191,9 +214,17 @@
             "StoneText": "j"
           }
         ]
-      },
-      {
-        "SegmentNumber": 4,
+      }
+    },
+    {
+      "title": "Segment 4",
+      "type": "application/json",
+      "properties": {
+        "segmentNumber": 4,
+        "prompt": {
+          "PromptText": "bleak",
+          "PromptAudio": "https://feedthemonster.curiouscontent.org/lang/english/audios/bleak.mp3"
+        },
         "targetstones": [
           {
             "StoneText": "b"
@@ -211,10 +242,6 @@
             "StoneText": "k"
           }
         ],
-        "prompt": {
-          "PromptText": "bleak",
-          "PromptAudio": "https://feedthemonster.curiouscontent.org/lang/english/audios/bleak.mp3"
-        },
         "foilstones": [
           {
             "StoneText": "eel"
@@ -245,13 +272,6 @@
           }
         ]
       }
-    ]
-  },
-  "links": [
-    {
-      "rel": "self",
-      "href": "levels/level_148.json",
-      "type": "application/opds+json"
     }
   ]
 }

@@ -2,10 +2,25 @@
   "metadata": {
     "title": "Level 97",
     "type": "Word",
-    "letterGroup": 14,
-    "puzzles": [
-      {
-        "SegmentNumber": 0,
+    "letterGroup": 14
+  },
+  "links": [
+    {
+      "rel": "self",
+      "href": "levels/level_97.json",
+      "type": "application/opds+json"
+    }
+  ],
+  "navigation": [
+    {
+      "title": "Segment 0",
+      "type": "application/json",
+      "properties": {
+        "segmentNumber": 0,
+        "prompt": {
+          "PromptText": "spine",
+          "PromptAudio": "https://feedthemonster.curiouscontent.org/lang/english/audios/spine.mp3"
+        },
         "targetstones": [
           {
             "StoneText": "s"
@@ -23,10 +38,6 @@
             "StoneText": "e"
           }
         ],
-        "prompt": {
-          "PromptText": "spine",
-          "PromptAudio": "https://feedthemonster.curiouscontent.org/lang/english/audios/spine.mp3"
-        },
         "foilstones": [
           {
             "StoneText": "gr"
@@ -53,9 +64,17 @@
             "StoneText": "s"
           }
         ]
-      },
-      {
-        "SegmentNumber": 1,
+      }
+    },
+    {
+      "title": "Segment 1",
+      "type": "application/json",
+      "properties": {
+        "segmentNumber": 1,
+        "prompt": {
+          "PromptText": "whine",
+          "PromptAudio": "https://feedthemonster.curiouscontent.org/lang/english/audios/whine.mp3"
+        },
         "targetstones": [
           {
             "StoneText": "w"
@@ -73,10 +92,6 @@
             "StoneText": "e"
           }
         ],
-        "prompt": {
-          "PromptText": "whine",
-          "PromptAudio": "https://feedthemonster.curiouscontent.org/lang/english/audios/whine.mp3"
-        },
         "foilstones": [
           {
             "StoneText": "h"
@@ -103,9 +118,17 @@
             "StoneText": "p"
           }
         ]
-      },
-      {
-        "SegmentNumber": 2,
+      }
+    },
+    {
+      "title": "Segment 2",
+      "type": "application/json",
+      "properties": {
+        "segmentNumber": 2,
+        "prompt": {
+          "PromptText": "pride",
+          "PromptAudio": "https://feedthemonster.curiouscontent.org/lang/english/audios/pride.mp3"
+        },
         "targetstones": [
           {
             "StoneText": "p"
@@ -123,10 +146,6 @@
             "StoneText": "e"
           }
         ],
-        "prompt": {
-          "PromptText": "pride",
-          "PromptAudio": "https://feedthemonster.curiouscontent.org/lang/english/audios/pride.mp3"
-        },
         "foilstones": [
           {
             "StoneText": "i"
@@ -153,9 +172,17 @@
             "StoneText": "fr"
           }
         ]
-      },
-      {
-        "SegmentNumber": 3,
+      }
+    },
+    {
+      "title": "Segment 3",
+      "type": "application/json",
+      "properties": {
+        "segmentNumber": 3,
+        "prompt": {
+          "PromptText": "spike",
+          "PromptAudio": "https://feedthemonster.curiouscontent.org/lang/english/audios/spike.mp3"
+        },
         "targetstones": [
           {
             "StoneText": "s"
@@ -173,10 +200,6 @@
             "StoneText": "e"
           }
         ],
-        "prompt": {
-          "PromptText": "spike",
-          "PromptAudio": "https://feedthemonster.curiouscontent.org/lang/english/audios/spike.mp3"
-        },
         "foilstones": [
           {
             "StoneText": "sh"
@@ -200,9 +223,17 @@
             "StoneText": "p"
           }
         ]
-      },
-      {
-        "SegmentNumber": 4,
+      }
+    },
+    {
+      "title": "Segment 4",
+      "type": "application/json",
+      "properties": {
+        "segmentNumber": 4,
+        "prompt": {
+          "PromptText": "shine",
+          "PromptAudio": "https://feedthemonster.curiouscontent.org/lang/english/audios/shine.mp3"
+        },
         "targetstones": [
           {
             "StoneText": "s"
@@ -220,10 +251,6 @@
             "StoneText": "e"
           }
         ],
-        "prompt": {
-          "PromptText": "shine",
-          "PromptAudio": "https://feedthemonster.curiouscontent.org/lang/english/audios/shine.mp3"
-        },
         "foilstones": [
           {
             "StoneText": "o"
@@ -254,13 +281,6 @@
           }
         ]
       }
-    ]
-  },
-  "links": [
-    {
-      "rel": "self",
-      "href": "levels/level_97.json",
-      "type": "application/opds+json"
     }
   ]
 }

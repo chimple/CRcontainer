@@ -2,19 +2,30 @@
   "metadata": {
     "title": "Level 12",
     "type": "LetterOnly",
-    "letterGroup": 4,
-    "puzzles": [
-      {
-        "SegmentNumber": 0,
+    "letterGroup": 4
+  },
+  "links": [
+    {
+      "rel": "self",
+      "href": "levels/level_12.json",
+      "type": "application/opds+json"
+    }
+  ],
+  "navigation": [
+    {
+      "title": "Segment 0",
+      "type": "application/json",
+      "properties": {
+        "segmentNumber": 0,
+        "prompt": {
+          "PromptText": "i",
+          "PromptAudio": "https://feedthemonster.curiouscontent.org/lang/english/audios/i.mp3"
+        },
         "targetstones": [
           {
             "StoneText": "i"
           }
         ],
-        "prompt": {
-          "PromptText": "i",
-          "PromptAudio": "https://feedthemonster.curiouscontent.org/lang/english/audios/i.mp3"
-        },
         "foilstones": [
           {
             "StoneText": "m"
@@ -26,18 +37,22 @@
             "StoneText": "s"
           }
         ]
-      },
-      {
-        "SegmentNumber": 1,
+      }
+    },
+    {
+      "title": "Segment 1",
+      "type": "application/json",
+      "properties": {
+        "segmentNumber": 1,
+        "prompt": {
+          "PromptText": "z",
+          "PromptAudio": "https://feedthemonster.curiouscontent.org/lang/english/audios/z.mp3"
+        },
         "targetstones": [
           {
             "StoneText": "z"
           }
         ],
-        "prompt": {
-          "PromptText": "z",
-          "PromptAudio": "https://feedthemonster.curiouscontent.org/lang/english/audios/z.mp3"
-        },
         "foilstones": [
           {
             "StoneText": "s"
@@ -49,18 +64,22 @@
             "StoneText": "p"
           }
         ]
-      },
-      {
-        "SegmentNumber": 2,
+      }
+    },
+    {
+      "title": "Segment 2",
+      "type": "application/json",
+      "properties": {
+        "segmentNumber": 2,
+        "prompt": {
+          "PromptText": "k",
+          "PromptAudio": "https://feedthemonster.curiouscontent.org/lang/english/audios/k.mp3"
+        },
         "targetstones": [
           {
             "StoneText": "k"
           }
         ],
-        "prompt": {
-          "PromptText": "k",
-          "PromptAudio": "https://feedthemonster.curiouscontent.org/lang/english/audios/k.mp3"
-        },
         "foilstones": [
           {
             "StoneText": "s"
@@ -72,18 +91,22 @@
             "StoneText": "s"
           }
         ]
-      },
-      {
-        "SegmentNumber": 3,
-        "targetstones": [
-          {
-            "StoneText": "s"
-          }
-        ],
+      }
+    },
+    {
+      "title": "Segment 3",
+      "type": "application/json",
+      "properties": {
+        "segmentNumber": 3,
         "prompt": {
           "PromptText": "s",
           "PromptAudio": "https://feedthemonster.curiouscontent.org/lang/english/audios/s.mp3"
         },
+        "targetstones": [
+          {
+            "StoneText": "s"
+          }
+        ],
         "foilstones": [
           {
             "StoneText": "p"
@@ -95,18 +118,22 @@
             "StoneText": "p"
           }
         ]
-      },
-      {
-        "SegmentNumber": 4,
+      }
+    },
+    {
+      "title": "Segment 4",
+      "type": "application/json",
+      "properties": {
+        "segmentNumber": 4,
+        "prompt": {
+          "PromptText": "p",
+          "PromptAudio": "https://feedthemonster.curiouscontent.org/lang/english/audios/p.mp3"
+        },
         "targetstones": [
           {
             "StoneText": "p"
           }
         ],
-        "prompt": {
-          "PromptText": "p",
-          "PromptAudio": "https://feedthemonster.curiouscontent.org/lang/english/audios/p.mp3"
-        },
         "foilstones": [
           {
             "StoneText": "k"
@@ -122,13 +149,6 @@
           }
         ]
       }
-    ]
-  },
-  "links": [
-    {
-      "rel": "self",
-      "href": "levels/level_12.json",
-      "type": "application/opds+json"
     }
   ]
 }

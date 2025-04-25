@@ -2,19 +2,30 @@
   "metadata": {
     "title": "Level 24",
     "type": "LetterInWord",
-    "letterGroup": 7,
-    "puzzles": [
-      {
-        "SegmentNumber": 0,
+    "letterGroup": 7
+  },
+  "links": [
+    {
+      "rel": "self",
+      "href": "levels/level_24.json",
+      "type": "application/opds+json"
+    }
+  ],
+  "navigation": [
+    {
+      "title": "Segment 0",
+      "type": "application/json",
+      "properties": {
+        "segmentNumber": 0,
+        "prompt": {
+          "PromptText": "rub",
+          "PromptAudio": "https://feedthemonster.curiouscontent.org/lang/english/audios/r.mp3"
+        },
         "targetstones": [
           {
             "StoneText": "r"
           }
         ],
-        "prompt": {
-          "PromptText": "rub",
-          "PromptAudio": "https://feedthemonster.curiouscontent.org/lang/english/audios/r.mp3"
-        },
         "foilstones": [
           {
             "StoneText": "r"
@@ -26,18 +37,22 @@
             "StoneText": "l"
           }
         ]
-      },
-      {
-        "SegmentNumber": 1,
+      }
+    },
+    {
+      "title": "Segment 1",
+      "type": "application/json",
+      "properties": {
+        "segmentNumber": 1,
+        "prompt": {
+          "PromptText": "tub",
+          "PromptAudio": "https://feedthemonster.curiouscontent.org/lang/english/audios/t.mp3"
+        },
         "targetstones": [
           {
             "StoneText": "t"
           }
         ],
-        "prompt": {
-          "PromptText": "tub",
-          "PromptAudio": "https://feedthemonster.curiouscontent.org/lang/english/audios/t.mp3"
-        },
         "foilstones": [
           {
             "StoneText": "y"
@@ -49,18 +64,22 @@
             "StoneText": "c"
           }
         ]
-      },
-      {
-        "SegmentNumber": 2,
+      }
+    },
+    {
+      "title": "Segment 2",
+      "type": "application/json",
+      "properties": {
+        "segmentNumber": 2,
+        "prompt": {
+          "PromptText": "cub",
+          "PromptAudio": "https://feedthemonster.curiouscontent.org/lang/english/audios/c.mp3"
+        },
         "targetstones": [
           {
             "StoneText": "c"
           }
         ],
-        "prompt": {
-          "PromptText": "cub",
-          "PromptAudio": "https://feedthemonster.curiouscontent.org/lang/english/audios/c.mp3"
-        },
         "foilstones": [
           {
             "StoneText": "r"
@@ -72,18 +91,22 @@
             "StoneText": "i"
           }
         ]
-      },
-      {
-        "SegmentNumber": 3,
+      }
+    },
+    {
+      "title": "Segment 3",
+      "type": "application/json",
+      "properties": {
+        "segmentNumber": 3,
+        "prompt": {
+          "PromptText": "bun",
+          "PromptAudio": "https://feedthemonster.curiouscontent.org/lang/english/audios/b.mp3"
+        },
         "targetstones": [
           {
             "StoneText": "b"
           }
         ],
-        "prompt": {
-          "PromptText": "bun",
-          "PromptAudio": "https://feedthemonster.curiouscontent.org/lang/english/audios/b.mp3"
-        },
         "foilstones": [
           {
             "StoneText": "t"
@@ -95,18 +118,22 @@
             "StoneText": "u"
           }
         ]
-      },
-      {
-        "SegmentNumber": 4,
+      }
+    },
+    {
+      "title": "Segment 4",
+      "type": "application/json",
+      "properties": {
+        "segmentNumber": 4,
+        "prompt": {
+          "PromptText": "run",
+          "PromptAudio": "https://feedthemonster.curiouscontent.org/lang/english/audios/r.mp3"
+        },
         "targetstones": [
           {
             "StoneText": "r"
           }
         ],
-        "prompt": {
-          "PromptText": "run",
-          "PromptAudio": "https://feedthemonster.curiouscontent.org/lang/english/audios/r.mp3"
-        },
         "foilstones": [
           {
             "StoneText": "y"
@@ -122,13 +149,6 @@
           }
         ]
       }
-    ]
-  },
-  "links": [
-    {
-      "rel": "self",
-      "href": "levels/level_24.json",
-      "type": "application/opds+json"
     }
   ]
 }

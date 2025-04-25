@@ -2,10 +2,25 @@
   "metadata": {
     "title": "Level 98",
     "type": "Word",
-    "letterGroup": 14,
-    "puzzles": [
-      {
-        "SegmentNumber": 0,
+    "letterGroup": 14
+  },
+  "links": [
+    {
+      "rel": "self",
+      "href": "levels/level_98.json",
+      "type": "application/opds+json"
+    }
+  ],
+  "navigation": [
+    {
+      "title": "Segment 0",
+      "type": "application/json",
+      "properties": {
+        "segmentNumber": 0,
+        "prompt": {
+          "PromptText": "write",
+          "PromptAudio": "https://feedthemonster.curiouscontent.org/lang/english/audios/write.mp3"
+        },
         "targetstones": [
           {
             "StoneText": "w"
@@ -23,10 +38,6 @@
             "StoneText": "e"
           }
         ],
-        "prompt": {
-          "PromptText": "write",
-          "PromptAudio": "https://feedthemonster.curiouscontent.org/lang/english/audios/write.mp3"
-        },
         "foilstones": [
           {
             "StoneText": "c"
@@ -53,9 +64,17 @@
             "StoneText": "f"
           }
         ]
-      },
-      {
-        "SegmentNumber": 1,
+      }
+    },
+    {
+      "title": "Segment 1",
+      "type": "application/json",
+      "properties": {
+        "segmentNumber": 1,
+        "prompt": {
+          "PromptText": "whine",
+          "PromptAudio": "https://feedthemonster.curiouscontent.org/lang/english/audios/whine.mp3"
+        },
         "targetstones": [
           {
             "StoneText": "w"
@@ -73,10 +92,6 @@
             "StoneText": "e"
           }
         ],
-        "prompt": {
-          "PromptText": "whine",
-          "PromptAudio": "https://feedthemonster.curiouscontent.org/lang/english/audios/whine.mp3"
-        },
         "foilstones": [
           {
             "StoneText": "w"
@@ -103,9 +118,17 @@
             "StoneText": "r"
           }
         ]
-      },
-      {
-        "SegmentNumber": 2,
+      }
+    },
+    {
+      "title": "Segment 2",
+      "type": "application/json",
+      "properties": {
+        "segmentNumber": 2,
+        "prompt": {
+          "PromptText": "swipe",
+          "PromptAudio": "https://feedthemonster.curiouscontent.org/lang/english/audios/swipe.mp3"
+        },
         "targetstones": [
           {
             "StoneText": "s"
@@ -123,10 +146,6 @@
             "StoneText": "e"
           }
         ],
-        "prompt": {
-          "PromptText": "swipe",
-          "PromptAudio": "https://feedthemonster.curiouscontent.org/lang/english/audios/swipe.mp3"
-        },
         "foilstones": [
           {
             "StoneText": "sp"
@@ -150,9 +169,17 @@
             "StoneText": "fr"
           }
         ]
-      },
-      {
-        "SegmentNumber": 3,
+      }
+    },
+    {
+      "title": "Segment 3",
+      "type": "application/json",
+      "properties": {
+        "segmentNumber": 3,
+        "prompt": {
+          "PromptText": "price",
+          "PromptAudio": "https://feedthemonster.curiouscontent.org/lang/english/audios/price.mp3"
+        },
         "targetstones": [
           {
             "StoneText": "p"
@@ -170,10 +197,6 @@
             "StoneText": "e"
           }
         ],
-        "prompt": {
-          "PromptText": "price",
-          "PromptAudio": "https://feedthemonster.curiouscontent.org/lang/english/audios/price.mp3"
-        },
         "foilstones": [
           {
             "StoneText": "w"
@@ -200,9 +223,17 @@
             "StoneText": "e"
           }
         ]
-      },
-      {
-        "SegmentNumber": 4,
+      }
+    },
+    {
+      "title": "Segment 4",
+      "type": "application/json",
+      "properties": {
+        "segmentNumber": 4,
+        "prompt": {
+          "PromptText": "chide",
+          "PromptAudio": "https://feedthemonster.curiouscontent.org/lang/english/audios/chide.mp3"
+        },
         "targetstones": [
           {
             "StoneText": "c"
@@ -220,10 +251,6 @@
             "StoneText": "e"
           }
         ],
-        "prompt": {
-          "PromptText": "chide",
-          "PromptAudio": "https://feedthemonster.curiouscontent.org/lang/english/audios/chide.mp3"
-        },
         "foilstones": [
           {
             "StoneText": "i"
@@ -254,13 +281,6 @@
           }
         ]
       }
-    ]
-  },
-  "links": [
-    {
-      "rel": "self",
-      "href": "levels/level_98.json",
-      "type": "application/opds+json"
     }
   ]
 }

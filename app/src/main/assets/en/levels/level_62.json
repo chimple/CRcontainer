@@ -2,10 +2,25 @@
   "metadata": {
     "title": "Level 62",
     "type": "Word",
-    "letterGroup": 15,
-    "puzzles": [
-      {
-        "SegmentNumber": 0,
+    "letterGroup": 15
+  },
+  "links": [
+    {
+      "rel": "self",
+      "href": "levels/level_62.json",
+      "type": "application/opds+json"
+    }
+  ],
+  "navigation": [
+    {
+      "title": "Segment 0",
+      "type": "application/json",
+      "properties": {
+        "segmentNumber": 0,
+        "prompt": {
+          "PromptText": "tug",
+          "PromptAudio": "https://feedthemonster.curiouscontent.org/lang/english/audios/tug.mp3"
+        },
         "targetstones": [
           {
             "StoneText": "t"
@@ -17,10 +32,6 @@
             "StoneText": "g"
           }
         ],
-        "prompt": {
-          "PromptText": "tug",
-          "PromptAudio": "https://feedthemonster.curiouscontent.org/lang/english/audios/tug.mp3"
-        },
         "foilstones": [
           {
             "StoneText": "u"
@@ -47,9 +58,17 @@
             "StoneText": "j"
           }
         ]
-      },
-      {
-        "SegmentNumber": 1,
+      }
+    },
+    {
+      "title": "Segment 1",
+      "type": "application/json",
+      "properties": {
+        "segmentNumber": 1,
+        "prompt": {
+          "PromptText": "rut",
+          "PromptAudio": "https://feedthemonster.curiouscontent.org/lang/english/audios/rut.mp3"
+        },
         "targetstones": [
           {
             "StoneText": "r"
@@ -61,10 +80,6 @@
             "StoneText": "t"
           }
         ],
-        "prompt": {
-          "PromptText": "rut",
-          "PromptAudio": "https://feedthemonster.curiouscontent.org/lang/english/audios/rut.mp3"
-        },
         "foilstones": [
           {
             "StoneText": "w"
@@ -91,9 +106,17 @@
             "StoneText": "k"
           }
         ]
-      },
-      {
-        "SegmentNumber": 2,
+      }
+    },
+    {
+      "title": "Segment 2",
+      "type": "application/json",
+      "properties": {
+        "segmentNumber": 2,
+        "prompt": {
+          "PromptText": "cub",
+          "PromptAudio": "https://feedthemonster.curiouscontent.org/lang/english/audios/cub.mp3"
+        },
         "targetstones": [
           {
             "StoneText": "c"
@@ -105,10 +128,6 @@
             "StoneText": "b"
           }
         ],
-        "prompt": {
-          "PromptText": "cub",
-          "PromptAudio": "https://feedthemonster.curiouscontent.org/lang/english/audios/cub.mp3"
-        },
         "foilstones": [
           {
             "StoneText": "u"
@@ -132,9 +151,17 @@
             "StoneText": "h"
           }
         ]
-      },
-      {
-        "SegmentNumber": 3,
+      }
+    },
+    {
+      "title": "Segment 3",
+      "type": "application/json",
+      "properties": {
+        "segmentNumber": 3,
+        "prompt": {
+          "PromptText": "nut",
+          "PromptAudio": "https://feedthemonster.curiouscontent.org/lang/english/audios/nut.mp3"
+        },
         "targetstones": [
           {
             "StoneText": "n"
@@ -146,10 +173,6 @@
             "StoneText": "t"
           }
         ],
-        "prompt": {
-          "PromptText": "nut",
-          "PromptAudio": "https://feedthemonster.curiouscontent.org/lang/english/audios/nut.mp3"
-        },
         "foilstones": [
           {
             "StoneText": "t"
@@ -176,9 +199,17 @@
             "StoneText": "z"
           }
         ]
-      },
-      {
-        "SegmentNumber": 4,
+      }
+    },
+    {
+      "title": "Segment 4",
+      "type": "application/json",
+      "properties": {
+        "segmentNumber": 4,
+        "prompt": {
+          "PromptText": "bug",
+          "PromptAudio": "https://feedthemonster.curiouscontent.org/lang/english/audios/bug.mp3"
+        },
         "targetstones": [
           {
             "StoneText": "b"
@@ -190,10 +221,6 @@
             "StoneText": "g"
           }
         ],
-        "prompt": {
-          "PromptText": "bug",
-          "PromptAudio": "https://feedthemonster.curiouscontent.org/lang/english/audios/bug.mp3"
-        },
         "foilstones": [
           {
             "StoneText": "u"
@@ -224,13 +251,6 @@
           }
         ]
       }
-    ]
-  },
-  "links": [
-    {
-      "rel": "self",
-      "href": "levels/level_62.json",
-      "type": "application/opds+json"
     }
   ]
 }
