@@ -1,0 +1,429 @@
+{
+  "metadata": {
+    "title": "Curious Reader"
+  },
+  "groups": [
+    {
+      "metadata": {
+        "title": "english"
+      },
+      "publications": [
+        {
+          "metadata": {
+            "@type": "http://schema.org/Game",
+            "title": "1",
+            "author": "Curious Reader",
+            "identifier": 0,
+            "language": "english",
+            "modified": "2025-02-01T00:00:00Z"
+          },
+          "links": [
+            {
+              "rel": "/0",
+              "href": "https://feedthemonsterdev.curiouscontent.org/topic/learningUnit1/?respectLaunchVersion=1&activity_id=0",
+              "type": "application/html"
+            }
+          ]
+        },
+        {
+          "metadata": {
+            "@type": "http://schema.org/Game",
+            "title": "2",
+            "author": "Curious Reader",
+            "identifier": "1",
+            "language": "english",
+            "modified": "2025-02-01T00:00:00Z"
+          },
+          "links": [
+            {
+              "rel": "/1",
+              "href": "https://feedthemonsterdev.curiouscontent.org/topic/learningUnit1/?respectLaunchVersion=1&activity_id=1",
+              "type": "application/html"
+            }
+          ]
+        },
+        {
+          "metadata": {
+            "@type": "http://schema.org/Game",
+            "title": "3",
+            "author": "Curious Reader",
+            "identifier": "2",
+            "language": "english",
+            "modified": "2025-02-01T00:00:00Z"
+          },
+          "links": [
+            {
+              "rel": "/2",
+              "href": "https://feedthemonsterdev.curiouscontent.org/topic/learningUnit1/?respectLaunchVersion=1&activity_id=2",
+              "type": "application/html"
+            }
+          ]
+        },
+        {
+          "metadata": {
+            "@type": "http://schema.org/Game",
+            "title": "4",
+            "author": "Curious Reader",
+            "identifier": "3",
+            "language": "english",
+            "modified": "2025-02-01T00:00:00Z"
+          },
+          "links": [
+            {
+              "rel": "/3",
+              "href": "https://feedthemonsterdev.curiouscontent.org/topic/learningUnit1/?respectLaunchVersion=1&activity_id=3",
+              "type": "application/html"
+            }
+          ]
+        },
+        {
+          "metadata": {
+            "@type": "http://schema.org/Game",
+            "title": "5",
+            "author": "Curious Reader",
+            "identifier": "4",
+            "language": "english",
+            "modified": "2025-02-01T00:00:00Z"
+          },
+          "links": [
+            {
+              "rel": "/4",
+              "href": "https://feedthemonsterdev.curiouscontent.org/topic/learningUnit1/?respectLaunchVersion=1&activity_id=4",
+              "type": "application/html"
+            }
+          ]
+        },
+        {
+          "metadata": {
+            "@type": "http://schema.org/Game",
+            "title": "6",
+            "author": "Curious Reader",
+            "identifier": "5",
+            "language": "english",
+            "modified": "2025-02-01T00:00:00Z"
+          },
+          "links": [
+            {
+              "rel": "/5",
+              "href": "https://feedthemonsterdev.curiouscontent.org/topic/learningUnit1/?respectLaunchVersion=1&activity_id=5",
+              "type": "application/html"
+            }
+          ]
+        },
+        {
+          "metadata": {
+            "@type": "http://schema.org/Game",
+            "title": "7",
+            "author": "Curious Reader",
+            "identifier": "6",
+            "language": "english",
+            "modified": "2025-02-01T00:00:00Z"
+          },
+          "links": [
+            {
+              "rel": "/6",
+              "href": "https://feedthemonsterdev.curiouscontent.org/topic/learningUnit1/?respectLaunchVersion=1&activity_id=6",
+              "type": "application/html"
+            }
+          ]
+        },
+        {
+          "metadata": {
+            "@type": "http://schema.org/Game",
+            "title": "8",
+            "author": "Curious Reader",
+            "identifier": "7",
+            "language": "english",
+            "modified": "2025-02-01T00:00:00Z"
+          },
+          "links": [
+            {
+              "rel": "/7",
+              "href": "https://feedthemonsterdev.curiouscontent.org/topic/learningUnit1/?respectLaunchVersion=1&activity_id=7",
+              "type": "application/html"
+            }
+          ]
+        },
+        {
+          "metadata": {
+            "@type": "http://schema.org/Game",
+            "title": "9",
+            "author": "Curious Reader",
+            "identifier": "8",
+            "language": "english",
+            "modified": "2025-02-01T00:00:00Z"
+          },
+          "links": [
+            {
+              "rel": "/8",
+              "href": "https://feedthemonsterdev.curiouscontent.org/topic/learningUnit1/?respectLaunchVersion=1&activity_id=8",
+              "type": "application/html"
+            }
+          ]
+        },
+        {
+          "metadata": {
+            "@type": "http://schema.org/Game",
+            "title": "10",
+            "author": "Curious Reader",
+            "identifier": "9",
+            "language": "english",
+            "modified": "2025-02-01T00:00:00Z"
+          },
+          "links": [
+            {
+              "rel": "/9",
+              "href": "https://feedthemonsterdev.curiouscontent.org/topic/learningUnit1/?respectLaunchVersion=1&activity_id=9",
+              "type": "application/html"
+            }
+          ]
+        },
+        {
+          "metadata": {
+            "@type": "http://schema.org/Game",
+            "title": "11",
+            "author": "Curious Reader",
+            "identifier": "10",
+            "language": "english",
+            "modified": "2025-02-01T00:00:00Z"
+          },
+          "links": [
+            {
+              "rel": "/10",
+              "href": "https://feedthemonsterdev.curiouscontent.org/topic/learningUnit1/?respectLaunchVersion=1&activity_id=10",
+              "type": "application/html"
+            }
+          ]
+        },
+        {
+          "metadata": {
+            "@type": "http://schema.org/Game",
+            "title": "12",
+            "author": "Curious Reader",
+            "identifier": "11",
+            "language": "english",
+            "modified": "2025-02-01T00:00:00Z"
+          },
+          "links": [
+            {
+              "rel": "/11",
+              "href": "https://feedthemonsterdev.curiouscontent.org/topic/learningUnit1/?respectLaunchVersion=1&activity_id=11",
+              "type": "application/html"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "metadata": {
+        "title": "hausa"
+      },
+      "publications": [
+        {
+          "metadata": {
+            "@type": "http://schema.org/Game",
+            "title": "1",
+            "author": "Curious Reader",
+            "identifier": 0,
+            "language": "hausa",
+            "modified": "2025-02-01T00:00:00Z"
+          },
+          "links": [
+            {
+              "rel": "/0",
+              "href": "https://feedthemonsterdev.curiouscontent.org/topic/learningUnit1/?respectLaunchVersion=1&activity_id=0",
+              "type": "application/html"
+            }
+          ]
+        },
+        {
+          "metadata": {
+            "@type": "http://schema.org/Game",
+            "title": "2",
+            "author": "Curious Reader",
+            "identifier": "1",
+            "language": "hausa",
+            "modified": "2025-02-01T00:00:00Z"
+          },
+          "links": [
+            {
+              "rel": "/1",
+              "href": "https://feedthemonsterdev.curiouscontent.org/topic/learningUnit1/?respectLaunchVersion=1&activity_id=1",
+              "type": "application/html"
+            }
+          ]
+        },
+        {
+          "metadata": {
+            "@type": "http://schema.org/Game",
+            "title": "3",
+            "author": "Curious Reader",
+            "identifier": "2",
+            "language": "hausa",
+            "modified": "2025-02-01T00:00:00Z"
+          },
+          "links": [
+            {
+              "rel": "/2",
+              "href": "https://feedthemonsterdev.curiouscontent.org/topic/learningUnit1/?respectLaunchVersion=1&activity_id=2",
+              "type": "application/html"
+            }
+          ]
+        },
+        {
+          "metadata": {
+            "@type": "http://schema.org/Game",
+            "title": "4",
+            "author": "Curious Reader",
+            "identifier": "3",
+            "language": "hausa",
+            "modified": "2025-02-01T00:00:00Z"
+          },
+          "links": [
+            {
+              "rel": "/3",
+              "href": "https://feedthemonsterdev.curiouscontent.org/topic/learningUnit1/?respectLaunchVersion=1&activity_id=3",
+              "type": "application/html"
+            }
+          ]
+        },
+        {
+          "metadata": {
+            "@type": "http://schema.org/Game",
+            "title": "5",
+            "author": "Curious Reader",
+            "identifier": "4",
+            "language": "hausa",
+            "modified": "2025-02-01T00:00:00Z"
+          },
+          "links": [
+            {
+              "rel": "/4",
+              "href": "https://feedthemonsterdev.curiouscontent.org/topic/learningUnit1/?respectLaunchVersion=1&activity_id=4",
+              "type": "application/html"
+            }
+          ]
+        },
+        {
+          "metadata": {
+            "@type": "http://schema.org/Game",
+            "title": "6",
+            "author": "Curious Reader",
+            "identifier": "5",
+            "language": "hausa",
+            "modified": "2025-02-01T00:00:00Z"
+          },
+          "links": [
+            {
+              "rel": "/5",
+              "href": "https://feedthemonsterdev.curiouscontent.org/topic/learningUnit1/?respectLaunchVersion=1&activity_id=5",
+              "type": "application/html"
+            }
+          ]
+        },
+        {
+          "metadata": {
+            "@type": "http://schema.org/Game",
+            "title": "7",
+            "author": "Curious Reader",
+            "identifier": "6",
+            "language": "hausa",
+            "modified": "2025-02-01T00:00:00Z"
+          },
+          "links": [
+            {
+              "rel": "/6",
+              "href": "https://feedthemonsterdev.curiouscontent.org/topic/learningUnit1/?respectLaunchVersion=1&activity_id=6",
+              "type": "application/html"
+            }
+          ]
+        },
+        {
+          "metadata": {
+            "@type": "http://schema.org/Game",
+            "title": "8",
+            "author": "Curious Reader",
+            "identifier": "7",
+            "language": "hausa",
+            "modified": "2025-02-01T00:00:00Z"
+          },
+          "links": [
+            {
+              "rel": "/7",
+              "href": "https://feedthemonsterdev.curiouscontent.org/topic/learningUnit1/?respectLaunchVersion=1&activity_id=7",
+              "type": "application/html"
+            }
+          ]
+        },
+        {
+          "metadata": {
+            "@type": "http://schema.org/Game",
+            "title": "9",
+            "author": "Curious Reader",
+            "identifier": "8",
+            "language": "hausa",
+            "modified": "2025-02-01T00:00:00Z"
+          },
+          "links": [
+            {
+              "rel": "/8",
+              "href": "https://feedthemonsterdev.curiouscontent.org/topic/learningUnit1/?respectLaunchVersion=1&activity_id=8",
+              "type": "application/html"
+            }
+          ]
+        },
+        {
+          "metadata": {
+            "@type": "http://schema.org/Game",
+            "title": "10",
+            "author": "Curious Reader",
+            "identifier": "9",
+            "language": "hausa",
+            "modified": "2025-02-01T00:00:00Z"
+          },
+          "links": [
+            {
+              "rel": "/9",
+              "href": "https://feedthemonsterdev.curiouscontent.org/topic/learningUnit1/?respectLaunchVersion=1&activity_id=9",
+              "type": "application/html"
+            }
+          ]
+        },
+        {
+          "metadata": {
+            "@type": "http://schema.org/Game",
+            "title": "11",
+            "author": "Curious Reader",
+            "identifier": "10",
+            "language": "hausa",
+            "modified": "2025-02-01T00:00:00Z"
+          },
+          "links": [
+            {
+              "rel": "/10",
+              "href": "https://feedthemonsterdev.curiouscontent.org/topic/learningUnit1/?respectLaunchVersion=1&activity_id=10",
+              "type": "application/html"
+            }
+          ]
+        },
+        {
+          "metadata": {
+            "@type": "http://schema.org/Game",
+            "title": "12",
+            "author": "Curious Reader",
+            "identifier": "11",
+            "language": "hausa",
+            "modified": "2025-02-01T00:00:00Z"
+          },
+          "links": [
+            {
+              "rel": "/11",
+              "href": "https://feedthemonsterdev.curiouscontent.org/topic/learningUnit1/?respectLaunchVersion=1&activity_id=11",
+              "type": "application/html"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
