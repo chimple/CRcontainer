@@ -60,6 +60,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
@@ -143,41 +144,52 @@ public class MainActivity extends BaseActivity {
         InstallReferrerManager.ReferrerCallback referrerCallback = new InstallReferrerManager.ReferrerCallback() {
             @Override
             public void onReferrerReceived(String deferredLang, String fullURL) {
-                String language = deferredLang.trim();
+            //         String language = deferredLang.trim();
 
-                if (!isReferrerHandled ) {
-                    SharedPreferences.Editor editor = prefs.edit();
-                    editor.putBoolean(REFERRER_HANDLED_KEY, true);
-                    editor.apply();
-                    if((language!=null && language.length()>0) || fullURL.contains("curiousreader://app")) {
-                        validLanguage(language, "google", fullURL);
-                        String pseudoId = prefs.getString("pseudoId", "");
-                        String manifestVrsn = prefs.getString("manifestVersion", "");
-                        String lang ="";
-                        if(language!=null && language.length()>0)
-                            lang =  Character.toUpperCase(language.charAt(0))
-                                    + language.substring(1).toLowerCase();
-                        selectedLanguage = lang;
-                        storeSelectLanguage(lang);
-                        AnalyticsUtils.logLanguageSelectEvent(MainActivity.this, "language_selected", pseudoId, language,
-                                manifestVrsn, "true");
-                        Log.d(TAG, "Referrer language received: " + language + " " + lang);
-                    }else{
-                        fetchFacebookDeferredData();
-                    }
-                }else {
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            if (selectedLanguage.equals("")) {
-                                showLanguagePopup();
-                            } else {
-                                loadApps(selectedLanguage);
-                            }
-                        }
-                    });
-                }
+            //         if (!isReferrerHandled ) {
+            //             SharedPreferences.Editor editor = prefs.edit();
+            //             editor.putBoolean(REFERRER_HANDLED_KEY, true);
+            //             editor.apply();
+            //             if((language!=null && language.length()>0) || fullURL.contains("curiousreader://app")) {
+            //                 validLanguage(language, "google", fullURL);
+            //                 String pseudoId = prefs.getString("pseudoId", "");
+            //                 String manifestVrsn = prefs.getString("manifestVersion", "");
+            //                 String lang ="";
+            //                 if(language!=null && language.length()>0)
+            //                     lang =  Character.toUpperCase(language.charAt(0))
+            //                             + language.substring(1).toLowerCase();
+            //                 selectedLanguage = lang;
+            //                 storeSelectLanguage(lang);
+            //                 AnalyticsUtils.logLanguageSelectEvent(MainActivity.this, "language_selected", pseudoId, language,
+            //                         manifestVrsn, "true");
+            //                 Log.d(TAG, "Referrer language received: " + language + " " + lang);
+            //             }else{
+            //                 fetchFacebookDeferredData();
+            //             }
+            //         }else {
+            //             runOnUiThread(new Runnable() {
+            //                 @Override
+            //                 public void run() {
+            //                     if (selectedLanguage.equals("")) {
+            //                         showLanguagePopup();
+            //                     } else {
+            //                         loadApps(selectedLanguage);
+            //                     }
+            //                 }
+            //             });
+            //         }
+            //     }
+            // };
+
+                fetchLanguagesFromAssets();
             }
+
+            public void fetchLanguagesFromAssets() {
+                Map<String,String> mapLanguages = getJsonLanguages();
+                runOnUiThread(() -> showLanguagePopupWithLanguages(mapLanguages));
+            }
+
+
         };
         InstallReferrerManager installReferrerManager = new InstallReferrerManager(getApplicationContext(), referrerCallback);
         installReferrerManager.checkPlayStoreAvailability();
@@ -223,7 +235,7 @@ public class MainActivity extends BaseActivity {
                 AnimationUtil.scaleButton(view, new Runnable() {
                     @Override
                     public void run() {
-                        showLanguagePopup();
+                        showLanguagePopupWithLanguages(getJsonLanguages());
                     }
                 });
             }
@@ -263,7 +275,7 @@ public class MainActivity extends BaseActivity {
                         @Override
                         public void run() {
                             if (selectedLanguage.equals("")) {
-                                showLanguagePopup();
+                                showLanguagePopupWithLanguages(getJsonLanguages());
                             } else {
                                 loadApps(selectedLanguage);
                             }
@@ -322,7 +334,7 @@ public class MainActivity extends BaseActivity {
         String pseudoId = prefs.getString("pseudoId", "");
         if( language == null || language.length()==0 ){
             SlackUtils.sendMessageToSlack(MainActivity.this, "Language is incorrect or null for " + source + " deferred deep link URL: " + deepLinkUri + " , cr_user_id: " + pseudoId + " , currentTimestamp: " + convertEpochToDate(currentEpochTime) + " , initialSlackAlertTime: " + convertEpochToDate(initialSlackAlertTime));
-            showLanguagePopup();
+            showLanguagePopupWithLanguages(getJsonLanguages());
             return;
         }
         homeViewModal.getAllLanguagesInEnglish().observe(this, validLanguages -> {
@@ -331,7 +343,7 @@ public class MainActivity extends BaseActivity {
                     .collect(Collectors.toList());
             if (lowerCaseLanguages!=null && lowerCaseLanguages.size() > 0 &&!lowerCaseLanguages.contains(language.toLowerCase().trim())) {
                 SlackUtils.sendMessageToSlack(MainActivity.this, "Language is incorrect or null for " + source + " deferred deep link URL: " + deepLinkUri + " , cr_user_id: " + pseudoId + " , currentTimestamp: " + convertEpochToDate(currentEpochTime) + " , initialSlackAlertTime: " + convertEpochToDate(initialSlackAlertTime));
-                showLanguagePopup();
+                showLanguagePopupWithLanguages(getJsonLanguages());
                 loadingIndicator.setVisibility(View.GONE);
                 selectedLanguage="";
                 storeSelectLanguage("");
@@ -347,7 +359,83 @@ public class MainActivity extends BaseActivity {
     }
 
 
-    private void showLanguagePopup() {
+    // private void showLanguagePopup() {
+    //     if (!dialog.isShowing()) {
+    //         dialog.setContentView(R.layout.language_popup);
+
+    //         dialog.setCanceledOnTouchOutside(false);
+    //         dialog.getWindow().setBackgroundDrawable(null);
+    //         ImageView closeButton = dialog.findViewById(R.id.setting_close);
+    //         TextInputLayout textBox = dialog.findViewById(R.id.dropdown_menu);
+    //         AutoCompleteTextView autoCompleteTextView = dialog.findViewById(R.id.autoComplete);
+    //         autoCompleteTextView.setDropDownBackgroundResource(android.R.color.white);
+    //         ArrayAdapter<String> adapter = new ArrayAdapter<String>(dialog.getContext(),
+    //                 android.R.layout.simple_dropdown_item_1line, new ArrayList<String>());
+    //         autoCompleteTextView.setAdapter(adapter);
+
+    //         homeViewModal.getAllWebApps().observe(this, new Observer<List<WebApp>>() {
+    //             @Override
+    //             public void onChanged(List<WebApp> webApps) {
+    //                 Set<String> distinctLanguages = sortLanguages(webApps);
+    //                 Map<String, String> languagesEnglishNameMap = MapLanguagesEnglishName(webApps);
+    //                 List<String> distinctLanguageList = new ArrayList<>(distinctLanguages);
+    //                 if (!webApps.isEmpty()) {
+    //                     cacheManifestVersion(CacheUtils.manifestVersionNumber);
+    //                 }
+
+    //                 if (!distinctLanguageList.isEmpty()) {
+    //                     Log.d(TAG, "showLanguagePopup: Distinct languages: " + distinctLanguageList);
+    //                     adapter.clear();
+    //                     adapter.addAll(distinctLanguageList);
+    //                     adapter.notifyDataSetChanged();
+    //                     int standardizedItemHeight = 50;
+    //                     int itemCount = adapter.getCount();
+    //                     int dropdownHeight = standardizedItemHeight * itemCount;
+    //                     int maxHeight = getResources().getDisplayMetrics().heightPixels / 2;
+    //                     int adjustedDropdownHeight = Math.min(dropdownHeight, maxHeight);
+    //                     autoCompleteTextView.setDropDownHeight(adjustedDropdownHeight);
+
+    //                     selectedLanguage = prefs.getString("selectedLanguage", "");
+    //                     if (!selectedLanguage.isEmpty() && languagesEnglishNameMap.containsValue(selectedLanguage)) {
+    //                         textBox.setHint(languagesEnglishNameMap.get(selectedLanguage));
+    //                     }
+
+    //                     autoCompleteTextView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+    //                         @Override
+    //                         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+    //                             audioPlayer.play(MainActivity.this, R.raw.sound_button_pressed);
+    //                             selectedLanguage = languagesEnglishNameMap
+    //                                     .get((String) parent.getItemAtPosition(position));
+    //                             String pseudoId = prefs.getString("pseudoId", "");
+    //                             String manifestVrsn = prefs.getString("manifestVersion", "");
+    //                             AnalyticsUtils.logLanguageSelectEvent(view.getContext(), "language_selected", pseudoId,
+    //                                     selectedLanguage, manifestVrsn, "false");
+    //                             dialog.dismiss();
+    //                             loadApps(selectedLanguage);
+    //                         }
+    //                     });
+    //                 }
+    //             }
+    //         });
+
+    //         closeButton.setOnClickListener(new View.OnClickListener() {
+    //             public void onClick(View v) {
+    //                 audioPlayer.play(MainActivity.this, R.raw.sound_button_pressed);
+    //                 AnimationUtil.scaleButton(v, new Runnable() {
+    //                     @Override
+    //                     public void run() {
+    //                         dialog.dismiss();
+    //                     }
+    //                 });
+
+    //             }
+
+    //         });
+    //         dialog.show();
+    //     }
+    // }
+
+    private void showLanguagePopupWithLanguages(Map<String,String> languages) {
         if (!dialog.isShowing()) {
             dialog.setContentView(R.layout.language_popup);
 
@@ -357,70 +445,55 @@ public class MainActivity extends BaseActivity {
             TextInputLayout textBox = dialog.findViewById(R.id.dropdown_menu);
             AutoCompleteTextView autoCompleteTextView = dialog.findViewById(R.id.autoComplete);
             autoCompleteTextView.setDropDownBackgroundResource(android.R.color.white);
-            ArrayAdapter<String> adapter = new ArrayAdapter<String>(dialog.getContext(),
-                    android.R.layout.simple_dropdown_item_1line, new ArrayList<String>());
+            List<String> languageNames = new ArrayList<>(languages.keySet());
+            ArrayAdapter<String> adapter = new ArrayAdapter<>(dialog.getContext(),
+                    android.R.layout.simple_dropdown_item_1line, languageNames);
             autoCompleteTextView.setAdapter(adapter);
 
-            homeViewModal.getAllWebApps().observe(this, new Observer<List<WebApp>>() {
-                @Override
-                public void onChanged(List<WebApp> webApps) {
-                    Set<String> distinctLanguages = sortLanguages(webApps);
-                    Map<String, String> languagesEnglishNameMap = MapLanguagesEnglishName(webApps);
-                    List<String> distinctLanguageList = new ArrayList<>(distinctLanguages);
-                    if (!webApps.isEmpty()) {
-                        cacheManifestVersion(CacheUtils.manifestVersionNumber);
-                    }
+            autoCompleteTextView.setOnItemClickListener((parent, view, position, id) -> {
+                audioPlayer.play(MainActivity.this, R.raw.sound_button_pressed);
+                selectedLanguage = (String) parent.getItemAtPosition(position);
+                String selectedLanguageCode = languages.get(selectedLanguage);
+                dialog.dismiss();
+                loadApps(selectedLanguageCode);
+        });
 
-                    if (!distinctLanguageList.isEmpty()) {
-                        Log.d(TAG, "showLanguagePopup: Distinct languages: " + distinctLanguageList);
-                        adapter.clear();
-                        adapter.addAll(distinctLanguageList);
-                        adapter.notifyDataSetChanged();
-                        int standardizedItemHeight = 50;
-                        int itemCount = adapter.getCount();
-                        int dropdownHeight = standardizedItemHeight * itemCount;
-                        int maxHeight = getResources().getDisplayMetrics().heightPixels / 2;
-                        int adjustedDropdownHeight = Math.min(dropdownHeight, maxHeight);
-                        autoCompleteTextView.setDropDownHeight(adjustedDropdownHeight);
+        closeButton.setOnClickListener(v -> {
+            audioPlayer.play(MainActivity.this, R.raw.sound_button_pressed);
+            AnimationUtil.scaleButton(v, dialog::dismiss);
+        });
 
-                        selectedLanguage = prefs.getString("selectedLanguage", "");
-                        if (!selectedLanguage.isEmpty() && languagesEnglishNameMap.containsValue(selectedLanguage)) {
-                            textBox.setHint(languagesEnglishNameMap.get(selectedLanguage));
-                        }
+        dialog.show();
+    }
+    }
 
-                        autoCompleteTextView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                            @Override
-                            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                                audioPlayer.play(MainActivity.this, R.raw.sound_button_pressed);
-                                selectedLanguage = languagesEnglishNameMap
-                                        .get((String) parent.getItemAtPosition(position));
-                                String pseudoId = prefs.getString("pseudoId", "");
-                                String manifestVrsn = prefs.getString("manifestVersion", "");
-                                AnalyticsUtils.logLanguageSelectEvent(view.getContext(), "language_selected", pseudoId,
-                                        selectedLanguage, manifestVrsn, "false");
-                                dialog.dismiss();
-                                loadApps(selectedLanguage);
-                            }
-                        });
-                    }
-                }
-            });
+    public Map<String,String> getJsonLanguages() {
+        Map<String,String> languages = new HashMap<>();
+        try {
+            InputStream inputStream = getAssets().open("languages.json");
+            BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+            StringBuilder jsonBuilder = new StringBuilder();
+            String line;
+            while ((line = reader.readLine()) != null) {
+                jsonBuilder.append(line);
+            }
+            reader.close();
 
-            closeButton.setOnClickListener(new View.OnClickListener() {
-                public void onClick(View v) {
-                    audioPlayer.play(MainActivity.this, R.raw.sound_button_pressed);
-                    AnimationUtil.scaleButton(v, new Runnable() {
-                        @Override
-                        public void run() {
-                            dialog.dismiss();
-                        }
-                    });
+            String jsonString = jsonBuilder.toString();
+            JSONObject jsonObject = new JSONObject(jsonString);
+            JSONArray webAppsArray = jsonObject.getJSONArray("web_apps");
 
-                }
-
-            });
-            dialog.show();
+            for (int i = 0; i < webAppsArray.length(); i++) {
+                JSONObject appObject = webAppsArray.getJSONObject(i);
+                String languageEnglishName = appObject.getString("languageInEnglishName");
+                String languageCode = appObject.getString("language");
+                languages.put(languageCode,languageEnglishName);
+            }
+        } catch (Exception e) {
+            Log.e(TAG, "Error reading languages from assets", e);
         }
+
+        return languages;
     }
 
     private Map<String, String> MapLanguagesEnglishName(List<WebApp> webApps) {
@@ -509,7 +582,7 @@ public class MainActivity extends BaseActivity {
                     storeSelectLanguage(language);
                 } else {
                     if (!prefs.getString("selectedLanguage", "").equals("") && language.equals("")) {
-                        showLanguagePopup();
+                        showLanguagePopupWithLanguages(getJsonLanguages());
                     }
                     if (manifestVersion.equals("")) {
                         if(!selectedlanguage.equals(isValidLanguage))
@@ -537,12 +610,12 @@ public class MainActivity extends BaseActivity {
         }
     }
 
-    
+
     private void loadOPDSCatalog(String opdsUrl) {
         new Thread(() -> {
             try {
                 Log.d("OPDS", "Starting OPDS fetch...");
-    
+
                 JSONObject catalogJson;
                 if (opdsUrl.startsWith("http") || opdsUrl.startsWith("https")) {
                     Log.d("OPDS", "Fetching OPDS catalog from URL: " + opdsUrl);
@@ -552,25 +625,25 @@ public class MainActivity extends BaseActivity {
                     String rawJsonStr = readRawResource(resId);
                     catalogJson = new JSONObject(rawJsonStr);
                 }
-    
+
                 JSONArray groups = catalogJson.getJSONArray("groups");
                 JSONObject group = groups.getJSONObject(0);
                 JSONArray publications = group.getJSONArray("publications");
                 JSONObject publication = publications.getJSONObject(0);
                 JSONArray links = publication.getJSONArray("links");
                 String courseUrl = links.getJSONObject(0).getString("href");
-    
+
                 Log.d("OPDS", "Parsed course URL: " + courseUrl);
-    
+
                 runOnUiThread(() -> {
                     WebView webView = findViewById(R.id.web_app);
                     if (webView != null) {
                         String finalUrl = BASE_ASSET_URL + courseUrl;
                         Log.d("OPDS", "Loading game with config URL: " + finalUrl);
-    
+
                         webView.setWebViewClient(new WebViewClient() {
                             private boolean isDataLoaded = false;
-    
+
                             @Override
                             public void onPageFinished(WebView view, String url) {
                                 Log.d("WebView", "Page finished loading: " + url);
@@ -579,24 +652,24 @@ public class MainActivity extends BaseActivity {
                                     loadFtmDataToWebView();
                                 }
                             }
-    
+
                             public void onReceivedError(WebView view, WebResourceRequest request, WebResourceError error) {
                                 Log.e("WebView", "Error loading page: " + error.getDescription());
                             }
                         });
-    
+
                         webView.loadUrl(finalUrl);
                     } else {
                         Log.e("WebView", "WebView is null. Check layout XML.");
                     }
                 });
-    
+
             } catch (Exception e) {
                 Log.e("OPDS", "Error while loading OPDS catalog", e);
             }
         }).start();
     }
-    
+
     private String readRawResource(@RawRes int resId) {
         try (InputStream is = getResources().openRawResource(resId);
              BufferedReader reader = new BufferedReader(new InputStreamReader(is))) {
@@ -611,12 +684,12 @@ public class MainActivity extends BaseActivity {
             return "{}";
         }
     }
-    
+
     private JSONObject readJsonFromHttp(String urlString) throws IOException, JSONException {
         URL url = new URL(urlString);
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
         conn.setRequestMethod("GET");
-    
+
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()))) {
             StringBuilder builder = new StringBuilder();
             String line;
@@ -629,21 +702,21 @@ public class MainActivity extends BaseActivity {
         } finally {
             conn.disconnect();
         }
-    }    
+    }
 
     public void loadFtmDataToWebView() {
         try {
             // Read OPDS Catalog JSON from raw
             String opdsJsonStr = readRawResource(R.raw.feed_the_monster_english_opds);
             JSONObject opdsJson = new JSONObject(opdsJsonStr);
-    
+
             JSONArray publications = opdsJson.getJSONArray("groups")
                 .getJSONObject(0)
                 .getJSONArray("publications");
-    
+
             JSONObject publication = publications.getJSONObject(0);
             JSONObject metadata = publication.getJSONObject("metadata");
-    
+
             // Extract lesson filename from link
             String lessonFilename = publication
                 .getJSONArray("links")
@@ -651,11 +724,11 @@ public class MainActivity extends BaseActivity {
                 .getString("href")
                 .replace("lang/english/", "")
                 .replace(".json", "");
-    
+
             int lessonResId = getResources().getIdentifier(lessonFilename, "raw", getPackageName());
             String lessonJsonStr = readRawResource(lessonResId);
             JSONObject lessonJson = new JSONObject(lessonJsonStr);
-    
+
             // Merge metadata fields into lesson JSON
             lessonJson.put("title", metadata.optString("title"));
             lessonJson.put("identifier", metadata.optString("identifier"));
@@ -667,14 +740,14 @@ public class MainActivity extends BaseActivity {
             lessonJson.put("majversion", metadata.optInt("majversion"));
             lessonJson.put("minversion", metadata.optInt("minversion"));
             lessonJson.put("langname", metadata.optString("langname"));
-    
+
             publication.getJSONArray("links")
                 .getJSONObject(0)
                 .put("lessonData", lessonJson);
-    
+
             // Now send the full OPDS JSON (modified) to Web App
             webAppBridge.requestDataFromContainer("FTM_OPDS_DATA", opdsJson);
-    
+
         } catch (Exception e) {
             e.printStackTrace();
         }
