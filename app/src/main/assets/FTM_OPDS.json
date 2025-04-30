@@ -14,7 +14,7 @@
             "title": "1",
             "author": "Curious Reader",
             "identifier": 0,
-            "language": "english",
+            "language": "en",
             "modified": "2025-02-01T00:00:00Z"
           },
           "links": [
@@ -31,7 +31,7 @@
             "title": "2",
             "author": "Curious Reader",
             "identifier": "1",
-            "language": "english",
+            "language": "en",
             "modified": "2025-02-01T00:00:00Z"
           },
           "links": [
@@ -48,7 +48,7 @@
             "title": "3",
             "author": "Curious Reader",
             "identifier": "2",
-            "language": "english",
+            "language": "en",
             "modified": "2025-02-01T00:00:00Z"
           },
           "links": [
@@ -65,7 +65,7 @@
             "title": "4",
             "author": "Curious Reader",
             "identifier": "3",
-            "language": "english",
+            "language": "en",
             "modified": "2025-02-01T00:00:00Z"
           },
           "links": [
@@ -82,7 +82,7 @@
             "title": "5",
             "author": "Curious Reader",
             "identifier": "4",
-            "language": "english",
+            "language": "en",
             "modified": "2025-02-01T00:00:00Z"
           },
           "links": [
@@ -99,7 +99,7 @@
             "title": "6",
             "author": "Curious Reader",
             "identifier": "5",
-            "language": "english",
+            "language": "en",
             "modified": "2025-02-01T00:00:00Z"
           },
           "links": [
@@ -116,7 +116,7 @@
             "title": "7",
             "author": "Curious Reader",
             "identifier": "6",
-            "language": "english",
+            "language": "en",
             "modified": "2025-02-01T00:00:00Z"
           },
           "links": [
@@ -133,7 +133,7 @@
             "title": "8",
             "author": "Curious Reader",
             "identifier": "7",
-            "language": "english",
+            "language": "en",
             "modified": "2025-02-01T00:00:00Z"
           },
           "links": [
@@ -150,7 +150,7 @@
             "title": "9",
             "author": "Curious Reader",
             "identifier": "8",
-            "language": "english",
+            "language": "en",
             "modified": "2025-02-01T00:00:00Z"
           },
           "links": [
@@ -167,7 +167,7 @@
             "title": "10",
             "author": "Curious Reader",
             "identifier": "9",
-            "language": "english",
+            "language": "en",
             "modified": "2025-02-01T00:00:00Z"
           },
           "links": [
@@ -184,7 +184,7 @@
             "title": "11",
             "author": "Curious Reader",
             "identifier": "10",
-            "language": "english",
+            "language": "en",
             "modified": "2025-02-01T00:00:00Z"
           },
           "links": [
@@ -201,7 +201,7 @@
             "title": "12",
             "author": "Curious Reader",
             "identifier": "11",
-            "language": "english",
+            "language": "en",
             "modified": "2025-02-01T00:00:00Z"
           },
           "links": [
@@ -225,7 +225,7 @@
             "title": "1",
             "author": "Curious Reader",
             "identifier": 0,
-            "language": "hausa",
+            "language": "ha",
             "modified": "2025-02-01T00:00:00Z"
           },
           "links": [
@@ -242,7 +242,7 @@
             "title": "2",
             "author": "Curious Reader",
             "identifier": "1",
-            "language": "hausa",
+            "language": "ha",
             "modified": "2025-02-01T00:00:00Z"
           },
           "links": [
@@ -259,7 +259,7 @@
             "title": "3",
             "author": "Curious Reader",
             "identifier": "2",
-            "language": "hausa",
+            "language": "ha",
             "modified": "2025-02-01T00:00:00Z"
           },
           "links": [
@@ -276,7 +276,7 @@
             "title": "4",
             "author": "Curious Reader",
             "identifier": "3",
-            "language": "hausa",
+            "language": "ha",
             "modified": "2025-02-01T00:00:00Z"
           },
           "links": [
@@ -293,7 +293,7 @@
             "title": "5",
             "author": "Curious Reader",
             "identifier": "4",
-            "language": "hausa",
+            "language": "ha",
             "modified": "2025-02-01T00:00:00Z"
           },
           "links": [
@@ -310,7 +310,7 @@
             "title": "6",
             "author": "Curious Reader",
             "identifier": "5",
-            "language": "hausa",
+            "language": "ha",
             "modified": "2025-02-01T00:00:00Z"
           },
           "links": [
@@ -327,7 +327,7 @@
             "title": "7",
             "author": "Curious Reader",
             "identifier": "6",
-            "language": "hausa",
+            "language": "ha",
             "modified": "2025-02-01T00:00:00Z"
           },
           "links": [
@@ -344,7 +344,7 @@
             "title": "8",
             "author": "Curious Reader",
             "identifier": "7",
-            "language": "hausa",
+            "language": "ha",
             "modified": "2025-02-01T00:00:00Z"
           },
           "links": [
@@ -361,7 +361,7 @@
             "title": "9",
             "author": "Curious Reader",
             "identifier": "8",
-            "language": "hausa",
+            "language": "ha",
             "modified": "2025-02-01T00:00:00Z"
           },
           "links": [
@@ -378,7 +378,7 @@
             "title": "10",
             "author": "Curious Reader",
             "identifier": "9",
-            "language": "hausa",
+            "language": "ha",
             "modified": "2025-02-01T00:00:00Z"
           },
           "links": [
@@ -395,7 +395,7 @@
             "title": "11",
             "author": "Curious Reader",
             "identifier": "10",
-            "language": "hausa",
+            "language": "ha",
             "modified": "2025-02-01T00:00:00Z"
           },
           "links": [
@@ -412,7 +412,7 @@
             "title": "12",
             "author": "Curious Reader",
             "identifier": "11",
-            "language": "hausa",
+            "language": "ha",
             "modified": "2025-02-01T00:00:00Z"
           },
           "links": [
