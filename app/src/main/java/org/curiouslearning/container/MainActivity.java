@@ -100,6 +100,7 @@ public class MainActivity extends BaseActivity {
     //  private RespectClientManager respectClientManager = new RespectClientManager();
     public static String activity_id = "";
     public static boolean isDeepLink = false;
+    public static boolean isRespect = true;
     private org.curiouslearning.container.WebApp webAppBridge; // WebAppBridge is a custom class that you need to implement to handle the communication between the WebView and your app.
 
     @Override
@@ -144,51 +145,51 @@ public class MainActivity extends BaseActivity {
         InstallReferrerManager.ReferrerCallback referrerCallback = new InstallReferrerManager.ReferrerCallback() {
             @Override
             public void onReferrerReceived(String deferredLang, String fullURL) {
-            //         String language = deferredLang.trim();
 
-            //         if (!isReferrerHandled ) {
-            //             SharedPreferences.Editor editor = prefs.edit();
-            //             editor.putBoolean(REFERRER_HANDLED_KEY, true);
-            //             editor.apply();
-            //             if((language!=null && language.length()>0) || fullURL.contains("curiousreader://app")) {
-            //                 validLanguage(language, "google", fullURL);
-            //                 String pseudoId = prefs.getString("pseudoId", "");
-            //                 String manifestVrsn = prefs.getString("manifestVersion", "");
-            //                 String lang ="";
-            //                 if(language!=null && language.length()>0)
-            //                     lang =  Character.toUpperCase(language.charAt(0))
-            //                             + language.substring(1).toLowerCase();
-            //                 selectedLanguage = lang;
-            //                 storeSelectLanguage(lang);
-            //                 AnalyticsUtils.logLanguageSelectEvent(MainActivity.this, "language_selected", pseudoId, language,
-            //                         manifestVrsn, "true");
-            //                 Log.d(TAG, "Referrer language received: " + language + " " + lang);
-            //             }else{
-            //                 fetchFacebookDeferredData();
-            //             }
-            //         }else {
-            //             runOnUiThread(new Runnable() {
-            //                 @Override
-            //                 public void run() {
-            //                     if (selectedLanguage.equals("")) {
-            //                         showLanguagePopup();
-            //                     } else {
-            //                         loadApps(selectedLanguage);
-            //                     }
-            //                 }
-            //             });
-            //         }
-            //     }
-            // };
+                if(isRespect == true) {
+                    fetchLanguagesFromAssets();
+                }
+                else {
+                    String language = deferredLang.trim();
 
-                fetchLanguagesFromAssets();
-            }
-
-            public void fetchLanguagesFromAssets() {
-                Map<String,String> mapLanguages = getJsonLanguages();
-                runOnUiThread(() -> showLanguagePopupWithLanguages(mapLanguages));
-            }
-
+                    if (!isReferrerHandled ) {
+                        SharedPreferences.Editor editor = prefs.edit();
+                        editor.putBoolean(REFERRER_HANDLED_KEY, true);
+                        editor.apply();
+                        if((language!=null && language.length()>0) || fullURL.contains("curiousreader://app")) {
+                            validLanguage(language, "google", fullURL);
+                            String pseudoId = prefs.getString("pseudoId", "");
+                            String manifestVrsn = prefs.getString("manifestVersion", "");
+                            String lang ="";
+                            if(language!=null && language.length()>0)
+                                lang =  Character.toUpperCase(language.charAt(0))
+                                        + language.substring(1).toLowerCase();
+                            selectedLanguage = lang;
+                            storeSelectLanguage(lang);
+                            AnalyticsUtils.logLanguageSelectEvent(MainActivity.this, "language_selected", pseudoId, language,
+                                    manifestVrsn, "true");
+                            Log.d(TAG, "Referrer language received: " + language + " " + lang);
+                        }else{
+                            fetchFacebookDeferredData();
+                        }
+                    }else {
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                if (selectedLanguage.equals("")) {
+                                    showLanguagePopup();
+                                } else {
+                                    loadApps(selectedLanguage);
+                                }
+                            }
+                        });
+                    }
+                }
+                }
+                public void fetchLanguagesFromAssets() {
+                    Map<String,String> mapLanguages = getJsonLanguages();
+                    runOnUiThread(() -> showLanguagePopupWithLanguages(mapLanguages));
+                }
 
         };
         InstallReferrerManager installReferrerManager = new InstallReferrerManager(getApplicationContext(), referrerCallback);
@@ -235,7 +236,10 @@ public class MainActivity extends BaseActivity {
                 AnimationUtil.scaleButton(view, new Runnable() {
                     @Override
                     public void run() {
-                        showLanguagePopupWithLanguages(getJsonLanguages());
+                        if(isRespect == true)
+                            showLanguagePopupWithLanguages(getJsonLanguages());
+                        else
+                            showLanguagePopup();
                     }
                 });
             }
@@ -275,7 +279,10 @@ public class MainActivity extends BaseActivity {
                         @Override
                         public void run() {
                             if (selectedLanguage.equals("")) {
-                                showLanguagePopupWithLanguages(getJsonLanguages());
+                                if(isRespect == true)
+                                    showLanguagePopupWithLanguages(getJsonLanguages());
+                                else
+                                    showLanguagePopup();
                             } else {
                                 loadApps(selectedLanguage);
                             }
@@ -334,7 +341,10 @@ public class MainActivity extends BaseActivity {
         String pseudoId = prefs.getString("pseudoId", "");
         if( language == null || language.length()==0 ){
             SlackUtils.sendMessageToSlack(MainActivity.this, "Language is incorrect or null for " + source + " deferred deep link URL: " + deepLinkUri + " , cr_user_id: " + pseudoId + " , currentTimestamp: " + convertEpochToDate(currentEpochTime) + " , initialSlackAlertTime: " + convertEpochToDate(initialSlackAlertTime));
-            showLanguagePopupWithLanguages(getJsonLanguages());
+            if(isRespect == true)
+                showLanguagePopupWithLanguages(getJsonLanguages());
+            else
+                showLanguagePopup();
             return;
         }
         homeViewModal.getAllLanguagesInEnglish().observe(this, validLanguages -> {
@@ -343,7 +353,10 @@ public class MainActivity extends BaseActivity {
                     .collect(Collectors.toList());
             if (lowerCaseLanguages!=null && lowerCaseLanguages.size() > 0 &&!lowerCaseLanguages.contains(language.toLowerCase().trim())) {
                 SlackUtils.sendMessageToSlack(MainActivity.this, "Language is incorrect or null for " + source + " deferred deep link URL: " + deepLinkUri + " , cr_user_id: " + pseudoId + " , currentTimestamp: " + convertEpochToDate(currentEpochTime) + " , initialSlackAlertTime: " + convertEpochToDate(initialSlackAlertTime));
-                showLanguagePopupWithLanguages(getJsonLanguages());
+                if(isRespect == true)
+                    showLanguagePopupWithLanguages(getJsonLanguages());
+                else
+                    showLanguagePopup();
                 loadingIndicator.setVisibility(View.GONE);
                 selectedLanguage="";
                 storeSelectLanguage("");
@@ -359,81 +372,81 @@ public class MainActivity extends BaseActivity {
     }
 
 
-    // private void showLanguagePopup() {
-    //     if (!dialog.isShowing()) {
-    //         dialog.setContentView(R.layout.language_popup);
+    private void showLanguagePopup() {
+        if (!dialog.isShowing()) {
+            dialog.setContentView(R.layout.language_popup);
 
-    //         dialog.setCanceledOnTouchOutside(false);
-    //         dialog.getWindow().setBackgroundDrawable(null);
-    //         ImageView closeButton = dialog.findViewById(R.id.setting_close);
-    //         TextInputLayout textBox = dialog.findViewById(R.id.dropdown_menu);
-    //         AutoCompleteTextView autoCompleteTextView = dialog.findViewById(R.id.autoComplete);
-    //         autoCompleteTextView.setDropDownBackgroundResource(android.R.color.white);
-    //         ArrayAdapter<String> adapter = new ArrayAdapter<String>(dialog.getContext(),
-    //                 android.R.layout.simple_dropdown_item_1line, new ArrayList<String>());
-    //         autoCompleteTextView.setAdapter(adapter);
+            dialog.setCanceledOnTouchOutside(false);
+            dialog.getWindow().setBackgroundDrawable(null);
+            ImageView closeButton = dialog.findViewById(R.id.setting_close);
+            TextInputLayout textBox = dialog.findViewById(R.id.dropdown_menu);
+            AutoCompleteTextView autoCompleteTextView = dialog.findViewById(R.id.autoComplete);
+            autoCompleteTextView.setDropDownBackgroundResource(android.R.color.white);
+            ArrayAdapter<String> adapter = new ArrayAdapter<String>(dialog.getContext(),
+                    android.R.layout.simple_dropdown_item_1line, new ArrayList<String>());
+            autoCompleteTextView.setAdapter(adapter);
 
-    //         homeViewModal.getAllWebApps().observe(this, new Observer<List<WebApp>>() {
-    //             @Override
-    //             public void onChanged(List<WebApp> webApps) {
-    //                 Set<String> distinctLanguages = sortLanguages(webApps);
-    //                 Map<String, String> languagesEnglishNameMap = MapLanguagesEnglishName(webApps);
-    //                 List<String> distinctLanguageList = new ArrayList<>(distinctLanguages);
-    //                 if (!webApps.isEmpty()) {
-    //                     cacheManifestVersion(CacheUtils.manifestVersionNumber);
-    //                 }
+            homeViewModal.getAllWebApps().observe(this, new Observer<List<WebApp>>() {
+                @Override
+                public void onChanged(List<WebApp> webApps) {
+                    Set<String> distinctLanguages = sortLanguages(webApps);
+                    Map<String, String> languagesEnglishNameMap = MapLanguagesEnglishName(webApps);
+                    List<String> distinctLanguageList = new ArrayList<>(distinctLanguages);
+                    if (!webApps.isEmpty()) {
+                        cacheManifestVersion(CacheUtils.manifestVersionNumber);
+                    }
 
-    //                 if (!distinctLanguageList.isEmpty()) {
-    //                     Log.d(TAG, "showLanguagePopup: Distinct languages: " + distinctLanguageList);
-    //                     adapter.clear();
-    //                     adapter.addAll(distinctLanguageList);
-    //                     adapter.notifyDataSetChanged();
-    //                     int standardizedItemHeight = 50;
-    //                     int itemCount = adapter.getCount();
-    //                     int dropdownHeight = standardizedItemHeight * itemCount;
-    //                     int maxHeight = getResources().getDisplayMetrics().heightPixels / 2;
-    //                     int adjustedDropdownHeight = Math.min(dropdownHeight, maxHeight);
-    //                     autoCompleteTextView.setDropDownHeight(adjustedDropdownHeight);
+                    if (!distinctLanguageList.isEmpty()) {
+                        Log.d(TAG, "showLanguagePopup: Distinct languages: " + distinctLanguageList);
+                        adapter.clear();
+                        adapter.addAll(distinctLanguageList);
+                        adapter.notifyDataSetChanged();
+                        int standardizedItemHeight = 50;
+                        int itemCount = adapter.getCount();
+                        int dropdownHeight = standardizedItemHeight * itemCount;
+                        int maxHeight = getResources().getDisplayMetrics().heightPixels / 2;
+                        int adjustedDropdownHeight = Math.min(dropdownHeight, maxHeight);
+                        autoCompleteTextView.setDropDownHeight(adjustedDropdownHeight);
 
-    //                     selectedLanguage = prefs.getString("selectedLanguage", "");
-    //                     if (!selectedLanguage.isEmpty() && languagesEnglishNameMap.containsValue(selectedLanguage)) {
-    //                         textBox.setHint(languagesEnglishNameMap.get(selectedLanguage));
-    //                     }
+                        selectedLanguage = prefs.getString("selectedLanguage", "");
+                        if (!selectedLanguage.isEmpty() && languagesEnglishNameMap.containsValue(selectedLanguage)) {
+                            textBox.setHint(languagesEnglishNameMap.get(selectedLanguage));
+                        }
 
-    //                     autoCompleteTextView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-    //                         @Override
-    //                         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-    //                             audioPlayer.play(MainActivity.this, R.raw.sound_button_pressed);
-    //                             selectedLanguage = languagesEnglishNameMap
-    //                                     .get((String) parent.getItemAtPosition(position));
-    //                             String pseudoId = prefs.getString("pseudoId", "");
-    //                             String manifestVrsn = prefs.getString("manifestVersion", "");
-    //                             AnalyticsUtils.logLanguageSelectEvent(view.getContext(), "language_selected", pseudoId,
-    //                                     selectedLanguage, manifestVrsn, "false");
-    //                             dialog.dismiss();
-    //                             loadApps(selectedLanguage);
-    //                         }
-    //                     });
-    //                 }
-    //             }
-    //         });
+                        autoCompleteTextView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                            @Override
+                            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                                audioPlayer.play(MainActivity.this, R.raw.sound_button_pressed);
+                                selectedLanguage = languagesEnglishNameMap
+                                        .get((String) parent.getItemAtPosition(position));
+                                String pseudoId = prefs.getString("pseudoId", "");
+                                String manifestVrsn = prefs.getString("manifestVersion", "");
+                                AnalyticsUtils.logLanguageSelectEvent(view.getContext(), "language_selected", pseudoId,
+                                        selectedLanguage, manifestVrsn, "false");
+                                dialog.dismiss();
+                                loadApps(selectedLanguage);
+                            }
+                        });
+                    }
+                }
+            });
 
-    //         closeButton.setOnClickListener(new View.OnClickListener() {
-    //             public void onClick(View v) {
-    //                 audioPlayer.play(MainActivity.this, R.raw.sound_button_pressed);
-    //                 AnimationUtil.scaleButton(v, new Runnable() {
-    //                     @Override
-    //                     public void run() {
-    //                         dialog.dismiss();
-    //                     }
-    //                 });
+            closeButton.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    audioPlayer.play(MainActivity.this, R.raw.sound_button_pressed);
+                    AnimationUtil.scaleButton(v, new Runnable() {
+                        @Override
+                        public void run() {
+                            dialog.dismiss();
+                        }
+                    });
 
-    //             }
+                }
 
-    //         });
-    //         dialog.show();
-    //     }
-    // }
+            });
+            dialog.show();
+        }
+    }
 
     private void showLanguagePopupWithLanguages(Map<String,String> languages) {
         if (!dialog.isShowing()) {
@@ -582,7 +595,10 @@ public class MainActivity extends BaseActivity {
                     storeSelectLanguage(language);
                 } else {
                     if (!prefs.getString("selectedLanguage", "").equals("") && language.equals("")) {
-                        showLanguagePopupWithLanguages(getJsonLanguages());
+                        if(isRespect == true)
+                            showLanguagePopupWithLanguages(getJsonLanguages());
+                        else
+                            showLanguagePopup();
                     }
                     if (manifestVersion.equals("")) {
                         if(!selectedlanguage.equals(isValidLanguage))
