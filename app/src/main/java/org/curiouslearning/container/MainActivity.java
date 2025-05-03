@@ -84,9 +84,11 @@ public class MainActivity extends BaseActivity {
     private static final String SHARED_PREFS_NAME = "appCached";
     private static final String REFERRER_HANDLED_KEY = "isReferrerHandled";
     private static final String UTM_PREFS_NAME = "utmPrefs";
+    private static final String LANG_PREFS_NAME = "langPrefs";
     private final String isValidLanguage = "notValidLanguage";
     private SharedPreferences utmPrefs;
     private SharedPreferences prefs;
+    private SharedPreferences langPrefs;
     private String selectedLanguage;
     private String manifestVersion;
     private static final String TAG = "MainActivity";
@@ -137,6 +139,7 @@ public class MainActivity extends BaseActivity {
 
         prefs = getSharedPreferences(SHARED_PREFS_NAME, MODE_PRIVATE);
         utmPrefs = getSharedPreferences(UTM_PREFS_NAME, MODE_PRIVATE);
+        langPrefs = getSharedPreferences(LANG_PREFS_NAME, MODE_PRIVATE);
         isReferrerHandled = prefs.getBoolean(REFERRER_HANDLED_KEY, false);
         selectedLanguage = prefs.getString("selectedLanguage", "");
         initialSlackAlertTime= AnalyticsUtils.getCurrentEpochTime();
@@ -146,7 +149,10 @@ public class MainActivity extends BaseActivity {
             @Override
             public void onReferrerReceived(String deferredLang, String fullURL) {
 
-                if(isRespect == true) {
+                if(isRespect) {
+                    if(langPrefs != null)
+                        storeJsonLanguagesInPrefs();
+
                     fetchLanguagesFromAssets();
                 }
                 else {
@@ -187,8 +193,7 @@ public class MainActivity extends BaseActivity {
                 }
                 }
                 public void fetchLanguagesFromAssets() {
-                    Map<String,String> mapLanguages = getJsonLanguages();
-                    runOnUiThread(() -> showLanguagePopupWithLanguages(mapLanguages));
+                    runOnUiThread(() -> showLanguagePopupWithLanguages());
                 }
 
         };
@@ -236,8 +241,8 @@ public class MainActivity extends BaseActivity {
                 AnimationUtil.scaleButton(view, new Runnable() {
                     @Override
                     public void run() {
-                        if(isRespect == true)
-                            showLanguagePopupWithLanguages(getJsonLanguages());
+                        if(isRespect)
+                            showLanguagePopupWithLanguages();
                         else
                             showLanguagePopup();
                     }
@@ -279,8 +284,8 @@ public class MainActivity extends BaseActivity {
                         @Override
                         public void run() {
                             if (selectedLanguage.equals("")) {
-                                if(isRespect == true)
-                                    showLanguagePopupWithLanguages(getJsonLanguages());
+                                if(isRespect)
+                                    showLanguagePopupWithLanguages();
                                 else
                                     showLanguagePopup();
                             } else {
@@ -341,8 +346,8 @@ public class MainActivity extends BaseActivity {
         String pseudoId = prefs.getString("pseudoId", "");
         if( language == null || language.length()==0 ){
             SlackUtils.sendMessageToSlack(MainActivity.this, "Language is incorrect or null for " + source + " deferred deep link URL: " + deepLinkUri + " , cr_user_id: " + pseudoId + " , currentTimestamp: " + convertEpochToDate(currentEpochTime) + " , initialSlackAlertTime: " + convertEpochToDate(initialSlackAlertTime));
-            if(isRespect == true)
-                showLanguagePopupWithLanguages(getJsonLanguages());
+            if(isRespect)
+                showLanguagePopupWithLanguages();
             else
                 showLanguagePopup();
             return;
@@ -353,8 +358,8 @@ public class MainActivity extends BaseActivity {
                     .collect(Collectors.toList());
             if (lowerCaseLanguages!=null && lowerCaseLanguages.size() > 0 &&!lowerCaseLanguages.contains(language.toLowerCase().trim())) {
                 SlackUtils.sendMessageToSlack(MainActivity.this, "Language is incorrect or null for " + source + " deferred deep link URL: " + deepLinkUri + " , cr_user_id: " + pseudoId + " , currentTimestamp: " + convertEpochToDate(currentEpochTime) + " , initialSlackAlertTime: " + convertEpochToDate(initialSlackAlertTime));
-                if(isRespect == true)
-                    showLanguagePopupWithLanguages(getJsonLanguages());
+                if(isRespect)
+                    showLanguagePopupWithLanguages();
                 else
                     showLanguagePopup();
                 loadingIndicator.setVisibility(View.GONE);
@@ -448,7 +453,7 @@ public class MainActivity extends BaseActivity {
         }
     }
 
-    private void showLanguagePopupWithLanguages(Map<String,String> languages) {
+    private void showLanguagePopupWithLanguages() {
         if (!dialog.isShowing()) {
             dialog.setContentView(R.layout.language_popup);
 
@@ -458,7 +463,13 @@ public class MainActivity extends BaseActivity {
             TextInputLayout textBox = dialog.findViewById(R.id.dropdown_menu);
             AutoCompleteTextView autoCompleteTextView = dialog.findViewById(R.id.autoComplete);
             autoCompleteTextView.setDropDownBackgroundResource(android.R.color.white);
-            List<String> languageNames = new ArrayList<>(languages.keySet());
+            List<String> languageNames = new ArrayList<>();
+            Map<String, ?> allEntries = langPrefs.getAll();
+            for (Map.Entry<String, ?> entry : allEntries.entrySet()) {
+                if (entry.getValue() instanceof String) {
+                    languageNames.add(entry.getKey());
+                }
+            }
             ArrayAdapter<String> adapter = new ArrayAdapter<>(dialog.getContext(),
                     android.R.layout.simple_dropdown_item_1line, languageNames);
             autoCompleteTextView.setAdapter(adapter);
@@ -466,7 +477,7 @@ public class MainActivity extends BaseActivity {
             autoCompleteTextView.setOnItemClickListener((parent, view, position, id) -> {
                 audioPlayer.play(MainActivity.this, R.raw.sound_button_pressed);
                 selectedLanguage = (String) parent.getItemAtPosition(position);
-                String selectedLanguageCode = languages.get(selectedLanguage);
+                String selectedLanguageCode = langPrefs.getString(selectedLanguage,null);
                 dialog.dismiss();
                 loadApps(selectedLanguageCode);
         });
@@ -480,8 +491,10 @@ public class MainActivity extends BaseActivity {
     }
     }
 
-    public Map<String,String> getJsonLanguages() {
-        Map<String,String> languages = new HashMap<>();
+    public void storeJsonLanguagesInPrefs() {
+        SharedPreferences.Editor editor = langPrefs.edit();
+        editor.clear();
+
         try {
             InputStream inputStream = getAssets().open("languages.json");
             BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
@@ -496,17 +509,23 @@ public class MainActivity extends BaseActivity {
             JSONObject jsonObject = new JSONObject(jsonString);
             JSONArray webAppsArray = jsonObject.getJSONArray("web_apps");
 
-            for (int i = 0; i < webAppsArray.length(); i++) {
-                JSONObject appObject = webAppsArray.getJSONObject(i);
-                String languageEnglishName = appObject.getString("languageInEnglishName");
-                String languageCode = appObject.getString("language");
-                languages.put(languageCode,languageEnglishName);
-            }
-        } catch (Exception e) {
-            Log.e(TAG, "Error reading languages from assets", e);
-        }
+            if(editor != null) {
+                for (int i = 0; i < webAppsArray.length(); i++) {
+                    JSONObject appObject = webAppsArray.getJSONObject(i);
+                    String languageCode = appObject.getString("language");
+                    String languageEnglishName = appObject.getString("languageInEnglishName");
 
-        return languages;
+                    editor.putString(languageCode, languageEnglishName);
+                }
+            }
+
+            editor.apply();
+            Log.i(TAG, "Languages stored in SharedPreferences successfully.");
+
+        } catch (Exception e) {
+            Log.e(TAG, "Error reading and storing languages in SharedPreferences", e);
+            editor.clear().apply();
+        }
     }
 
     private Map<String, String> MapLanguagesEnglishName(List<WebApp> webApps) {
@@ -595,8 +614,8 @@ public class MainActivity extends BaseActivity {
                     storeSelectLanguage(language);
                 } else {
                     if (!prefs.getString("selectedLanguage", "").equals("") && language.equals("")) {
-                        if(isRespect == true)
-                            showLanguagePopupWithLanguages(getJsonLanguages());
+                        if(isRespect)
+                            showLanguagePopupWithLanguages();
                         else
                             showLanguagePopup();
                     }
