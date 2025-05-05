@@ -239,11 +239,11 @@ public class WebApp extends BaseActivity {
 
         @JavascriptInterface
         public void sendDataToContainer(String key, String payload) {
-            Log.d("WebView", "Received gamePlayData from webapp " + appUrl + "--->" + payload);
+            Log.d(TAG, "Received gamePlayData from webapp " + appUrl + "--->" + payload);
 
             try {
                 JSONObject gameData = new JSONObject(payload);
-                Log.d("WebView", "JSON GAME DATA " + appUrl + "---> " + gameData);
+                Log.d(TAG, "JSON GAME DATA " + appUrl + "---> " + gameData);
 
                 // Check if this is gameData and process it
                 if(key.equals("gameData")) {  // Use equals() instead of == for string comparison
@@ -255,7 +255,7 @@ public class WebApp extends BaseActivity {
                     String successOrFailure = gameData.optString("success_or_failure", "");
                     int rightMoves = gameData.optInt("right_moves", 0);
                     int wrongMoves = gameData.optInt("wrong_moves", 0);
-                    String levelNumber = String.valueOf(gameData.optInt("level_number", 0));
+                    String levelNumber = gameData.optString("level_number", "-1");
                     double duration = gameData.optDouble("duration", 0.0);
                     int score = gameData.optInt("score", 0);
 
