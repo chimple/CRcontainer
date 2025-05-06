@@ -38,6 +38,7 @@ import com.facebook.appevents.AppEventsLogger;
 import com.facebook.applinks.AppLinkData;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.FirebaseApp;
+import com.google.gson.Gson;
 import org.curiouslearning.container.data.model.WebApp;
 import org.curiouslearning.container.databinding.ActivityMainBinding;
 import org.curiouslearning.container.firebase.AnalyticsUtils;
@@ -85,10 +86,13 @@ public class MainActivity extends BaseActivity {
     private static final String REFERRER_HANDLED_KEY = "isReferrerHandled";
     private static final String UTM_PREFS_NAME = "utmPrefs";
     private static final String LANG_PREFS_NAME = "langPrefs";
+    private static final String WEB_APPS_PREFS_NAME = "webAppsPrefs";
     private final String isValidLanguage = "notValidLanguage";
     private SharedPreferences utmPrefs;
     private SharedPreferences prefs;
     private SharedPreferences langPrefs;
+    private SharedPreferences webAppsPrefs;
+    private Gson gson = new Gson();
     private String selectedLanguage;
     private String manifestVersion;
     private static final String TAG = "MainActivity";
@@ -140,6 +144,7 @@ public class MainActivity extends BaseActivity {
         prefs = getSharedPreferences(SHARED_PREFS_NAME, MODE_PRIVATE);
         utmPrefs = getSharedPreferences(UTM_PREFS_NAME, MODE_PRIVATE);
         langPrefs = getSharedPreferences(LANG_PREFS_NAME, MODE_PRIVATE);
+        webAppsPrefs = getSharedPreferences(WEB_APPS_PREFS_NAME,MODE_PRIVATE);
         isReferrerHandled = prefs.getBoolean(REFERRER_HANDLED_KEY, false);
         selectedLanguage = prefs.getString("selectedLanguage", "");
         initialSlackAlertTime= AnalyticsUtils.getCurrentEpochTime();
@@ -150,8 +155,10 @@ public class MainActivity extends BaseActivity {
             public void onReferrerReceived(String deferredLang, String fullURL) {
 
                 if(isRespect) {
-                    if(langPrefs != null)
+                    if(langPrefs != null && webAppsPrefs != null) {
                         storeJsonLanguagesInPrefs();
+                        storeWebAppsInPrefs();
+                    }
 
                     fetchLanguagesFromAssets();
                 }
@@ -185,7 +192,11 @@ public class MainActivity extends BaseActivity {
                                 if (selectedLanguage.equals("")) {
                                     showLanguagePopup();
                                 } else {
-                                    loadApps(selectedLanguage);
+                                    if(isRespect) {
+                                        loadAppsFromJson(selectedLanguage);
+                                    } else {
+                                        loadApps(selectedLanguage);
+                                    }
                                 }
                             }
                         });
@@ -289,7 +300,11 @@ public class MainActivity extends BaseActivity {
                                 else
                                     showLanguagePopup();
                             } else {
-                                loadApps(selectedLanguage);
+                                if(isRespect) {
+                                    loadAppsFromJson(selectedLanguage);
+                                } else {
+                                    loadApps(selectedLanguage);
+                                }
                             }
 
                         }
@@ -369,9 +384,17 @@ public class MainActivity extends BaseActivity {
             }else if(lowerCaseLanguages !=null && lowerCaseLanguages.size() > 0){
                 String lang =  Character.toUpperCase(language.charAt(0))
                         + language.substring(1).toLowerCase();
-                loadApps(lang);
+                if(isRespect) {
+                    loadAppsFromJson(lang);
+                } else {
+                    loadApps(lang);
+                }
             }else if(lowerCaseLanguages ==null || lowerCaseLanguages.size() == 0){
-                loadApps(isValidLanguage);
+                if(isRespect) {
+                    loadAppsFromJson(isValidLanguage);
+                } else {
+                    loadApps(isValidLanguage);
+                }
             }
         });
     }
@@ -429,7 +452,11 @@ public class MainActivity extends BaseActivity {
                                 AnalyticsUtils.logLanguageSelectEvent(view.getContext(), "language_selected", pseudoId,
                                         selectedLanguage, manifestVrsn, "false");
                                 dialog.dismiss();
-                                loadApps(selectedLanguage);
+                                if(isRespect) {
+                                    loadAppsFromJson(selectedLanguage);
+                                } else {
+                                    loadApps(selectedLanguage);
+                                }
                             }
                         });
                     }
@@ -479,7 +506,11 @@ public class MainActivity extends BaseActivity {
                 selectedLanguage = (String) parent.getItemAtPosition(position);
                 String selectedLanguageCode = langPrefs.getString(selectedLanguage,null);
                 dialog.dismiss();
-                loadApps(selectedLanguageCode);
+                if(isRespect) {
+                    loadAppsFromJson(selectedLanguageCode);
+                } else {
+                    loadApps(selectedLanguageCode);
+                }
         });
 
         closeButton.setOnClickListener(v -> {
@@ -524,6 +555,45 @@ public class MainActivity extends BaseActivity {
 
         } catch (Exception e) {
             Log.e(TAG, "Error reading and storing languages in SharedPreferences", e);
+            editor.clear().apply();
+        }
+    }
+
+    public void storeWebAppsInPrefs() {
+        SharedPreferences.Editor editor = webAppsPrefs.edit();
+        editor.clear();
+        try {
+
+            InputStream inputStream = getAssets().open("languages.json");
+            BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+            StringBuilder jsonBuilder = new StringBuilder();
+            String line;
+            while ((line = reader.readLine()) != null) {
+                jsonBuilder.append(line);
+            }
+            reader.close();
+
+            JSONObject jsonObject = new JSONObject(jsonBuilder.toString());
+            JSONArray webAppsArray = jsonObject.getJSONArray("web_apps");
+
+            for (int i = 0; i < webAppsArray.length(); i++) {
+                JSONObject appObject = webAppsArray.getJSONObject(i);
+                WebApp webApp = new WebApp();
+                webApp.setAppId(appObject.getInt("appId"));
+                webApp.setTitle(appObject.getString("title"));
+                webApp.setLanguage(appObject.getString("language"));
+                webApp.setAppUrl(appObject.getString("appUrl"));
+                webApp.setAppIconUrl(appObject.getString("appIconUrl"));
+                webApp.setLanguageInEnglishName(appObject.getString("languageInEnglishName"));
+
+                String key = "webapp_" + webApp.getAppId();
+                String jsonString = gson.toJson(webApp);
+                editor.putString(key, jsonString);
+                editor.apply();
+            }
+
+        } catch (Exception e) {
+            Log.e(TAG, "Error reading and storing web apps in SharedPreferences", e);
             editor.clear().apply();
         }
     }
@@ -627,6 +697,49 @@ public class MainActivity extends BaseActivity {
                 }
             }
         });
+    }
+
+    public void loadAppsFromJson(String selectedlanguage) {
+        Log.d(TAG, "loadAppsFromJson: Loading apps for language: " + selectedlanguage);
+        loadingIndicator.setVisibility(View.VISIBLE);
+
+        new Thread(() -> {
+            try {
+
+                List<WebApp> filteredApps = new ArrayList<>();
+                for (String key : webAppsPrefs.getAll().keySet()) {
+                    if (key.startsWith("webapp_")) {
+                        String jsonString = webAppsPrefs.getString(key, null);
+                        if (jsonString != null) {
+                            WebApp webApp = gson.fromJson(jsonString, WebApp.class);
+                            if (webApp.getLanguageInEnglishName().equalsIgnoreCase(selectedlanguage)) {
+                                filteredApps.add(webApp);
+                            }
+                        }
+                    }
+                }
+
+                runOnUiThread(() -> {
+                    loadingIndicator.setVisibility(View.GONE);
+                    if (!filteredApps.isEmpty()) {
+                        apps.webApps = filteredApps;
+                        apps.notifyDataSetChanged();
+                        storeSelectLanguage(selectedlanguage);
+                    } else {
+                        Log.d(TAG, "loadAppsFromJson: No apps found for the selected language.");
+                        if (isRespect) {
+                            showLanguagePopupWithLanguages();
+                        } else {
+                            showLanguagePopup();
+                        }
+                    }
+                });
+
+            } catch (Exception e) {
+                Log.e(TAG, "Error loading apps from JSON", e);
+                runOnUiThread(() -> loadingIndicator.setVisibility(View.GONE));
+            }
+        }).start();
     }
 
     private void storeSelectLanguage(String language) {
