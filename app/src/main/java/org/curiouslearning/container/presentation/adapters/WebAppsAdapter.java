@@ -23,6 +23,7 @@ import org.curiouslearning.container.utilities.PulsingView;
 
 import java.util.List;
 import static org.curiouslearning.container.MainActivity.activity_id;
+import static org.curiouslearning.container.MainActivity.deepLinkApp;
 import static org.curiouslearning.container.MainActivity.isDeepLink;
 
 public class WebAppsAdapter extends RecyclerView.Adapter<WebAppsAdapter.ViewHolder> {
@@ -111,6 +112,7 @@ public class WebAppsAdapter extends RecyclerView.Adapter<WebAppsAdapter.ViewHold
         });
         if(activity_id != "" && isDeepLink) {
             isDeepLink = false;
+            deepLinkApp = true;
             holder.itemView.post(() -> holder.itemView.performClick());
         }
     }

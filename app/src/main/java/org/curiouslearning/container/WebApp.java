@@ -1,6 +1,8 @@
 package org.curiouslearning.container;
 
 import static org.curiouslearning.container.MainActivity.activity_id;
+import static org.curiouslearning.container.MainActivity.deepLinkApp;
+import static org.curiouslearning.container.MainActivity.isDeepLink;
 
 import android.content.Context;
 import android.content.DialogInterface;
@@ -59,6 +61,7 @@ public class WebApp extends BaseActivity {
     private AudioPlayer audioPlayer;
     private static final String TAG = "WebApp";
 
+    private static String lesonId = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,7 +79,7 @@ public class WebApp extends BaseActivity {
         if (intent != null) {
             urlIndex = intent.getStringExtra("appId");
             title = intent.getStringExtra("title");
-            appUrl = "https://ibiza-stage-ftm-respect.firebaseapp.com/";
+            appUrl = deepLinkApp ? getAppURL() : intent.getStringExtra("appUrl");
             language = intent.getStringExtra("language");
             languageInEnglishName = intent.getStringExtra("languageInEnglishName");
             Log.d(TAG, "appUrl : " + appUrl);
@@ -430,5 +433,37 @@ public class WebApp extends BaseActivity {
         } else {
             return 0;
         }
+    }
+
+    private String getAppURL() {
+        deepLinkApp = false;
+        String[] arr = activity_id.split("_");
+
+        for(String parts : arr) {
+            Log.d(TAG, "split data : " + parts);
+        }
+
+        String appName = arr[0];
+        String lessonId = arr[1];
+
+        String appUrldata = getAppUrlByName(appName, lessonId);
+        Log.d(TAG, "appUrlData : " + appUrldata);
+
+        return appUrldata;
+    }
+
+    private String getAppUrlByName(String appName, String lessonId) {
+
+        if(appName.equals("ftm")) {
+            activity_id = lessonId;
+            return "https://ibiza-stage-ftm-respect.firebaseapp.com/";
+        }
+        else if (appName.equals("assessment")) {
+            return "http://assessmentdev.curiouscontent.org/?data=" + lessonId;
+        }
+        else if(appName.equals("storyBook")) {
+            return "https://ibiza-stage-story-respect.web.app/?book=" + lessonId;
+        }
+        return "-1";
     }
 }
