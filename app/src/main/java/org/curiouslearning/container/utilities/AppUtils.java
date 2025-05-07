@@ -7,6 +7,8 @@ import android.util.Log;
 
 public class AppUtils {
 
+    private static final String PACKAGE_NAME = "org.chimple.bahama"; //Change according to requirement
+
     public static String getAppVersionName(Context context) {
         String versionName = "";
         try {
@@ -19,4 +21,12 @@ public class AppUtils {
         return versionName;
     }
 
+    public static boolean isPackageInstalled(Context context) {
+        try {
+            context.getPackageManager().getPackageInfo(PACKAGE_NAME, 0);
+            return true;
+        } catch (PackageManager.NameNotFoundException e) {
+            return false;
+        }
+    }
 }

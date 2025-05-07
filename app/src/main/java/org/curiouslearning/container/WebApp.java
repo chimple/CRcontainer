@@ -25,6 +25,7 @@ import androidx.appcompat.app.AlertDialog;
 
 import org.curiouslearning.container.firebase.AnalyticsUtils;
 import org.curiouslearning.container.presentation.base.BaseActivity;
+import org.curiouslearning.container.utilities.AppUtils;
 import org.curiouslearning.container.utilities.ConnectionUtils;
 import org.curiouslearning.container.utilities.AudioPlayer;
 
@@ -288,6 +289,38 @@ public class WebApp extends BaseActivity {
         @JavascriptInterface
         public void requestDataFromContainer(String key, @Nullable JSONObject tempData) {
             ((WebApp) mContext).sendDataToJS(key, tempData);
+        }
+
+        @JavascriptInterface
+        public void sendInstalledAppInfoToJS() {
+            Log.d(TAG, "Inside sendInstalledAppInfoToJS method");
+
+            boolean isAppInstalled = false;
+            try {
+                isAppInstalled = AppUtils.isPackageInstalled(mContext);
+            } catch (Exception e) {
+                Log.e(TAG, "Error checking if the app is installed", e);
+            }
+
+            //Debugging purpose only
+            if (isAppInstalled) {
+                Log.d(TAG, "onCreate: The app org.chimple.bahama is installed.");
+            } else {
+                Log.d(TAG, "onCreate: The app org.chimple.bahama is not installed.");
+            }
+
+            JSONObject installedAppInfoData = new JSONObject();
+            try {
+                installedAppInfoData.put("isAppInstalled", isAppInstalled);
+            } catch (JSONException e) {
+                Log.e(TAG, "Error creating JSON data for app installation info", e);
+            }
+
+            try {
+                ((WebApp) mContext).sendDataToJS("installedAppInfo", installedAppInfoData);
+            } catch (Exception e) {
+                Log.e(TAG, "Error sending installedAppInfoData to JS", e);
+            }
         }
 
         @JavascriptInterface
