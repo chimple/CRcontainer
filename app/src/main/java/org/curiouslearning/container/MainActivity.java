@@ -260,6 +260,11 @@ public class MainActivity extends BaseActivity {
                 });
             }
         });
+        
+        // Check if a language has already been selected and load appropriate apps directly
+        if (selectedLanguage != null && !selectedLanguage.isEmpty()) {
+            loadApps(selectedLanguage);
+        }
     }
     private void fetchFacebookDeferredData(){
         AppLinkData.fetchDeferredAppLinkData(this, new AppLinkData.CompletionHandler() {
