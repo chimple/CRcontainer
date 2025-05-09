@@ -154,15 +154,21 @@ public class MainActivity extends BaseActivity {
             @Override
             public void onReferrerReceived(String deferredLang, String fullURL) {
 
-                if(isRespect) {
-                    if(langPrefs != null && webAppsPrefs != null) {
-                        storeJsonLanguagesInPrefs();
-                        storeWebAppsInPrefs();
+                if (!selectedLanguage.isEmpty()) {
+                    if (isRespect) {
+                        loadAppsFromJson(selectedLanguage);
+                    } else {
+                        loadApps(selectedLanguage);
                     }
-
-                    fetchLanguagesFromAssets();
+                } else {
+                    Log.d(TAG, "onCreate: No stored language found,Choose Again a language");
+                    if (isRespect) {
+                        fetchLanguagesFromAssets();
+                    } else {
+                        showLanguagePopup();
+                    }
                 }
-                else {
+                if(!isRespect) {
                     String language = deferredLang.trim();
 
                     if (!isReferrerHandled ) {
