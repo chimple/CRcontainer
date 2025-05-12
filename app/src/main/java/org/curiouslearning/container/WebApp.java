@@ -84,6 +84,7 @@ public class WebApp extends BaseActivity {
             appUrl = "https://ibiza-stage-ftm-respect.firebaseapp.com/";
             language = intent.getStringExtra("language");
             languageInEnglishName = intent.getStringExtra("languageInEnglishName");
+            Log.d(TAG, "appUrl : " + appUrl);
         }
     }
 
