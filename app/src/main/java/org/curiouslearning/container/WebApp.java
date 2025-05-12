@@ -38,7 +38,6 @@ import java.io.IOException;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 
 public class WebApp extends BaseActivity {
 
@@ -78,7 +77,7 @@ public class WebApp extends BaseActivity {
         if (intent != null) {
             urlIndex = intent.getStringExtra("appId");
             title = intent.getStringExtra("title");
-            appUrl = !Objects.equals(activity_id, "") ? getAppURL() : intent.getStringExtra("appUrl");
+            appUrl = !activity_id.isEmpty() ? getAppURL() : intent.getStringExtra("appUrl");
             language = intent.getStringExtra("language");
             languageInEnglishName = intent.getStringExtra("languageInEnglishName");
             Log.d(TAG, "appUrl : " + appUrl);
