@@ -1,8 +1,6 @@
 package org.curiouslearning.container;
 
 import static org.curiouslearning.container.MainActivity.activity_id;
-import static org.curiouslearning.container.MainActivity.deepLinkApp;
-import static org.curiouslearning.container.MainActivity.isDeepLink;
 
 import android.content.Context;
 import android.content.DialogInterface;
@@ -40,6 +38,7 @@ import java.io.IOException;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 public class WebApp extends BaseActivity {
 
@@ -79,7 +78,7 @@ public class WebApp extends BaseActivity {
         if (intent != null) {
             urlIndex = intent.getStringExtra("appId");
             title = intent.getStringExtra("title");
-            appUrl = deepLinkApp ? getAppURL() : intent.getStringExtra("appUrl");
+            appUrl = !Objects.equals(activity_id, "") ? getAppURL() : intent.getStringExtra("appUrl");
             language = intent.getStringExtra("language");
             languageInEnglishName = intent.getStringExtra("languageInEnglishName");
             Log.d(TAG, "appUrl : " + appUrl);
@@ -98,6 +97,7 @@ public class WebApp extends BaseActivity {
             @Override
             public void onClick(View view) {
                 logAppExitEvent();
+                activity_id = "";
                 audioPlayer.play(WebApp.this, R.raw.sound_button_pressed);
                 finish();
             }
@@ -436,7 +436,6 @@ public class WebApp extends BaseActivity {
     }
 
     private String getAppURL() {
-        deepLinkApp = false;
         String[] arr = activity_id.split("_");
 
         for(String parts : arr) {
@@ -459,7 +458,7 @@ public class WebApp extends BaseActivity {
             return "https://ibiza-stage-ftm-respect.firebaseapp.com/";
         }
         else if (appName.equals("assessment")) {
-            return "http://assessmentdev.curiouscontent.org/?data=" + lessonId;
+            return "https://ibiza-stage-assessment-respect.web.app/?data=" + lessonId;
         }
         else if(appName.equals("storyBook")) {
             return "https://ibiza-stage-story-respect.web.app/?book=" + lessonId;

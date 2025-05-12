@@ -112,7 +112,6 @@ public class WebAppsAdapter extends RecyclerView.Adapter<WebAppsAdapter.ViewHold
         });
         if(activity_id != "" && isDeepLink) {
             isDeepLink = false;
-            deepLinkApp = true;
             holder.itemView.post(() -> holder.itemView.performClick());
         }
     }

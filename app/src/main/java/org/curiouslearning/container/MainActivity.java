@@ -82,7 +82,6 @@ public class MainActivity extends BaseActivity {
     //  private RespectClientManager respectClientManager = new RespectClientManager();
     public static String activity_id = "";
     public static boolean isDeepLink = false;
-    public static boolean deepLinkApp = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
