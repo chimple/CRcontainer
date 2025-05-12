@@ -23,7 +23,6 @@ import org.curiouslearning.container.utilities.PulsingView;
 
 import java.util.List;
 import static org.curiouslearning.container.MainActivity.activity_id;
-import static org.curiouslearning.container.MainActivity.deepLinkApp;
 import static org.curiouslearning.container.MainActivity.isDeepLink;
 
 public class WebAppsAdapter extends RecyclerView.Adapter<WebAppsAdapter.ViewHolder> {
