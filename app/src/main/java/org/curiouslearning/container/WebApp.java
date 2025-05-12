@@ -1,12 +1,11 @@
 package org.curiouslearning.container;
 
-import static org.curiouslearning.container.MainActivity.activity_id;
-
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
+//import android.content.res.AssetManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Base64;
@@ -28,15 +27,17 @@ import org.curiouslearning.container.presentation.base.BaseActivity;
 import org.curiouslearning.container.utilities.ConnectionUtils;
 import org.curiouslearning.container.utilities.AudioPlayer;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+//import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.util.Iterator;
-import java.util.List;
+//import java.io.InputStream;
+//import java.io.OutputStream;
+//import java.nio.file.Files;
+//import java.util.HashMap;
 import java.util.Map;
 
 public class WebApp extends BaseActivity {
@@ -59,7 +60,6 @@ public class WebApp extends BaseActivity {
     private AudioPlayer audioPlayer;
     private static final String TAG = "WebApp";
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -79,7 +79,6 @@ public class WebApp extends BaseActivity {
             appUrl = "https://ibiza-stage-ftm-respect.firebaseapp.com/";
             language = intent.getStringExtra("language");
             languageInEnglishName = intent.getStringExtra("languageInEnglishName");
-            Log.d(TAG, "appUrl : " + appUrl);
         }
     }
 
@@ -94,9 +93,9 @@ public class WebApp extends BaseActivity {
         goBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-            logAppExitEvent();
-            audioPlayer.play(WebApp.this, R.raw.sound_button_pressed);
-            finish();
+                logAppExitEvent();
+                audioPlayer.play(WebApp.this, R.raw.sound_button_pressed);
+                finish();
             }
         });
     }
@@ -126,7 +125,6 @@ public class WebApp extends BaseActivity {
                 appUrl = addCampaignIdToUrl(appUrl);
             }
         }
-
         webView.loadUrl(addCrUserIdToUrl(appUrl));
         System.out.println("subapp url : " + appUrl);
         webView.setWebChromeClient(new WebChromeClient() {
@@ -175,20 +173,169 @@ public class WebApp extends BaseActivity {
         alert.show();
     }
 
-    // 🚀 Added this method to allow direct calling from MainActivity
-    public void requestDataFromContainer(String key, @Nullable JSONObject tempData) {
-        sendDataToJS(key, tempData);
+    private String encodeFileToBase64(File file) throws IOException {
+        try (FileInputStream fis = new FileInputStream(file)) {
+            byte[] bytes = new byte[(int) file.length()];
+            int read = fis.read(bytes);
+            if (read != bytes.length) {
+                throw new IOException("Could not read entire file");
+            }
+            return Base64.encodeToString(bytes, Base64.NO_WRAP);
+        }
     }
 
-    public void sendDataToJS(String key, @Nullable JSONObject tempData) {
+    public JSONObject convertMapToJson(Map<String, Object> tempMap) throws JSONException, IOException {
+        JSONObject tempData = new JSONObject();
+
+        for (Map.Entry<String, Object> entry : tempMap.entrySet()) {
+            Object value = entry.getValue();
+
+            if (value instanceof File) {
+                File file = (File) value;
+                String base64Data = encodeFileToBase64(file);
+                tempData.put(entry.getKey(), base64Data);
+            } else {
+                tempData.put(entry.getKey(), value);
+            }
+        }
+
+        return tempData;
+    }
+
+
+ /****** Please don't remove any of the commented code and imports ****************/
+//    private File createTempFileFromAssets(String assetFileName) throws IOException {
+//        AssetManager assetManager = this.getAssets();
+//        InputStream inputStream = assetManager.open(assetFileName);
+//
+//        File outFile = new File(this.getCacheDir(), assetFileName);
+//        OutputStream outputStream = Files.newOutputStream(outFile.toPath());
+//
+//        byte[] buffer = new byte[1024];
+//        int read;
+//        while ((read = inputStream.read(buffer)) != -1) {
+//            outputStream.write(buffer, 0, read);
+//        }
+//
+//        inputStream.close();
+//        outputStream.flush();
+//        outputStream.close();
+//
+//        return outFile;
+//    }
+//
+//    private boolean isAssetFile(String filename) {
+//        try {
+//            String[] assetFiles = this.getAssets().list("");
+//            for (String name : assetFiles) {
+//                if (name.equals(filename)) {
+//                    return true;
+//                }
+//            }
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//        return false;
+//    }
+//
+//    public JSONObject convertMapToJsonWithAssets(Map<String, Object> tempMap) throws JSONException, IOException {
+//        JSONObject tempData = new JSONObject();
+//        AssetManager assetManager = this.getAssets();
+//
+//        for (Map.Entry<String, Object> entry : tempMap.entrySet()) {
+//            Object value = entry.getValue();
+//
+//            if (value instanceof File) {
+//                File file = (File) value;
+//                String base64Data = encodeFileToBase64(file);
+//                tempData.put(entry.getKey(), base64Data);
+//
+//            } else if (value instanceof String && isAssetFile((String) value)) {
+//                // If it's a string that refers to an asset file
+//                String assetFileName = (String) value;
+//                InputStream inputStream = assetManager.open(assetFileName);
+//                ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+//
+//                byte[] buffer = new byte[1024];
+//                int read;
+//                while ((read = inputStream.read(buffer)) != -1) {
+//                    outputStream.write(buffer, 0, read);
+//                }
+//
+//                inputStream.close();
+//                byte[] bytes = outputStream.toByteArray();
+//                String base64Data = Base64.encodeToString(bytes, Base64.NO_WRAP);
+//
+//                tempData.put(entry.getKey(), base64Data);
+//
+//            } else {
+//                tempData.put(entry.getKey(), value);
+//            }
+//        }
+//
+//        return tempData;
+//    }
+//
+//
+//    public void sendDataToJS(String key, @Nullable Map<String, Object> tempMap, @Nullable String assetFileName) {
+//        try {
+//            String jsonString;
+//
+//            if (assetFileName != null && !assetFileName.isEmpty()) {
+//                if (isAssetFile(assetFileName)) {
+//                    // If asset file exists, create temp file and encode
+//                    File zipFile = createTempFileFromAssets(assetFileName);
+//                    String encodedZip = encodeFileToBase64(zipFile);
+//
+//                    JSONObject successJson = new JSONObject();
+//                    successJson.put("status", "success");
+//                    successJson.put("fileName", assetFileName);
+//                    successJson.put("base64Data", encodedZip);
+//
+//                    jsonString = successJson.toString();
+//                } else {
+//                    // If asset file does not exist
+//                    JSONObject errorJson = new JSONObject();
+//                    errorJson.put("status", "error");
+//                    errorJson.put("errorCode", 404);
+//                    errorJson.put("message", "File not found in assets: " + assetFileName);
+//
+//                    jsonString = errorJson.toString();
+//                }
+//            } else {
+//                Map<String, Object> mockData = new HashMap<>();
+//                mockData.put("file1", new File("/path/to/some/file.txt"));
+//                File zipFile = createTempFileFromAssets("sample.zip"); // your sample.zip
+//                String encodedZip = encodeFileToBase64(zipFile);
+//                mockData.put("zipAsset", encodedZip);
+//                mockData.put("simpleText", "Hello world");
+//
+//                Log.d("WebView", "Received Request from Js" + key + "--->" + mockData);
+//
+//                if (tempMap != null) {
+//                    JSONObject tempData = convertMapToJsonWithAssets(mockData);
+//                    jsonString = tempData.toString();
+//                } else {
+//                    jsonString = sharedPref.getString(key, "{}");
+//                }
+//            }
+//
+//            final String jsCode = "window.onDataFromAndroid(" + JSONObject.quote(jsonString) + ")";
+//            webView.post(() -> webView.evaluateJavascript(jsCode, null));
+//
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//    }
+    public void sendDataToJS(String key, @Nullable Map<String, Object> tempMap) {
         try {
             String jsonString;
 
-            if (tempData != null) {
-                // tempData is basically to send normal data from java to javascript
-                jsonString = tempData.toString();
+            if (tempMap != null) {
+                // please don't remove
+//                JSONObject tempData = convertMapToJson(tempMap);
+                jsonString = tempMap.toString();
             } else {
-                // otherwise fallback to SharedPreferences if no tempData provided
                 jsonString = sharedPref.getString(key, "{}");
             }
 
@@ -230,14 +377,6 @@ public class WebApp extends BaseActivity {
         }
 
         @JavascriptInterface
-        public String getLessonId() {
-            Log.d("getlessonID", activity_id);
-            String lesson_id = activity_id;
-            activity_id = "";
-            return lesson_id;
-        }
-
-        @JavascriptInterface
         public void sendDataToContainer(String key, String payload) {
             Log.d(TAG, "Received gamePlayData from webapp " + appUrl + "--->" + payload);
 
@@ -260,7 +399,7 @@ public class WebApp extends BaseActivity {
                     int score = gameData.optInt("score", 0);
 
                     // Now use these extracted values
-                     xs.sendXAPIStatement(
+                    xs.sendXAPIStatement(
                             "johndoe01@example.com",
                             "John Doe 01",
                             "http://adlnet.gov/expapi/verbs/completed",
@@ -273,11 +412,11 @@ public class WebApp extends BaseActivity {
                             "school-101",
                             "assignment-202",
                             "chapter-303",
-                             score,
+                            score,
                             rightMoves,
                             wrongMoves
                     );
-                    
+
                 }
 
 
@@ -286,91 +425,9 @@ public class WebApp extends BaseActivity {
             }
         }
         @JavascriptInterface
-        public void requestDataFromContainer(String key, @Nullable JSONObject tempData) {
+        public void requestDataFromContainer(String key, @Nullable Map<String, Object> tempData) {
             ((WebApp) mContext).sendDataToJS(key, tempData);
         }
-
-        @JavascriptInterface
-        public void sendGameLevelInfoToJS() {
-            try {
-                JSONArray levelInfoArray = new JSONArray();
-
-                // Retrieve xAPI statements
-                XAPIManager xs = new XAPIManager();
-                List<Map<String, Object>> statements = xs.retrieveXAPIStatements("johndoe01@example.com");
-                Log.d(TAG, "Successfully retrieved xAPI statements");
-
-                for (Map<String, Object> statement : statements) {
-                    try {
-                        JSONObject levelData = new JSONObject();
-
-                        // Extract level number from object.id
-                        int levelNumber = -1;
-                        Map<String, Object> object = (Map<String, Object>) statement.get("object");
-                        if (object != null) {
-                            Object idObj = object.get("id");
-                            String objectId = null;
-                            
-                            if (idObj instanceof java.net.URI) {
-                                objectId = idObj.toString();
-                            } else if (idObj instanceof String) {
-                                objectId = (String) idObj;
-                            } else if (idObj != null) {
-                                objectId = idObj.toString();
-                            }
-                            
-                            if (objectId != null && objectId.contains("activities:")) {
-                                String[] parts = objectId.split("activities:");
-                                if (parts.length > 1) {
-                                    try {
-                                        levelNumber = Integer.parseInt(parts[1]);
-                                    } catch (NumberFormatException e) {
-                                        Log.w(TAG, "Failed to parse level number: " + parts[1], e);
-                                    }
-                                }
-                            }
-                        }
-
-                        // Extract score from result
-                        double rawScore = 0;
-                        Map<String, Object> result = (Map<String, Object>) statement.get("result");
-                        if (result != null) {
-                            Map<String, Object> score = (Map<String, Object>) result.get("score");
-                            if (score != null && score.get("raw") != null) {
-                                rawScore = ((Number) score.get("raw")).doubleValue();
-                            }
-                        }
-
-                        // Calculate star count
-                        int starCount = calculateStarCount((int) rawScore);
-
-                        // Populate level data with only essential fields
-                        levelData.put("levelName", "Level " + levelNumber); // Adjust as needed
-                        levelData.put("levelNumber", levelNumber);
-                        levelData.put("score", (int) rawScore);
-                        levelData.put("starCount", starCount);
-
-                        // Add to the array
-                        levelInfoArray.put(levelData);
-
-                    } catch (Exception e) {
-                        Log.w(TAG, "Error processing statement", e);
-                    }
-                }
-
-                // Package and send to JS
-                JSONObject dataToSend = new JSONObject();
-                dataToSend.put("type", "gameLevelInfo");
-                dataToSend.put("data", levelInfoArray);
-
-                ((WebApp) mContext).sendDataToJS("gameLevelInfo", dataToSend);
-                Log.d(TAG, "Sent game level info to JS: " + dataToSend.toString());
-
-            } catch (JSONException e) {
-                Log.e(TAG, "Error creating game level info", e);
-            }
-        }
-
     }
 
     public void setAppOrientation(String orientationType) {
@@ -394,17 +451,5 @@ public class WebApp extends BaseActivity {
 
     public void logAppExitEvent() {
         AnalyticsUtils.logEvent(this, "app_exit", title, appUrl, pseudoId, languageInEnglishName);
-    }
-
-    public static int calculateStarCount(int score) {
-        if (score >= 25 && score <= 50) {
-            return 1;
-        } else if (score > 50 && score <= 75) {
-            return 2;
-        } else if (score > 75 && score <= 100) {
-            return 3;
-        } else {
-            return 0;
-        }
     }
 }
