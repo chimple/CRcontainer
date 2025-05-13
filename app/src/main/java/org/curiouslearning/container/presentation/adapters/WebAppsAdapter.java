@@ -22,6 +22,8 @@ import org.curiouslearning.container.utilities.AudioPlayer;
 import org.curiouslearning.container.utilities.PulsingView;
 
 import java.util.List;
+import java.util.Objects;
+
 import static org.curiouslearning.container.MainActivity.activity_id;
 import static org.curiouslearning.container.MainActivity.isDeepLink;
 
@@ -97,7 +99,7 @@ public class WebAppsAdapter extends RecyclerView.Adapter<WebAppsAdapter.ViewHold
                     @Override
                     public void run() {
                         Intent intent = new Intent(ctx, org.curiouslearning.container.WebApp.class);
-                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         intent.putExtra("appId", String.valueOf(webApps.get(position).getAppId()));
                         intent.putExtra("appUrl", webApps.get(position).getAppUrl());
                         intent.putExtra("title", webApps.get(position).getTitle());
@@ -109,9 +111,9 @@ public class WebAppsAdapter extends RecyclerView.Adapter<WebAppsAdapter.ViewHold
                 });
             }
         });
-        if(activity_id != "" && isDeepLink) {
+        if(!Objects.equals(activity_id, "") && isDeepLink) {
             isDeepLink = false;
-            holder.itemView.post(() -> holder.itemView.performClick());
+            holder.itemView.post(holder.itemView::performClick);
         }
     }
 
