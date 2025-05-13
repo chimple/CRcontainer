@@ -19,6 +19,7 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
@@ -464,4 +465,11 @@ public class WebApp extends BaseActivity {
         }
         return "-1";
     }
+
+    @Override
+    public void onBackPressed() {
+        activity_id = "";
+        super.onBackPressed();
+    }
+
 }
