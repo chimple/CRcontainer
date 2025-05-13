@@ -900,7 +900,7 @@ public class MainActivity extends BaseActivity {
                 .put("lessonData", lessonJson);
 
             // Now send the full OPDS JSON (modified) to Web App
-            webAppBridge.requestDataFromContainer("FTM_OPDS_DATA", opdsJson);
+            webAppBridge.sendDataToJS("FTM_OPDS_DATA", opdsJson);
 
         } catch (Exception e) {
             e.printStackTrace();
