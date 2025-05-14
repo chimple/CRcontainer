@@ -1,0 +1,57 @@
+{
+  "metadata": {
+    "title": "Feed the Monster",
+    "numberOfItems": 1
+  },
+  "navigation": [],
+  "groups": [
+    {
+      "metadata": {
+        "title": "Feed the Monster - English Chapter"
+      },
+      "links": [
+        {
+          "rel": "self",
+          "href": "lang/english/feed_the_monster_english.opds.json",
+          "type": "application/opds+json"
+        }
+      ],
+      "publications": [
+        {
+          "metadata": {
+            "title": "Focus on Letters",
+            "identifier": "ftm-en-lesson1",
+            "language": "en",
+            "RightToLeft": false,
+            "feedbackTexts": [
+              "Fantastic!",
+              "Great!",
+              "Amazing!"
+            ],
+            "majversion": 3,
+            "minversion": 15,
+            "langname": "ENGLISH",
+            "feedbackAudios": [
+              "https://feedthemonster.curiouscontent.org/lang/english/audios/fantastic.mp3",
+              "https://feedthemonster.curiouscontent.org/lang/english/audios/great.mp3",
+              "https://feedthemonster.curiouscontent.org/lang/english/audios/amazing.mp3"
+            ],
+            "otherAudios": {
+              "Select your player": "https://feedthemonster.curiouscontent.org/lang/english/audios/Select-your-player.mp3",
+              "Watch me grow": "https://feedthemonster.curiouscontent.org/lang/english/audios/watch-me-grow.mp3",
+              "Are you sure": "https://feedthemonster.curiouscontent.org/lang/english/audios/are-you-sure.mp3"
+            }
+          },
+          "links": [
+            {
+              "rel": "self",
+              "href": "lang/english/ftm_english_lesson1.json",
+              "type": "application/json"
+            }
+          ],
+          "images": []
+        }
+      ]
+    }
+  ]
+}

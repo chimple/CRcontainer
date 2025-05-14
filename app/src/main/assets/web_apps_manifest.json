@@ -5,7 +5,7 @@
     "en-US": "Feed The Monster"
   },
   "license": "MIT",
-  "learningUnits": "https://curiousreader.curiouslearning.org/opds.json",
+  "learningUnits": "https://raw.githubusercontent.com/chimple/CRcontainer/refs/heads/RESPECTify/app/src/main/assets/course.json",
   "defaultLaunchUri": "https://curiousreader.curiouslearning.org/",
 
   "android": {

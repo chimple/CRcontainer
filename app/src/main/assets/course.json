@@ -1,0 +1,302 @@
+{
+  "metadata": {
+    "title": "Feed the Monster"
+  },
+  "groups": [
+    {
+      "metadata": {
+        "title": "main menu"
+      },
+      "publications": [
+        {
+          "metadata": {
+            "LevelNumber": 0,
+            "title": "1",
+            "PromptType": "Visible",
+            "LevelType": "LetterOnly",
+            "csvType": "match",
+            "PromptFadeout": null,
+            "LetterGroup": "1"
+          },
+          "links": [
+            {
+              "rel": "/None",
+              "href": "https://feedthemonsterdev.curiouscontent.org/topic/learningUnit1/?respectLaunchVersion=1&activity_id=0",
+              "type": "application/opds-publication+json"
+            }
+          ],
+          "images": [
+            {
+              "href": "",
+              "type": "image/png"
+            }
+          ]
+        },
+        {
+          "metadata": {
+            "LevelNumber": "1",
+            "title": "2",
+            "PromptType": "Visible",
+            "LevelType": "LetterOnly",
+            "csvType": "match",
+            "PromptFadeout": null,
+            "LetterGroup": "1"
+          },
+          "links": [
+            {
+              "rel": "/1",
+              "href": "https://feedthemonsterdev.curiouscontent.org/topic/learningUnit1/?respectLaunchVersion=1&activity_id=1",
+              "type": "application/opds-publication+json"
+            }
+          ],
+          "images": [
+            {
+              "href": "",
+              "type": "image/png"
+            }
+          ]
+        },
+        {
+          "metadata": {
+            "LevelNumber": "2",
+            "title": "3",
+            "PromptType": "Visible",
+            "LevelType": "LetterOnly",
+            "csvType": "matchSound",
+            "PromptFadeout": null,
+            "LetterGroup": "2"
+          },
+          "links": [
+            {
+              "rel": "/2",
+              "href": "https://feedthemonsterdev.curiouscontent.org/topic/learningUnit1/?respectLaunchVersion=1&activity_id=2",
+              "type": "application/opds-publication+json"
+            }
+          ],
+          "images": [
+            {
+              "href": "",
+              "type": "image/png"
+            }
+          ]
+        },
+        {
+          "metadata": {
+            "LevelNumber": "3",
+            "title": "4",
+            "PromptType": "Visible",
+            "LevelType": "LetterInWord",
+            "csvType": "matchfirst",
+            "PromptFadeout": null,
+            "LetterGroup": "1"
+          },
+          "links": [
+            {
+              "rel": "/3",
+              "href": "https://feedthemonsterdev.curiouscontent.org/topic/learningUnit1/?respectLaunchVersion=1&activity_id=3",
+              "type": "application/opds-publication+json"
+            }
+          ],
+          "images": [
+            {
+              "href": "",
+              "type": "image/png"
+            }
+          ]
+        },
+        {
+          "metadata": {
+            "LevelNumber": "4",
+            "title": "5",
+            "PromptType": "Visible",
+            "LevelType": "LetterInWord",
+            "csvType": "matchfirst",
+            "PromptFadeout": null,
+            "LetterGroup": "1"
+          },
+          "links": [
+            {
+              "rel": "/4",
+              "href": "https://feedthemonsterdev.curiouscontent.org/topic/learningUnit1/?respectLaunchVersion=1&activity_id=4",
+              "type": "application/opds-publication+json"
+            }
+          ],
+          "images": [
+            {
+              "href": "",
+              "type": "image/png"
+            }
+          ]
+        },
+        {
+          "metadata": {
+            "LevelNumber": "5",
+            "title": "6",
+            "PromptType": "Visible",
+            "LevelType": "LetterInWord",
+            "csvType": "matchfirst",
+            "PromptFadeout": null,
+            "LetterGroup": "3"
+          },
+          "links": [
+            {
+              "rel": "/5",
+              "href": "https://feedthemonsterdev.curiouscontent.org/topic/learningUnit1/?respectLaunchVersion=1&activity_id=5",
+              "type": "application/opds-publication+json"
+            }
+          ],
+          "images": [
+            {
+              "href": "",
+              "type": "image/png"
+            }
+          ]
+        },
+        {
+          "metadata": {
+            "LevelNumber": "6",
+            "title": "7",
+            "PromptType": "Visible",
+            "LevelType": "Word",
+            "csvType": "spell",
+            "PromptFadeout": null,
+            "LetterGroup": "1"
+          },
+          "links": [
+            {
+              "rel": "/6",
+              "href": "https://feedthemonsterdev.curiouscontent.org/topic/learningUnit1/?respectLaunchVersion=1&activity_id=6",
+              "type": "application/opds-publication+json"
+            }
+          ],
+          "images": [
+            {
+              "href": "",
+              "type": "image/png"
+            }
+          ]
+        },
+        {
+          "metadata": {
+            "LevelNumber": "7",
+            "title": "8",
+            "PromptType": "Visible",
+            "LevelType": "LetterOnly",
+            "csvType": "match",
+            "PromptFadeout": null,
+            "LetterGroup": "1"
+          },
+          "links": [
+            {
+              "rel": "/7",
+              "href": "https://feedthemonsterdev.curiouscontent.org/topic/learningUnit1/?respectLaunchVersion=1&activity_id=7",
+              "type": "application/opds-publication+json"
+            }
+          ],
+          "images": [
+            {
+              "href": "",
+              "type": "image/png"
+            }
+          ]
+        },
+        {
+          "metadata": {
+            "LevelNumber": "8",
+            "title": "9",
+            "PromptType": "Visible",
+            "LevelType": "LetterOnly",
+            "csvType": "match",
+            "PromptFadeout": null,
+            "LetterGroup": "1"
+          },
+          "links": [
+            {
+              "rel": "/8",
+              "href": "https://feedthemonsterdev.curiouscontent.org/topic/learningUnit1/?respectLaunchVersion=1&activity_id=8",
+              "type": "application/opds-publication+json"
+            }
+          ],
+          "images": [
+            {
+              "href": "",
+              "type": "image/png"
+            }
+          ]
+        },
+        {
+          "metadata": {
+            "LevelNumber": "9",
+            "title": "10",
+            "PromptType": "Visible",
+            "LevelType": "LetterOnly",
+            "csvType": "match",
+            "PromptFadeout": null,
+            "LetterGroup": "1"
+          },
+          "links": [
+            {
+              "rel": "/9",
+              "href": "https://feedthemonsterdev.curiouscontent.org/topic/learningUnit1/?respectLaunchVersion=1&activity_id=9",
+              "type": "application/opds-publication+json"
+            }
+          ],
+          "images": [
+            {
+              "href": "",
+              "type": "image/png"
+            }
+          ]
+        },
+        {
+          "metadata": {
+            "LevelNumber": "10",
+            "title": "11",
+            "PromptType": "Visible",
+            "LevelType": "LetterOnly",
+            "csvType": "match",
+            "PromptFadeout": null,
+            "LetterGroup": "1"
+          },
+          "links": [
+            {
+              "rel": "/10",
+              "href": "https://feedthemonsterdev.curiouscontent.org/topic/learningUnit1/?respectLaunchVersion=1&activity_id=10",
+              "type": "application/opds-publication+json"
+            }
+          ],
+          "images": [
+            {
+              "href": "",
+              "type": "image/png"
+            }
+          ]
+        },
+        {
+          "metadata": {
+            "LevelNumber": "11",
+            "title": "12",
+            "PromptType": "Visible",
+            "LevelType": "LetterOnly",
+            "csvType": "match",
+            "PromptFadeout": null,
+            "LetterGroup": "1"
+          },
+          "links": [
+            {
+              "rel": "/11",
+              "href": "https://feedthemonsterdev.curiouscontent.org/topic/learningUnit1/?respectLaunchVersion=1&activity_id=11",
+              "type": "application/opds-publication+json"
+            }
+          ],
+          "images": [
+            {
+              "href": "",
+              "type": "image/png"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

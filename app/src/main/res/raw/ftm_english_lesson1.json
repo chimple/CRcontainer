@@ -1,0 +1,70 @@
+{
+    "metadata": {
+      "title": "Feed the Monster - Lesson 1: Letters a, c, t, p",
+      "version": 1,
+      "language": "en"
+    },
+    "Levels": [
+      {
+        "LevelMeta": {
+          "LevelNumber": 0,
+          "PromptType": "Visible",
+          "LevelType": "LetterOnly",
+          "csvType": "match",
+          "PromptFadeout": 0,
+          "LetterGroup": 1
+        },
+        "Puzzles": [
+          {
+            "SegmentNumber": 0,
+            "targetstones": [{ "StoneText": "a" }],
+            "prompt": {
+              "PromptText": "a",
+              "PromptAudio": "https://feedthemonster.curiouscontent.org/lang/english/audios/a.mp3"
+            },
+            "foilstones": [
+              { "StoneText": "c" },
+              { "StoneText": "t" }
+            ]
+          },
+          {
+            "SegmentNumber": 1,
+            "targetstones": [{ "StoneText": "c" }],
+            "prompt": {
+              "PromptText": "c",
+              "PromptAudio": "https://feedthemonster.curiouscontent.org/lang/english/audios/c.mp3"
+            },
+            "foilstones": [
+              { "StoneText": "a" },
+              { "StoneText": "t" }
+            ]
+          },
+          {
+            "SegmentNumber": 2,
+            "targetstones": [{ "StoneText": "t" }],
+            "prompt": {
+              "PromptText": "t",
+              "PromptAudio": "https://feedthemonster.curiouscontent.org/lang/english/audios/t.mp3"
+            },
+            "foilstones": [
+              { "StoneText": "a" },
+              { "StoneText": "c" }
+            ]
+          },
+          {
+            "SegmentNumber": 3,
+            "targetstones": [{ "StoneText": "p" }],
+            "prompt": {
+              "PromptText": "p",
+              "PromptAudio": "https://feedthemonster.curiouscontent.org/lang/english/audios/p.mp3"
+            },
+            "foilstones": [
+              { "StoneText": "c" },
+              { "StoneText": "a" }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+  
