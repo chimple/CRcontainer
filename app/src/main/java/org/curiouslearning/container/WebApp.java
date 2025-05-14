@@ -68,6 +68,11 @@ public class WebApp extends BaseActivity {
         audioPlayer = new AudioPlayer();
         setContentView(R.layout.activity_web_app);
         getIntentData();
+        if(appUrl.equals("-1")) {
+            activity_id = "";
+            Toast.makeText(this, "Activity ID is Invalid!", Toast.LENGTH_SHORT).show();
+            finish();
+        }
         initViews();
         logAppLaunchEvent();
         loadWebView();
