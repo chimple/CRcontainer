@@ -25,7 +25,7 @@
         android:id="@+id/dropdown_menu"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
         android:layout_width="210dp"
-        android:layout_height="45dp"
+        android:layout_height="wrap_content"
         android:background="@color/white"
         android:hint="@string/select"
         android:textColorHint="@color/black"
@@ -41,7 +41,7 @@
         <AutoCompleteTextView
             android:id="@+id/autoComplete"
             android:layout_width="match_parent"
-            android:layout_height="48dp"
+            android:layout_height="wrap_content"
             android:background="@color/white"
             android:inputType="none"></AutoCompleteTextView>
     </com.google.android.material.textfield.TextInputLayout>
