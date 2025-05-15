@@ -28,6 +28,7 @@ public class DeepLinkHelper {
                 String language = pathPrefix.substring("/language=".length());
                 Log.d(TAG, "handleDeepLink: Extracted language: " + language);
                 Intent mainIntent = new Intent(activity, MainActivity.class);
+                mainIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
                 mainIntent.putExtra("language", language);
                 activity.startActivity(mainIntent);
                 return language;

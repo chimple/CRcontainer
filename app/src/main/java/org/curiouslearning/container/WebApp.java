@@ -20,6 +20,7 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
@@ -65,12 +66,19 @@ public class WebApp extends BaseActivity {
     private AudioPlayer audioPlayer;
     private static final String TAG = "WebApp";
 
+    private static String lesonId = "";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         audioPlayer = new AudioPlayer();
         setContentView(R.layout.activity_web_app);
         getIntentData();
+        if(appUrl.equals("-1")) {
+            activity_id = "";
+            Toast.makeText(this, "Activity ID is Invalid!", Toast.LENGTH_SHORT).show();
+            finish();
+        }
         initViews();
         logAppLaunchEvent();
         loadWebView();
@@ -81,7 +89,7 @@ public class WebApp extends BaseActivity {
         if (intent != null) {
             urlIndex = intent.getStringExtra("appId");
             title = intent.getStringExtra("title");
-            appUrl = "https://ibiza-stage-ftm-respect.firebaseapp.com/";
+            appUrl = !activity_id.isEmpty() ? getAppURL() : intent.getStringExtra("appUrl");
             language = intent.getStringExtra("language");
             languageInEnglishName = intent.getStringExtra("languageInEnglishName");
             Log.d(TAG, "appUrl : " + appUrl);
@@ -100,6 +108,7 @@ public class WebApp extends BaseActivity {
             @Override
             public void onClick(View view) {
                 logAppExitEvent();
+                activity_id = "";
                 audioPlayer.play(WebApp.this, R.raw.sound_button_pressed);
                 finish();
             }
@@ -590,4 +599,42 @@ public class WebApp extends BaseActivity {
             return 0;
         }
     }
+
+    private String getAppURL() {
+        String[] arr = activity_id.split("_");
+
+        for(String parts : arr) {
+            Log.d(TAG, "split data : " + parts);
+        }
+
+        String appName = arr[0];
+        String lessonId = arr[1];
+
+        String appUrldata = getAppUrlByName(appName, lessonId);
+        Log.d(TAG, "appUrlData : " + appUrldata);
+
+        return appUrldata;
+    }
+
+    private String getAppUrlByName(String appName, String lessonId) {
+
+        if(appName.equals("ftm")) {
+            activity_id = lessonId;
+            return "https://ibiza-stage-ftm-respect.firebaseapp.com/";
+        }
+        else if (appName.equals("assessment")) {
+            return "https://ibiza-stage-assessment-respect.web.app/?data=" + lessonId;
+        }
+        else if(appName.equals("storyBook")) {
+            return "https://ibiza-stage-story-respect.web.app/?book=" + lessonId;
+        }
+        return "-1";
+    }
+
+    @Override
+    public void onBackPressed() {
+        activity_id = "";
+        super.onBackPressed();
+    }
+
 }

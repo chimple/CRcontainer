@@ -65,12 +65,14 @@ import java.util.HashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 import java.util.TreeMap;
 import java.util.UUID;
 import java.util.stream.Collectors;
 import android.util.Log;
 import android.content.Intent;
+import android.widget.Toast;
 
 public class MainActivity extends BaseActivity {
 
@@ -237,8 +239,11 @@ public class MainActivity extends BaseActivity {
                 selectedLanguage = Character.toUpperCase(language.charAt(0))
                         + language.substring(1).toLowerCase();
             }
-            if(activity_id != "") {
+            if(!Objects.equals(activity_id, "")) {
                 isDeepLink = true;
+            }
+            else {
+                Toast.makeText(this, "Activity ID is Empty!", Toast.LENGTH_SHORT).show();
             }
         }
         audioPlayer = new AudioPlayer();
@@ -789,6 +794,27 @@ public class MainActivity extends BaseActivity {
         }
     }
 
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        setIntent(intent);
+        
+        // Handle the new intent
+        if (intent.getData() != null) {
+            Log.d(TAG, "onNewIntent: deepLink Data : " + intent.getData());
+
+            activity_id = intent.getData().getQueryParameter("activity_id");
+            Log.d(TAG, "onNewIntent: Lesson id : " + activity_id);
+
+            if(!Objects.equals(activity_id, "")) {
+                isDeepLink = true;
+                loadApps(selectedLanguage);
+            }
+            else {
+                Toast.makeText(this, "Activity ID is Empty!", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
 
     private void loadOPDSCatalog(String opdsUrl) {
         new Thread(() -> {
