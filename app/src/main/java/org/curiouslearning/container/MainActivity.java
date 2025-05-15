@@ -150,6 +150,15 @@ public class MainActivity extends BaseActivity {
         initialSlackAlertTime= AnalyticsUtils.getCurrentEpochTime();
         homeViewModal = new HomeViewModal((Application) getApplicationContext(), this);
         cachePseudoId();
+
+        if(webAppsPrefs.getAll().isEmpty()) {
+            storeWebAppsInPrefs();
+        }
+
+        if(langPrefs.getAll().isEmpty()) {
+            storeJsonLanguagesInPrefs();
+        }
+
         InstallReferrerManager.ReferrerCallback referrerCallback = new InstallReferrerManager.ReferrerCallback() {
             @Override
             public void onReferrerReceived(String deferredLang, String fullURL) {
@@ -160,7 +169,8 @@ public class MainActivity extends BaseActivity {
                     } else {
                         loadApps(selectedLanguage);
                     }
-                } else {
+                }
+                else {
                     Log.d(TAG, "onCreate: No stored language found,Choose Again a language");
                     if (isRespect) {
                         fetchLanguagesFromAssets();
@@ -499,25 +509,40 @@ public class MainActivity extends BaseActivity {
             List<String> languageNames = new ArrayList<>();
             Map<String, ?> allEntries = langPrefs.getAll();
             for (Map.Entry<String, ?> entry : allEntries.entrySet()) {
-                if (entry.getValue() instanceof String) {
-                    languageNames.add(entry.getKey());
+                if (entry.getKey() instanceof String) {
+                    languageNames.add((String)entry.getKey());
                 }
             }
             ArrayAdapter<String> adapter = new ArrayAdapter<>(dialog.getContext(),
                     android.R.layout.simple_dropdown_item_1line, languageNames);
             autoCompleteTextView.setAdapter(adapter);
 
+            String selectedLangEnglish = prefs.getString("selectedLanguage", "");
+            String selectedLangCode = null;
+            for (Map.Entry<String, ?> entry : allEntries.entrySet()) {
+                if (entry.getValue() instanceof String && entry.getValue().equals(selectedLangEnglish)) {
+                    selectedLangCode = entry.getKey();
+                    break;
+                }
+            }
+            if (selectedLangCode != null && languageNames.contains(selectedLangCode)) {
+                autoCompleteTextView.setText(selectedLangCode, false);
+            }
+
             autoCompleteTextView.setOnItemClickListener((parent, view, position, id) -> {
                 audioPlayer.play(MainActivity.this, R.raw.sound_button_pressed);
                 selectedLanguage = (String) parent.getItemAtPosition(position);
-                String selectedLanguageCode = langPrefs.getString(selectedLanguage,null);
+                String selectedLanguageEnglishName = langPrefs.getString(selectedLanguage,null);
+
+                autoCompleteTextView.setText(selectedLanguage, false);
+
                 dialog.dismiss();
                 if(isRespect) {
-                    loadAppsFromJson(selectedLanguageCode);
+                    loadAppsFromJson(selectedLanguageEnglishName);
                 } else {
-                    loadApps(selectedLanguageCode);
+                    loadApps(selectedLanguageEnglishName);
                 }
-        });
+            });
 
         closeButton.setOnClickListener(v -> {
             audioPlayer.play(MainActivity.this, R.raw.sound_button_pressed);
