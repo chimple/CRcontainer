@@ -170,13 +170,6 @@ public class MainActivity extends BaseActivity {
                         loadApps(selectedLanguage);
                     }
                 }
-                else if(!langPrefs.getAll().isEmpty()) {
-                    if (isRespect) {
-                        fetchLanguagesFromAssets();
-                    } else {
-                        showLanguagePopup();
-                    }
-                }
                 else {
                     Log.d(TAG, "onCreate: No stored language found,Choose Again a language");
                     if (isRespect) {
