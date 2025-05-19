@@ -453,7 +453,7 @@ public class WebApp extends BaseActivity {
 
         @JavascriptInterface
         public void sendInstalledAppInfoToJS() {
-            Log.d(TAG, "Inside sendInstalledAppInfoToJS method");
+//            Log.d(TAG, "Inside sendInstalledAppInfoToJS method");
 
             boolean isAppInstalled = false;
             try {
@@ -462,15 +462,9 @@ public class WebApp extends BaseActivity {
                 Log.e(TAG, "Error checking if the app is installed", e);
             }
 
-            //Debugging purpose only
-            if (isAppInstalled) {
-                Log.d(TAG, "onCreate: The app org.chimple.bahama is installed.");
-            } else {
-                Log.d(TAG, "onCreate: The app org.chimple.bahama is not installed.");
-            }
-
             JSONObject installedAppInfoData = new JSONObject();
             try {
+                installedAppInfoData.put("type", "installedAppInfo");
                 installedAppInfoData.put("isAppInstalled", isAppInstalled);
             } catch (JSONException e) {
                 Log.e(TAG, "Error creating JSON data for app installation info", e);
