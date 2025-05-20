@@ -14,6 +14,10 @@ import android.widget.ImageView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import java.io.InputStream;
+
 import org.curiouslearning.container.R;
 import org.curiouslearning.container.data.model.WebApp;
 import org.curiouslearning.container.utilities.AnimationUtil;
@@ -32,6 +36,7 @@ public class WebAppsAdapter extends RecyclerView.Adapter<WebAppsAdapter.ViewHold
     public List<WebApp> webApps;
     private AudioPlayer audioPlayer;
     private Handler handler = new Handler();
+    private static final String TAG = "WebAppsAdapter";
     private static final String SHARED_PREFS_NAME = "animatePulse";
     private static final String PULSE_ANIMATION_KEY = "pulse_animaton";
     private SharedPreferences prefs;
@@ -54,8 +59,11 @@ public class WebAppsAdapter extends RecyclerView.Adapter<WebAppsAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, @SuppressLint("RecyclerView") int position) {
+        WebApp webapp = webApps.get(position);
+        String iconUrl = webapp.getAppIconUrl();
 
-        ImageLoader.loadWebAppIcon(ctx, webApps.get(position).getAppIconUrl(), holder.appIconImage);
+        loadWebAppIconWithFallback(iconUrl, holder.appIconImage);
+
         holder.appIconImage.clearColorFilter();
         holder.pulsatorLayout.stopAnimation();
         if ( webApps.get(position).getTitle().contains("Feed The Monster") && !isAppCached(webApps.get(position).getAppId())) {
@@ -112,6 +120,22 @@ public class WebAppsAdapter extends RecyclerView.Adapter<WebAppsAdapter.ViewHold
         if(activity_id != "" && isDeepLink) {
             isDeepLink = false;
             holder.itemView.post(() -> holder.itemView.performClick());
+        }
+    }
+
+    private void loadWebAppIconWithFallback(String imageUrl, ImageView imageView) {
+        Log.d(TAG, "Loading icon from assets: " + imageUrl);
+
+        try {
+            // Load directly from assets using AssetManager
+            InputStream inputStream = ctx.getAssets().open(imageUrl);
+            Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
+            imageView.setImageBitmap(bitmap);
+            inputStream.close();
+            Log.d(TAG, "Successfully loaded icon from assets: " + imageUrl);
+        } catch (Exception e) {
+            Log.e(TAG, "Failed to load icon from assets: " + imageUrl, e);
+            imageView.setImageResource(android.R.drawable.ic_menu_gallery);
         }
     }
 
