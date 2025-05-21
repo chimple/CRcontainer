@@ -39,6 +39,7 @@ public class WebAppsAdapter extends RecyclerView.Adapter<WebAppsAdapter.ViewHold
     private static final String TAG = "WebAppsAdapter";
     private static final String SHARED_PREFS_NAME = "animatePulse";
     private static final String PULSE_ANIMATION_KEY = "pulse_animaton";
+    public static boolean isRespect = true;
     private SharedPreferences prefs;
     private boolean isAnimated;
     public WebAppsAdapter(Context context, List<WebApp> webApps) {
@@ -59,10 +60,15 @@ public class WebAppsAdapter extends RecyclerView.Adapter<WebAppsAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, @SuppressLint("RecyclerView") int position) {
-        WebApp webapp = webApps.get(position);
-        String iconUrl = webapp.getAppIconUrl();
 
-        loadWebAppIconWithFallback(iconUrl, holder.appIconImage);
+        if(isRespect) {
+            WebApp webapp = webApps.get(position);
+            String iconPath = webapp.getAppIconUrl();
+
+            loadWebAppIconWithFallback(iconPath, holder.appIconImage);
+        } else {
+            ImageLoader.loadWebAppIcon(ctx, webApps.get(position).getAppIconUrl(), holder.appIconImage);
+        }
 
         holder.appIconImage.clearColorFilter();
         holder.pulsatorLayout.stopAnimation();
@@ -123,18 +129,18 @@ public class WebAppsAdapter extends RecyclerView.Adapter<WebAppsAdapter.ViewHold
         }
     }
 
-    private void loadWebAppIconWithFallback(String imageUrl, ImageView imageView) {
-        Log.d(TAG, "Loading icon from assets: " + imageUrl);
+    private void loadWebAppIconWithFallback(String imageSrc, ImageView imageView) {
+        Log.d(TAG, "Loading icon from assets: " + imageSrc);
 
         try {
             // Load directly from assets using AssetManager
-            InputStream inputStream = ctx.getAssets().open(imageUrl);
+            InputStream inputStream = ctx.getAssets().open(imageSrc);
             Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
             imageView.setImageBitmap(bitmap);
             inputStream.close();
-            Log.d(TAG, "Successfully loaded icon from assets: " + imageUrl);
+            Log.d(TAG, "Successfully loaded icon from assets: " + imageSrc);
         } catch (Exception e) {
-            Log.e(TAG, "Failed to load icon from assets: " + imageUrl, e);
+            Log.e(TAG, "Failed to load icon from assets: " + imageSrc, e);
             imageView.setImageResource(android.R.drawable.ic_menu_gallery);
         }
     }

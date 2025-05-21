@@ -3,271 +3,303 @@
   "web_apps": [
     {
       "appId": 0,
-      "appIconUrl": "webIcons/ftm_english.png",
+      "appIconUrl": "appIcons/ftm_english.png",
       "title": "Feed The Monster US English",
       "appUrl": "https://ibiza-stage-ftm-respect.firebaseapp.com/?cr_lang=english",
       "language": "English - US",
+      "langCode":"en",
       "languageInEnglishName": "English"
     },
     {
       "appId": 1,
-      "appIconUrl": "webIcons/ftm_hindi.png",
+      "appIconUrl": "appIcons/ftm_hindi.png",
       "title": "Feed The Monster Hindi",
       "appUrl": "https://ibiza-stage-ftm-respect.firebaseapp.com/?cr_lang=hindi",
-      "language": "\u0939\u093f\u0928\u094d\u0926\u0940",
+      "language": "हिन्दी",
+      "langCode":"hi",
       "languageInEnglishName": "Hindi"
     },
     {
       "appId": 2,
-      "appIconUrl": "webIcons/ftm_brazilianportuguese_prod.png",
+      "appIconUrl": "appIcons/ftm_brazilianportuguese_prod.png",
       "title": "Feed The Monster Brazilianportuguese",
       "appUrl": "https://ibiza-stage-ftm-respect.firebaseapp.com/?cr_lang=brazilianportuguese",
-      "language": "Portugu\u00eas - Brazilian",
+      "language": "Português - Brazilian",
+      "langCode":"pt-BR",
       "languageInEnglishName": "BrazilianPortuguese"
     },
     {
       "appId": 3,
-      "appIconUrl": "webIcons/ftm_somali_prod.png",
+      "appIconUrl": "appIcons/ftm_somali_prod.png",
       "title": "Feed The Monster Somali",
       "appUrl": "https://ibiza-stage-ftm-respect.firebaseapp.com/?cr_lang=somali",
       "language": "Af Soomaali",
+      "langCode":"so",
       "languageInEnglishName": "Somali"
     },
     {
       "appId": 4,
-      "appIconUrl": "webIcons/ftm_isixhosa_prod.png",
+      "appIconUrl": "appIcons/ftm_isixhosa_prod.png",
       "title": "Feed The Monster Isixhosa",
       "appUrl": "https://ibiza-stage-ftm-respect.firebaseapp.com/?cr_lang=isixhosa",
       "language": "isiXhosa",
+      "langCode":"xh",
       "languageInEnglishName": "Isixhosa"
     },
     {
       "appId": 5,
-      "appIconUrl": "webIcons/ftm_malgache_prod.png",
+      "appIconUrl": "appIcons/ftm_malgache_prod.png",
       "title": "Feed The Monster Malgache",
       "appUrl": "https://ibiza-stage-ftm-respect.firebaseapp.com/?cr_lang=malgache",
       "language": "Malagasy",
+      "langCode":"mg",
       "languageInEnglishName": "Malgache"
     },
     {
       "appId": 6,
-      "appIconUrl": "webIcons/ftm_afrikaans_prod.png",
+      "appIconUrl": "appIcons/ftm_afrikaans_prod.png",
       "title": "Feed The Monster Afrikaans",
       "appUrl": "https://ibiza-stage-ftm-respect.firebaseapp.com/?cr_lang=afrikaans",
       "language": "Afrikaans",
+      "langCode":"af",
       "languageInEnglishName": "Afrikaans"
     },
     {
       "appId": 7,
-      "appIconUrl": "webIcons/ftm_wolof_prod.png",
+      "appIconUrl": "appIcons/ftm_wolof_prod.png",
       "title": "Feed The Monster Wolof",
       "appUrl": "https://ibiza-stage-ftm-respect.firebaseapp.com/?cr_lang=wolof",
       "language": "Wolof",
+      "langCode":"wo",
       "languageInEnglishName": "Wolof"
     },
     {
       "appId": 8,
-      "appIconUrl": "webIcons/ftm_shona_prod.png",
+      "appIconUrl": "appIcons/ftm_shona_prod.png",
       "title": "Feed The Monster Shona",
       "appUrl": "https://ibiza-stage-ftm-respect.firebaseapp.com/?cr_lang=shona",
       "language": "chiShona",
+      "langCode":"sn",
       "languageInEnglishName": "Shona"
     },
     {
       "appId": 9,
-      "appIconUrl": "webIcons/ftm_tagalog_prod.png",
+      "appIconUrl": "appIcons/ftm_tagalog_prod.png",
       "title": "Feed The Monster Tagalog",
       "appUrl": "https://ibiza-stage-ftm-respect.firebaseapp.com/?cr_lang=tagalog",
       "language": "Tagalog",
+      "langCode":"tl",
       "languageInEnglishName": "Tagalog"
     },
     {
       "appId": 10,
-      "appIconUrl": "webIcons/ftm_haitiancreole_prod.png",
+      "appIconUrl": "appIcons/ftm_haitiancreole_prod.png",
       "title": "Feed The Monster Haitian Creole",
       "appUrl": "https://ibiza-stage-ftm-respect.firebaseapp.com/?cr_lang=haitiancreole",
-      "language": "Krey\u00f2l - Ayisyen",
+      "language": "Kreyòl - Ayisyen",
+      "langCode":"ht",
       "languageInEnglishName": "HaitianCreole"
     },
     {
       "appId": 11,
-      "appIconUrl": "webIcons/ftm_georgian_prod.png",
+      "appIconUrl": "appIcons/ftm_georgian_prod.png",
       "title": "Feed The Monster Georgian",
       "appUrl": "https://ibiza-stage-ftm-respect.firebaseapp.com/?cr_lang=georgian",
-      "language": "\u10e5\u10d0\u10e0\u10d7\u10e3\u10da\u10d8",
+      "language": "ქართული",
+      "langCode":"ka",
       "languageInEnglishName": "Georgian"
     },
     {
       "appId": 12,
-      "appIconUrl": "webIcons/ftm_kinyarwanda_prod.png",
+      "appIconUrl": "appIcons/ftm_kinyarwanda_prod.png",
       "title": "Feed The Monster Kinyarwanda",
       "appUrl": "https://ibiza-stage-ftm-respect.firebaseapp.com/?cr_lang=kinyarwanda",
       "language": "Kinyarwanda",
+      "langCode":"rw",
       "languageInEnglishName": "Kinyarwanda"
     },
     {
       "appId": 13,
-      "appIconUrl": "webIcons/ftm_swahili_prod.png",
+      "appIconUrl": "appIcons/ftm_swahili_prod.png",
       "title": "Feed The Monster Swahili",
       "appUrl": "https://ibiza-stage-ftm-respect.firebaseapp.com/?cr_lang=swahili",
       "language": "Kiswahili",
+      "langCode":"sw",
       "languageInEnglishName": "Swahili"
     },
     {
       "appId": 14,
-      "appIconUrl": "webIcons/ftm_ukrainian_prod.png",
+      "appIconUrl": "appIcons/ftm_ukrainian_prod.png",
       "title": "Feed The Monster Ukrainian",
       "appUrl": "https://ibiza-stage-ftm-respect.firebaseapp.com/?cr_lang=ukrainian",
-      "language": "\u0443\u043a\u0440\u0430\u0457\u043d\u0441\u044c\u043a\u0430",
+      "language": "українська",
+      "langCode":"uk",
       "languageInEnglishName": "Ukrainian"
     },
     {
       "appId": 15,
-      "appIconUrl": "webIcons/ftm_yoruba_prod.png",
+      "appIconUrl": "appIcons/ftm_yoruba_prod.png",
       "title": "Feed The Monster Yoruba",
       "appUrl": "https://ibiza-stage-ftm-respect.firebaseapp.com/?cr_lang=yoruba",
-      "language": "Yor\u00f9b\u00e1",
+      "language": "Yorùbá",
+      "langCode":"yor",
       "languageInEnglishName": "Yoruba"
     },
     {
       "appId": 16,
-      "appIconUrl": "webIcons/ftm_nepali_prod.png",
+      "appIconUrl": "appIcons/ftm_nepali_prod.png",
       "title": "Feed The Monster Nepali",
       "appUrl": "https://ibiza-stage-ftm-respect.firebaseapp.com/?cr_lang=nepali",
-      "language": "\u0928\u0947\u092a\u093e\u0932\u0940",
+      "language": "नेपाली",
+      "langCode":"ne",
       "languageInEnglishName": "Nepali"
     },
     {
       "appId": 17,
-      "appIconUrl": "webIcons/ftm_siswati_prod.png",
+      "appIconUrl": "appIcons/ftm_siswati_prod.png",
       "title": "Feed The Monster Siswati",
       "appUrl": "https://ibiza-stage-ftm-respect.firebaseapp.com/?cr_lang=siswati",
       "language": "siSwati",
+      "langCode":"ss",
       "languageInEnglishName": "Siswati"
     },
     {
       "appId": 18,
-      "appIconUrl": "webIcons/ftm_turkish_prod.png",
+      "appIconUrl": "appIcons/ftm_turkish_prod.png",
       "title": "Feed The Monster Turkish",
       "appUrl": "https://ibiza-stage-ftm-respect.firebaseapp.com/?cr_lang=turkish",
-      "language": "T\u00fcrk\u00e7e",
+      "language": "Türkçe",
+      "langCode":"tr",
       "languageInEnglishName": "Turkish"
     },
     {
       "appId": 19,
-      "appIconUrl": "webIcons/ftm_englishwestafrican_prod.png",
+      "appIconUrl": "appIcons/ftm_englishwestafrican_prod.png",
       "title": "Feed The Monster English Westafrican",
       "appUrl": "https://ibiza-stage-ftm-respect.firebaseapp.com/?cr_lang=englishwestafrican",
       "language": "English - West African",
+      "langCode":"en-ng",
       "languageInEnglishName": "EnglishWestAfrican"
     },
     {
       "appId": 20,
-      "appIconUrl": "webIcons/ftm_english_prod.png",
+      "appIconUrl": "appIcons/ftm_english_prod.png",
       "title": "Feed The Monster Tajik",
       "appUrl": "https://ibiza-stage-ftm-respect.firebaseapp.com/?cr_lang=tajik",
-      "language": "\u0442\u043e\u04b7\u0438\u043a\u04e3",
+      "language": "тоҷикӣ",
+      "langCode":"tg",
       "languageInEnglishName": "Tajik"
     },
     {
       "appId": 21,
-      "appIconUrl": "webIcons/ftm_sesotho_prod.png",
+      "appIconUrl": "appIcons/ftm_sesotho_prod.png",
       "title": "Feed The Monster Sesotho",
       "appUrl": "https://ibiza-stage-ftm-respect.firebaseapp.com/?cr_lang=sesotho",
       "language": "Sesotho",
+      "langCode":"st",
       "languageInEnglishName": "Sesotho"
     },
     {
       "appId": 22,
-      "appIconUrl": "webIcons/ftm_ndebele_prod.png",
+      "appIconUrl": "appIcons/ftm_ndebele_prod.png",
       "title": "Feed The Monster Ndebele",
       "appUrl": "https://ibiza-stage-ftm-respect.firebaseapp.com/?cr_lang=ndebele",
       "language": "isiNdebele",
+      "langCode":"nde",
       "languageInEnglishName": "Ndebele"
     },
     {
       "appId": 23,
-      "appIconUrl": "webIcons/ftm_sepedi_prod.png",
+      "appIconUrl": "appIcons/ftm_sepedi_prod.png",
       "title": "Feed The Monster Sepedi",
       "appUrl": "https://ibiza-stage-ftm-respect.firebaseapp.com/?cr_lang=sepedi",
       "language": "SePedi",
+      "langCode":"nso",
       "languageInEnglishName": "Sepedi"
     },
     {
       "appId": 24,
-      "appIconUrl": "webIcons/ftm_tswana_prod.png",
+      "appIconUrl": "appIcons/ftm_tswana_prod.png",
       "title": "Feed The Monster Tswana",
       "appUrl": "https://ibiza-stage-ftm-respect.firebaseapp.com/?cr_lang=tswana",
       "language": "Tswana",
+      "langCode":"tn",
       "languageInEnglishName": "Tswana"
     },
     {
       "appId": 25,
-      "appIconUrl": "webIcons/ftm_hausa_prod.png",
+      "appIconUrl": "appIcons/ftm_hausa_prod.png",
       "title": "Feed The Monster Hausa",
       "appUrl": "https://ibiza-stage-ftm-respect.firebaseapp.com/?cr_lang=hausa",
       "language": "Hausa",
+      "langCode":"ha",
       "languageInEnglishName": "Hausa"
     },
     {
       "appId": 26,
-      "appIconUrl": "webIcons/ftm_saenglish_prod.png",
+      "appIconUrl": "appIcons/ftm_saenglish_prod.png",
       "title": "Feed The Monster South African English",
       "appUrl": "https://ibiza-stage-ftm-respect.firebaseapp.com/?cr_lang=southafricanenglish",
       "language": "English - South African",
+      "langCode":"en-za",
       "languageInEnglishName": "SAenglish"
     },
     {
       "appId": 27,
-      "appIconUrl": "webIcons/ftm_zulu_prod.png",
+      "appIconUrl": "appIcons/ftm_zulu_prod.png",
       "title": "Feed The Monster Zulu",
       "appUrl": "https://ibiza-stage-ftm-respect.firebaseapp.com/?cr_lang=zulu",
       "language": "Isizulu",
+      "langCode":"zu",
       "languageInEnglishName": "Zulu"
     },
     {
       "appId": 28,
-      "appIconUrl": "webIcons/ftm_french_prod.png",
+      "appIconUrl": "appIcons/ftm_french_prod.png",
       "title": "Feed The Monster French",
       "appUrl": "https://ibiza-stage-ftm-respect.firebaseapp.com/?cr_lang=french",
-      "language": "Fran\u00e7ais",
+      "language": "Français",
+      "langCode":"fr",
       "languageInEnglishName": "French"
     },
     {
       "appId": 29,
-      "appIconUrl": "webIcons/ftm_azerbaijani_prod.png",
+      "appIconUrl": "appIcons/ftm_azerbaijani_prod.png",
       "title": "Feed The Monster Azerbaijani",
       "appUrl": "https://ibiza-stage-ftm-respect.firebaseapp.com/?cr_lang=azerbaijani",
       "language": "Azarbaycan dili",
+      "langCode":"az",
       "languageInEnglishName": "Azerbaijani"
     },
     {
       "appId": 30,
-      "appIconUrl": "webIcons/ftm_venda_prod.png",
+      "appIconUrl": "appIcons/ftm_venda_prod.png",
       "title": "Feed The Monster Venda",
       "appUrl": "https://ibiza-stage-ftm-respect.firebaseapp.com/?cr_lang=venda",
       "language": "Tshivenda",
+      "langCode":"ve",
       "languageInEnglishName": "Venda"
     },
     {
       "appId": 31,
-      "appIconUrl": "webIcons/ftm_twi_prod.png",
+      "appIconUrl": "appIcons/ftm_twi_prod.png",
       "title": "Feed The Monster Twi",
       "appUrl": "https://ibiza-stage-ftm-respect.firebaseapp.com/?cr_lang=twi",
       "language": "Twi",
+      "langCode":"tw",
       "languageInEnglishName": "Twi"
     },
     {
       "appId": 32,
-      "appIconUrl": "webIcons/LetsFly_prod.png",
+      "appIconUrl": "appIcons/LetsFly_prod.png",
       "title": "Curious Reader LetsFlyUkrLv6",
       "appUrl": "https://ibiza-stage-story-respect.firebaseapp.com/?book=LetsFlyUkrLv6",
-      "language": "\u0443\u043a\u0440\u0430\u0457\u043d\u0441\u044c\u043a\u0430",
+      "language": "українська",
       "languageInEnglishName": "Ukrainian"
     },
     {
       "appId": 33,
-      "appIconUrl": "webIcons/LetsFly_prod.png",
+      "appIconUrl": "appIcons/LetsFly_prod.png",
       "title": "Curious Reader LetsFlyLugLv4",
       "appUrl": "https://ibiza-stage-story-respect.firebaseapp.com/?book=LetsFlyLugLv4",
       "language": "Oluganda",
@@ -275,23 +307,24 @@
     },
     {
       "appId": 34,
-      "appIconUrl": "webIcons/ftm_malay_prod.png",
+      "appIconUrl": "appIcons/ftm_malay_prod.png",
       "title": "Feed The Monster Malay",
       "appUrl": "https://ibiza-stage-ftm-respect.firebaseapp.com/?cr_lang=malay",
       "language": "Malay",
+      "langCode":"ms",
       "languageInEnglishName": "Malay"
     },
     {
       "appId": 35,
-      "appIconUrl": "webIcons/ftm_HideAndSeek_prod.png",
+      "appIconUrl": "appIcons/ftm_HideAndSeek_prod.png",
       "title": "Curious Reader HideAndSeekUkrLv6",
       "appUrl": "https://ibiza-stage-story-respect.firebaseapp.com/?book=HideAndSeekUkrLv6",
-      "language": "\u0443\u043a\u0440\u0430\u0457\u043d\u0441\u044c\u043a\u0430",
+      "language": "українська",
       "languageInEnglishName": "Ukrainian"
     },
     {
       "appId": 36,
-      "appIconUrl": "webIcons/LetsFly_prod.png",
+      "appIconUrl": "appIcons/LetsFly_prod.png",
       "title": "Curious Reader LetsFlyIsiZuluLv4",
       "appUrl": "https://ibiza-stage-story-respect.firebaseapp.com/?book=LetsFlyIsiZuluLv4",
       "language": "Isizulu",
@@ -299,79 +332,83 @@
     },
     {
       "appId": 37,
-      "appIconUrl": "webIcons/LetsFly_prod.png",
+      "appIconUrl": "appIcons/LetsFly_prod.png",
       "title": "Curious Reader LetsFlyNepLv4",
       "appUrl": "https://ibiza-stage-story-respect.firebaseapp.com/?book=LetsFlyNepLv4",
-      "language": "\u0928\u0947\u092a\u093e\u0932\u0940",
+      "language": "नेपाली",
       "languageInEnglishName": "Nepali"
     },
     {
       "appId": 38,
-      "appIconUrl": "webIcons/LetsFly_prod.png",
+      "appIconUrl": "appIcons/LetsFly_prod.png",
       "title": "Curious Reader LetsFlyHindiLv4",
       "appUrl": "https://ibiza-stage-story-respect.firebaseapp.com/?book=LetsFlyHindiLv4",
-      "language": "\u0939\u093f\u0928\u094d\u0926\u0940",
+      "language": "हिन्दी",
       "languageInEnglishName": "Hindi"
     },
     {
       "appId": 39,
-      "appIconUrl": "webIcons/ftm_igbo_prod.png",
+      "appIconUrl": "appIcons/ftm_igbo_prod.png",
       "title": "Feed The Monster Igbo",
       "appUrl": "https://ibiza-stage-ftm-respect.firebaseapp.com/?cr_lang=igbo",
       "language": "Igbo",
+      "langCode":"ig",
       "languageInEnglishName": "Igbo"
     },
     {
       "appId": 40,
-      "appIconUrl": "webIcons/ftm_lugandan_prod.png",
+      "appIconUrl": "appIcons/ftm_lugandan_prod.png",
       "title": "Feed The Monster Lugandan",
       "appUrl": "https://ibiza-stage-ftm-respect.firebaseapp.com/?cr_lang=lugandan",
       "language": "Oluganda",
+      "langCode":"lg",
       "languageInEnglishName": "Lugandan"
     },
     {
       "appId": 41,
-      "appIconUrl": "webIcons/ftm_pashto_prod.png",
+      "appIconUrl": "appIcons/ftm_pashto_prod.png",
       "title": "Feed The Monster Pashto",
       "appUrl": "https://ibiza-stage-ftm-respect.firebaseapp.com/?cr_lang=pashto",
-      "language": "\u067e\u069a\u062a\u0648",
+      "language": "پښتو",
+      "langCode":"ps",
       "languageInEnglishName": "Pashto"
     },
     {
       "appId": 42,
-      "appIconUrl": "webIcons/ftm_kurdish_prod.png",
+      "appIconUrl": "appIcons/ftm_kurdish_prod.png",
       "title": "Feed The Monster Kurdish",
       "appUrl": "https://ibiza-stage-ftm-respect.firebaseapp.com/?cr_lang=kurdish",
-      "language": "\u06a9\u0648\u0631\u062f\u06cc",
+      "language": "کوردی",
+      "langCode":"ku",
       "languageInEnglishName": "Kurdish"
     },
     {
       "appId": 43,
-      "appIconUrl": "webIcons/ftm_Colours_prod.png",
+      "appIconUrl": "appIcons/ftm_Colours_prod.png",
       "title": "Curious Reader ColoursUkrLv6",
       "appUrl": "https://ibiza-stage-story-respect.firebaseapp.com/?book=ColoursUkrLv6",
-      "language": "\u0443\u043a\u0440\u0430\u0457\u043d\u0441\u044c\u043a\u0430",
+      "language": "українська",
       "languageInEnglishName": "Ukrainian"
     },
     {
       "appId": 44,
-      "appIconUrl": "webIcons/ftm_TheBeeAndTheElephant_prod.png",
+      "appIconUrl": "appIcons/ftm_TheBeeAndTheElephant_prod.png",
       "title": "Curious Reader TheBeeAndTheElephantUkrLv6",
       "appUrl": "https://ibiza-stage-story-respect.firebaseapp.com/?book=TheBeeAndTheElephantUkrLv6",
-      "language": "\u0443\u043a\u0440\u0430\u0457\u043d\u0441\u044c\u043a\u0430",
+      "language": "українська",
       "languageInEnglishName": "Ukrainian"
     },
     {
       "appId": 45,
-      "appIconUrl": "webIcons/ftm_TheLostDoll_prod.png",
+      "appIconUrl": "appIcons/ftm_TheLostDoll_prod.png",
       "title": "Curious Reader TheLostDollUkrLv4",
       "appUrl": "https://ibiza-stage-story-respect.firebaseapp.com/?book=TheLostDollUkrLv4",
-      "language": "\u0443\u043a\u0440\u0430\u0457\u043d\u0441\u044c\u043a\u0430",
+      "language": "українська",
       "languageInEnglishName": "Ukrainian"
     },
     {
       "appId": 46,
-      "appIconUrl": "webIcons/ftm_HideAndSeek_prod.png",
+      "appIconUrl": "appIcons/ftm_HideAndSeek_prod.png",
       "title": "Curious Reader HideAndSeekLugLv4",
       "appUrl": "https://ibiza-stage-story-respect.firebaseapp.com/?book=HideAndSeekLugLv4",
       "language": "Oluganda",
@@ -379,7 +416,7 @@
     },
     {
       "appId": 47,
-      "appIconUrl": "webIcons/ftm_HideAndSeek_prod.png",
+      "appIconUrl": "appIcons/ftm_HideAndSeek_prod.png",
       "title": "Curious Reader HideAndSeekIsiZuluLv4",
       "appUrl": "https://ibiza-stage-story-respect.firebaseapp.com/?book=HideAndSeekIsiZuluLv4",
       "language": "Isizulu",
@@ -387,55 +424,56 @@
     },
     {
       "appId": 48,
-      "appIconUrl": "webIcons/ftm_HideAndSeek_prod.png",
+      "appIconUrl": "appIcons/ftm_HideAndSeek_prod.png",
       "title": "Curious Reader HideAndSeekHindiLv4",
       "appUrl": "https://ibiza-stage-story-respect.firebaseapp.com/?book=HideAndSeekHindiLv4",
-      "language": "\u0939\u093f\u0928\u094d\u0926\u0940",
+      "language": "हिन्दी",
       "languageInEnglishName": "Hindi"
     },
     {
       "appId": 49,
-      "appIconUrl": "webIcons/ftm_HideAndSeek_prod.png",
+      "appIconUrl": "appIcons/ftm_HideAndSeek_prod.png",
       "title": "Curious Reader HideAndSeekNepLv4",
       "appUrl": "https://ibiza-stage-story-respect.firebaseapp.com/?book=HideAndSeekNepLv4",
-      "language": "\u0928\u0947\u092a\u093e\u0932\u0940",
+      "language": "नेपाली",
       "languageInEnglishName": "Nepali"
     },
     {
       "appId": 50,
-      "appIconUrl": "webIcons/ftm_spanish_prod.png",
+      "appIconUrl": "appIcons/ftm_spanish_prod.png",
       "title": "Feed The Monster Spanish",
       "appUrl": "https://ibiza-stage-ftm-respect.firebaseapp.com/?cr_lang=spanish",
-      "language": "Espa\u00f1ol",
+      "language": "Español",
+      "langCode":"es",
       "languageInEnglishName": "Spanish"
     },
     {
       "appId": 51,
-      "appIconUrl": "webIcons/ftm_Colours_prod.png",
+      "appIconUrl": "appIcons/ftm_Colours_prod.png",
       "title": "Curious Reader ColoursHindiLv4",
       "appUrl": "https://ibiza-stage-story-respect.firebaseapp.com/?book=ColoursHindiLv4",
-      "language": "\u0939\u093f\u0928\u094d\u0926\u0940",
+      "language": "हिन्दी",
       "languageInEnglishName": "Hindi"
     },
     {
       "appId": 52,
-      "appIconUrl": "webIcons/ftm_TheBeeAndTheElephant_prod.png",
+      "appIconUrl": "appIcons/ftm_TheBeeAndTheElephant_prod.png",
       "title": "Curious Reader TheBeeAndTheElephantHindiLv4",
       "appUrl": "https://ibiza-stage-story-respect.firebaseapp.com/?book=TheBeeAndTheElephantHindiLv4",
-      "language": "\u0939\u093f\u0928\u094d\u0926\u0940",
+      "language": "हिन्दी",
       "languageInEnglishName": "Hindi"
     },
     {
       "appId": 53,
-      "appIconUrl": "webIcons/ftm_TheLostDoll_prod.png",
+      "appIconUrl": "appIcons/ftm_TheLostDoll_prod.png",
       "title": "Curious Reader TheLostDollHindiLv4",
       "appUrl": "https://ibiza-stage-story-respect.firebaseapp.com/?book=TheLostDollHindiLv4",
-      "language": "\u0939\u093f\u0928\u094d\u0926\u0940",
+      "language": "हिन्दी",
       "languageInEnglishName": "Hindi"
     },
     {
       "appId": 54,
-      "appIconUrl": "webIcons/ftm_Colours_prod.png",
+      "appIconUrl": "appIcons/ftm_Colours_prod.png",
       "title": "Curious Reader ColoursLugLv4",
       "appUrl": "https://ibiza-stage-story-respect.firebaseapp.com/?book=ColoursLugLv4",
       "language": "Oluganda",
@@ -443,7 +481,7 @@
     },
     {
       "appId": 55,
-      "appIconUrl": "webIcons/ftm_TheBeeAndTheElephant_prod.png",
+      "appIconUrl": "appIcons/ftm_TheBeeAndTheElephant_prod.png",
       "title": "Curious Reader TheBeeAndTheElephantLugLv4",
       "appUrl": "https://ibiza-stage-story-respect.firebaseapp.com/?book=TheBeeAndTheElephantLugLv4",
       "language": "Oluganda",
@@ -451,7 +489,7 @@
     },
     {
       "appId": 56,
-      "appIconUrl": "webIcons/ftm_TheLostDoll_prod.png",
+      "appIconUrl": "appIcons/ftm_TheLostDoll_prod.png",
       "title": "Curious Reader TheLostDollLugLv4",
       "appUrl": "https://ibiza-stage-story-respect.firebaseapp.com/?book=TheLostDollLugLv4",
       "language": "Oluganda",
@@ -459,7 +497,7 @@
     },
     {
       "appId": 57,
-      "appIconUrl": "webIcons/ftm_Colours_prod.png",
+      "appIconUrl": "appIcons/ftm_Colours_prod.png",
       "title": "Curious Reader ColoursZuluLv4",
       "appUrl": "https://ibiza-stage-story-respect.firebaseapp.com/?book=ColoursIsiZuluLv4",
       "language": "Isizulu",
@@ -467,7 +505,7 @@
     },
     {
       "appId": 58,
-      "appIconUrl": "webIcons/ftm_TheBeeAndTheElephant_prod.png",
+      "appIconUrl": "appIcons/ftm_TheBeeAndTheElephant_prod.png",
       "title": "Curious Reader TheBeeAndTheElephantZuluLv4",
       "appUrl": "https://ibiza-stage-story-respect.firebaseapp.com/?book=TheBeeAndTheElephantIsiZuluLv4",
       "language": "Isizulu",
@@ -475,7 +513,7 @@
     },
     {
       "appId": 59,
-      "appIconUrl": "webIcons/ftm_TheLostDoll_prod.png",
+      "appIconUrl": "appIcons/ftm_TheLostDoll_prod.png",
       "title": "Curious Reader TheLostDollZuluLv4",
       "appUrl": "https://ibiza-stage-story-respect.firebaseapp.com/?book=TheLostDollIsiZuluLv4",
       "language": "Isizulu",
@@ -483,95 +521,102 @@
     },
     {
       "appId": 60,
-      "appIconUrl": "webIcons/ftm_Colours_prod.png",
+      "appIconUrl": "appIcons/ftm_Colours_prod.png",
       "title": "Curious Reader ColoursNepaliLv4",
       "appUrl": "https://ibiza-stage-story-respect.firebaseapp.com/?book=ColoursNepLv4",
-      "language": "\u0928\u0947\u092a\u093e\u0932\u0940",
+      "language": "नेपाली",
       "languageInEnglishName": "Nepali"
     },
     {
       "appId": 61,
-      "appIconUrl": "webIcons/ftm_TheBeeAndTheElephant_prod.png",
+      "appIconUrl": "appIcons/ftm_TheBeeAndTheElephant_prod.png",
       "title": "Curious Reader TheBeeAndTheElephantNepaliLv4",
       "appUrl": "https://ibiza-stage-story-respect.firebaseapp.com/?book=TheBeeAndTheElephantNepLv4",
-      "language": "\u0928\u0947\u092a\u093e\u0932\u0940",
+      "language": "नेपाली",
       "languageInEnglishName": "Nepali"
     },
     {
       "appId": 62,
-      "appIconUrl": "webIcons/ftm_TheLostDoll_prod.png",
+      "appIconUrl": "appIcons/ftm_TheLostDoll_prod.png",
       "title": "Curious Reader TheLostDollNepaliLv4",
       "appUrl": "https://ibiza-stage-story-respect.firebaseapp.com/?book=TheLostDollNepLv4",
-      "language": "\u0928\u0947\u092a\u093e\u0932\u0940",
+      "language": "नेपाली",
       "languageInEnglishName": "Nepali"
     },
     {
       "appId": 63,
-      "appIconUrl": "webIcons/assessment_icon_prod.png",
+      "appIconUrl": "appIcons/assessment_icon_prod.png",
       "title": "Assessment Ukrainian",
       "appUrl": "https://ibiza-stage-assessment-respect.firebaseapp.com/?data=ukrainian-lettersounds",
-      "language": "\u0443\u043a\u0440\u0430\u0457\u043d\u0441\u044c\u043a\u0430",
+      "language": "українська",
       "languageInEnglishName": "Ukrainian"
     },
     {
       "appId": 64,
-      "appIconUrl": "webIcons/ftm_thai_prod.png",
+      "appIconUrl": "appIcons/ftm_thai_prod.png",
       "title": "Feed The Monster Thai",
       "appUrl": "https://ibiza-stage-ftm-respect.firebaseapp.com/?cr_lang=thai",
-      "language": "\u0e20\u0e32\u0e29\u0e32\u0e44\u0e17\u0e22",
+      "language": "ภาษาไทย",
+      "langCode":"th",
       "languageInEnglishName": "Thai"
     },
     {
       "appId": 65,
-      "appIconUrl": "webIcons/ftm_indianenglish_prod.png",
+      "appIconUrl": "appIcons/ftm_indianenglish_prod.png",
       "title": "Feed The Monster Indian English",
       "appUrl": "https://ibiza-stage-ftm-respect.firebaseapp.com/?cr_lang=indianenglish",
       "language": "English - Indian",
+      "langCode":"en-in",
       "languageInEnglishName": "IndianEnglish"
     },
     {
       "appId": 66,
-      "appIconUrl": "webIcons/ftm_austrailianenglish_prod.png",
+      "appIconUrl": "appIcons/ftm_austrailianenglish_prod.png",
       "title": "Feed The Monster Australian English",
       "appUrl": "https://ibiza-stage-ftm-respect.firebaseapp.com/?cr_lang=australianenglish",
       "language": "English - Australian",
+      "langCode":"en-AU",
       "languageInEnglishName": "AustralianEnglish"
     },
     {
       "appId": 67,
-      "appIconUrl": "webIcons/ftm_javanese_prod.png",
+      "appIconUrl": "appIcons/ftm_javanese_prod.png",
       "title": "Feed The Monster Javanese",
       "appUrl": "https://ibiza-stage-ftm-respect.firebaseapp.com/?cr_lang=javanese",
       "language": "Wong Jawa",
+      "langCode":"jv",
       "languageInEnglishName": "Javanese"
     },
     {
       "appId": 68,
-      "appIconUrl": "webIcons/ftm_tsonga_prod.png",
+      "appIconUrl": "appIcons/ftm_tsonga_prod.png",
       "title": "Feed The Monster Tsonga",
       "appUrl": "https://ibiza-stage-ftm-respect.firebaseapp.com/?cr_lang=tsonga",
       "language": "Xitsonga",
+      "langCode":"ts",
       "languageInEnglishName": "Tsonga"
     },
     {
       "appId": 69,
-      "appIconUrl": "webIcons/ftm_vietnamese_prod.png",
+      "appIconUrl": "appIcons/ftm_vietnamese_prod.png",
       "title": "Feed The Monster Vietnamese",
       "appUrl": "https://ibiza-stage-ftm-respect.firebaseapp.com/?cr_lang=vietnamese",
-      "language": "Ti\u1ebfng Vi\u1ec7t",
+      "language": "Tiếng Việt",
+      "langCode":"vi",
       "languageInEnglishName": "Vietnamese"
     },
     {
       "appId": 70,
-      "appIconUrl": "webIcons/ftm_kirundi.png",
+      "appIconUrl": "appIcons/ftm_kirundi.png",
       "title": "Feed The Monster Kirundi",
       "appUrl": "https://ibiza-stage-ftm-respect.firebaseapp.com/?cr_lang=kirundi",
       "language": "Kirundi",
+      "langCode":"rn",
       "languageInEnglishName": "Kirundi"
     },
     {
       "appId": 71,
-      "appIconUrl": "webIcons/assessment_icon_prod.png",
+      "appIconUrl": "appIcons/assessment_icon_prod.png",
       "title": "Assessment West African English Letter Sounds",
       "appUrl": "https://ibiza-stage-assessment-respect.firebaseapp.com/?data=west-african-english-lettersounds",
       "language": "English - West African",
@@ -579,7 +624,7 @@
     },
     {
       "appId": 72,
-      "appIconUrl": "webIcons/assessment_icon_prod.png",
+      "appIconUrl": "appIcons/assessment_icon_prod.png",
       "title": "Assessment Hausa",
       "appUrl": "https://ibiza-stage-assessment-respect.firebaseapp.com/?data=hausa-lettersounds",
       "language": "Hausa",
@@ -587,7 +632,7 @@
     },
     {
       "appId": 73,
-      "appIconUrl": "webIcons/assessment_icon_sight_word.png",
+      "appIconUrl": "appIcons/assessment_icon_sight_word.png",
       "title": "Assessment Hausa Sight Words",
       "appUrl": "https://ibiza-stage-assessment-respect.firebaseapp.com/?data=hausa-sightwords",
       "language": "Hausa",
@@ -595,23 +640,23 @@
     },
     {
       "appId": 74,
-      "appIconUrl": "webIcons/assessment_icon_prod.png",
+      "appIconUrl": "appIcons/assessment_icon_prod.png",
       "title": "Assessment Bangla",
       "appUrl": "https://ibiza-stage-assessment-respect.firebaseapp.com/?data=bangla-lettersounds",
-      "language": "\u09ac\u09be\u0982\u09b2\u09be",
+      "language": "বাংলা",
       "languageInEnglishName": "Bangla"
     },
     {
       "appId": 75,
-      "appIconUrl": "webIcons/assessment_icon_sight_word.png",
+      "appIconUrl": "appIcons/assessment_icon_sight_word.png",
       "title": "Assessment Bangla Sight Words",
       "appUrl": "https://ibiza-stage-assessment-respect.firebaseapp.com/?data=bangla-sightwords",
-      "language": "\u09ac\u09be\u0982\u09b2\u09be",
+      "language": "বাংলা",
       "languageInEnglishName": "Bangla"
     },
     {
       "appId": 76,
-      "appIconUrl": "webIcons/assessment_icon_sight_word.png",
+      "appIconUrl": "appIcons/assessment_icon_sight_word.png",
       "title": "Assessment West African English Sight Words",
       "appUrl": "https://ibiza-stage-assessment-respect.firebaseapp.com/?data=west-african-sightwords",
       "language": "English - West African",
@@ -619,31 +664,32 @@
     },
     {
       "appId": 77,
-      "appIconUrl": "webIcons/ftm_marathi_prod.png",
+      "appIconUrl": "appIcons/ftm_marathi_prod.png",
       "title": "Feed The Monster Marathi",
       "appUrl": "https://ibiza-stage-ftm-respect.firebaseapp.com/?cr_lang=marathi",
-      "language": "\u092e\u0930\u093e\u0920\u0940",
+      "language": "मराठी",
+      "langCode":"mr",
       "languageInEnglishName": "Marathi"
     },
     {
       "appId": 78,
-      "appIconUrl": "webIcons/assessment_icon_prod.png",
+      "appIconUrl": "appIcons/assessment_icon_prod.png",
       "title": "Assessment French",
       "appUrl": "https://ibiza-stage-assessment-respect.firebaseapp.com/?data=french-lettersounds",
-      "language": "Fran\u00e7ais",
+      "language": "Français",
       "languageInEnglishName": "French"
     },
     {
       "appId": 79,
-      "appIconUrl": "webIcons/assessment_icon_sight_word.png",
+      "appIconUrl": "appIcons/assessment_icon_sight_word.png",
       "title": "Assessment French Sight Words",
       "appUrl": "https://ibiza-stage-assessment-respect.firebaseapp.com/?data=french-sightwords",
-      "language": "Fran\u00e7ais",
+      "language": "Français",
       "languageInEnglishName": "French"
     },
     {
       "appId": 80,
-      "appIconUrl": "webIcons/the_lion_runs.png",
+      "appIconUrl": "appIcons/the_lion_runs.png",
       "title": "Curious Reader The Lion Runs Isizulu",
       "appUrl": "https://ibiza-stage-story-respect.firebaseapp.com/?book=TheLionRunsAndTheCowWalksIsiZulu",
       "language": "Isizulu",
@@ -651,7 +697,7 @@
     },
     {
       "appId": 81,
-      "appIconUrl": "webIcons/dads_boots.png",
+      "appIconUrl": "appIcons/dads_boots.png",
       "title": "Curious Reader Dads Boots Isizulu",
       "appUrl": "https://ibiza-stage-story-respect.firebaseapp.com/?book=DadsBootsIsiZulu",
       "language": "Isizulu",
@@ -659,7 +705,7 @@
     },
     {
       "appId": 82,
-      "appIconUrl": "webIcons/the_lion_runs.png",
+      "appIconUrl": "appIcons/the_lion_runs.png",
       "title": "Curious Reader The Lion Runs Hausa And The Cow Walks",
       "appUrl": "https://ibiza-stage-story-respect.firebaseapp.com/?book=TheLionRunsAndTheCowWalksHausa",
       "language": "Hausa",
@@ -667,7 +713,7 @@
     },
     {
       "appId": 83,
-      "appIconUrl": "webIcons/ftm_tallandshort_prod.png",
+      "appIconUrl": "appIcons/ftm_tallandshort_prod.png",
       "title": "Curious Reader Tall And Short Hausa Level 4",
       "appUrl": "https://ibiza-stage-story-respect.firebaseapp.com/?book=TallAndShortHausaLv4",
       "language": "Hausa",
@@ -675,7 +721,7 @@
     },
     {
       "appId": 84,
-      "appIconUrl": "webIcons/ftm_HideAndSeek_prod.png",
+      "appIconUrl": "appIcons/ftm_HideAndSeek_prod.png",
       "title": "Curious Reader HideAndSeekWolofLv4",
       "appUrl": "https://ibiza-stage-story-respect.firebaseapp.com/?book=HideAndSeekWolofLv4",
       "language": "Wolof",
@@ -683,7 +729,7 @@
     },
     {
       "appId": 85,
-      "appIconUrl": "webIcons/LetsFly_prod.png",
+      "appIconUrl": "appIcons/LetsFly_prod.png",
       "title": "Curious Reader LetsFlyWolofLv4",
       "appUrl": "https://ibiza-stage-story-respect.firebaseapp.com/?book=LetsFlyWolofLv4",
       "language": "Wolof",
@@ -691,7 +737,7 @@
     },
     {
       "appId": 86,
-      "appIconUrl": "webIcons/ftm_TheLostDoll_prod.png",
+      "appIconUrl": "appIcons/ftm_TheLostDoll_prod.png",
       "title": "Curious Reader TheLostDollWolofLv4",
       "appUrl": "https://ibiza-stage-story-respect.firebaseapp.com/?book=TheLostDollWolofLv4",
       "language": "Wolof",
@@ -699,175 +745,178 @@
     },
     {
       "appId": 87,
-      "appIconUrl": "webIcons/ftm_oromo_prod.png",
+      "appIconUrl": "appIcons/ftm_oromo_prod.png",
       "title": "Feed The Monster Oromo",
       "appUrl": "https://ibiza-stage-ftm-respect.firebaseapp.com/?cr_lang=oromo",
       "language": "Afaan Oromoo",
+      "langCode":"om",
       "languageInEnglishName": "Oromo"
     },
     {
       "appId": 88,
-      "appIconUrl": "webIcons/ftm_amharic_prod.png",
+      "appIconUrl": "appIcons/ftm_amharic_prod.png",
       "title": "Feed The Monster Amharic",
       "appUrl": "https://ibiza-stage-ftm-respect.firebaseapp.com/?cr_lang=amharic",
-      "language": "\u12a0\u121b\u122d\u129b",
+      "language": "አማርኛ",
+      "langCode":"am",
       "languageInEnglishName": "Amharic"
     },
     {
       "appId": 89,
-      "appIconUrl": "webIcons/ftm_generic.png",
+      "appIconUrl": "appIcons/ftm_generic.png",
       "title": "Feed The Monster Tigragna",
       "appUrl": "https://ibiza-stage-ftm-respect.firebaseapp.com/?cr_lang=tigragna",
-      "language": "\u1275\u130d\u122d\u129b",
+      "language": "ትግርኛ",
+      "langCode":"ti",
       "languageInEnglishName": "Tigragna"
     },
     {
       "appId": 90,
-      "appIconUrl": "webIcons/the_lion_runs.png",
+      "appIconUrl": "appIcons/the_lion_runs.png",
       "title": "Curious Reader The Lion Runs And The Cow Walks Nepali",
       "appUrl": "https://ibiza-stage-story-respect.firebaseapp.com/?book=TheLionRunsAndTheCowWalksNepali",
-      "language": "\u0928\u0947\u092a\u093e\u0932\u0940",
+      "language": "नेपाली",
       "languageInEnglishName": "Nepali"
     },
     {
       "appId": 91,
-      "appIconUrl": "webIcons/friends.png",
+      "appIconUrl": "appIcons/friends.png",
       "title": "Curious Reader Friends Nepali Level 4",
       "appUrl": "https://ibiza-stage-story-respect.firebaseapp.com/?book=FriendsNepaliLv4",
-      "language": "\u0928\u0947\u092a\u093e\u0932\u0940",
+      "language": "नेपाली",
       "languageInEnglishName": "Nepali"
     },
     {
       "appId": 92,
-      "appIconUrl": "webIcons/dads_boots.png",
+      "appIconUrl": "appIcons/dads_boots.png",
       "title": "Curious Reader Dad's Boots Nepali",
       "appUrl": "https://ibiza-stage-story-respect.firebaseapp.com/?book=DadsBootsNepali",
-      "language": "\u0928\u0947\u092a\u093e\u0932\u0940",
+      "language": "नेपाली",
       "languageInEnglishName": "Nepali"
     },
     {
       "appId": 93,
-      "appIconUrl": "webIcons/the_lion_runs.png",
+      "appIconUrl": "appIcons/the_lion_runs.png",
       "title": "Curious Reader The Lion Runs And The Cow Walks Ukrainian",
       "appUrl": "https://ibiza-stage-story-respect.firebaseapp.com/?book=TheLionRunsAndTheCowWalksUkrainian",
-      "language": "\u0443\u043a\u0440\u0430\u0457\u043d\u0441\u044c\u043a\u0430",
+      "language": "українська",
       "languageInEnglishName": "Ukrainian"
     },
     {
       "appId": 94,
-      "appIconUrl": "webIcons/friends.png",
+      "appIconUrl": "appIcons/friends.png",
       "title": "Curious Reader Friends Ukrainian Level 4",
       "appUrl": "https://ibiza-stage-story-respect.firebaseapp.com/?book=FriendsUkrainianLv4",
-      "language": "\u0443\u043a\u0440\u0430\u0457\u043d\u0441\u044c\u043a\u0430",
+      "language": "українська",
       "languageInEnglishName": "Ukrainian"
     },
     {
       "appId": 95,
-      "appIconUrl": "webIcons/the_lion_runs.png",
+      "appIconUrl": "appIcons/the_lion_runs.png",
       "title": "Curious Reader The Lion Runs And The Cow Walks Hindi",
       "appUrl": "https://ibiza-stage-story-respect.firebaseapp.com/?book=TheLionRunsAndTheCowWalksHindi",
-      "language": "\u0939\u093f\u0928\u094d\u0926\u0940",
+      "language": "हिन्दी",
       "languageInEnglishName": "Hindi"
     },
     {
       "appId": 96,
-      "appIconUrl": "webIcons/friends.png",
+      "appIconUrl": "appIcons/friends.png",
       "title": "Curious Reader Friends Hindi Level 4",
       "appUrl": "https://ibiza-stage-story-respect.firebaseapp.com/?book=FriendsHIndiLv4",
-      "language": "\u0939\u093f\u0928\u094d\u0926\u0940",
+      "language": "हिन्दी",
       "languageInEnglishName": "Hindi"
     },
     {
       "appId": 97,
-      "appIconUrl": "webIcons/dads_boots.png",
+      "appIconUrl": "appIcons/dads_boots.png",
       "title": "Curious Reader Dad's Boots Hindi",
       "appUrl": "https://ibiza-stage-story-respect.firebaseapp.com/?book=DadsBootsHindi",
-      "language": "\u0939\u093f\u0928\u094d\u0926\u0940",
+      "language": "हिन्दी",
       "languageInEnglishName": "Hindi"
     },
     {
       "appId": 98,
-      "appIconUrl": "webIcons/IAmFlyingBook.png",
+      "appIconUrl": "appIcons/IAmFlyingBook.png",
       "title": "Curious Reader I am Flying Amharic",
       "appUrl": "https://ibiza-stage-story-respect.firebaseapp.com/?book=IAmFlyingAmharic",
-      "language": "\u12a0\u121b\u122d\u129b",
+      "language": "አማርኛ",
       "languageInEnglishName": "Amharic"
     },
     {
       "appId": 99,
-      "appIconUrl": "webIcons/ILoveBook.png",
+      "appIconUrl": "appIcons/ILoveBook.png",
       "title": "Curious Reader I Love Amharic",
       "appUrl": "https://ibiza-stage-story-respect.firebaseapp.com/?book=ILoveAmharic",
-      "language": "\u12a0\u121b\u122d\u129b",
+      "language": "አማርኛ",
       "languageInEnglishName": "Amharic"
     },
     {
       "appId": 100,
-      "appIconUrl": "webIcons/TheUmbrellas.png",
+      "appIconUrl": "appIcons/TheUmbrellas.png",
       "title": "Curious Reader The Umbrellas Amharic",
       "appUrl": "https://ibiza-stage-story-respect.firebaseapp.com/?book=TheUmbrellasAmharic",
-      "language": "\u12a0\u121b\u122d\u129b",
+      "language": "አማርኛ",
       "languageInEnglishName": "Amharic"
     },
     {
       "appId": 101,
-      "appIconUrl": "webIcons/GuessWhatIAm.png",
+      "appIconUrl": "appIcons/GuessWhatIAm.png",
       "title": "Curious Reader Guess What I Am Amharic",
       "appUrl": "https://ibiza-stage-story-respect.firebaseapp.com/?book=GuessWhatIAmAmharic",
-      "language": "\u12a0\u121b\u122d\u129b",
+      "language": "አማርኛ",
       "languageInEnglishName": "Amharic"
     },
     {
       "appId": 102,
-      "appIconUrl": "webIcons/ComeComeBook.png",
+      "appIconUrl": "appIcons/ComeComeBook.png",
       "title": "Curious Reader Come Come Amharic",
       "appUrl": "https://ibiza-stage-story-respect.firebaseapp.com/?book=ComeComeAmharic",
-      "language": "\u12a0\u121b\u122d\u129b",
+      "language": "አማርኛ",
       "languageInEnglishName": "Amharic"
     },
     {
       "appId": 103,
-      "appIconUrl": "webIcons/IAmFlyingBook.png",
+      "appIconUrl": "appIcons/IAmFlyingBook.png",
       "title": "Curious Reader I am Flying Tigragna",
       "appUrl": "https://ibiza-stage-story-respect.firebaseapp.com/?book=IAmFlyingTigirigna",
-      "language": "\u1275\u130d\u122d\u129b",
+      "language": "ትግርኛ",
       "languageInEnglishName": "Tigragna"
     },
     {
       "appId": 104,
-      "appIconUrl": "webIcons/ILoveBook.png",
+      "appIconUrl": "appIcons/ILoveBook.png",
       "title": "Curious Reader I Love Tigragna",
       "appUrl": "https://ibiza-stage-story-respect.firebaseapp.com/?book=ILoveTigirigna",
-      "language": "\u1275\u130d\u122d\u129b",
+      "language": "ትግርኛ",
       "languageInEnglishName": "Tigragna"
     },
     {
       "appId": 105,
-      "appIconUrl": "webIcons/TheUmbrellas.png",
+      "appIconUrl": "appIcons/TheUmbrellas.png",
       "title": "Curious Reader The Umbrellas Tigragna",
       "appUrl": "https://ibiza-stage-story-respect.firebaseapp.com/?book=TheUmbrellasTigirigna",
-      "language": "\u1275\u130d\u122d\u129b",
+      "language": "ትግርኛ",
       "languageInEnglishName": "Tigragna"
     },
     {
       "appId": 106,
-      "appIconUrl": "webIcons/GuessWhatIAm.png",
+      "appIconUrl": "appIcons/GuessWhatIAm.png",
       "title": "Curious Reader Guess What I Am Tigragna",
       "appUrl": "https://ibiza-stage-story-respect.firebaseapp.com/?book=GuessWhatIAmTigirigna",
-      "language": "\u1275\u130d\u122d\u129b",
+      "language": "ትግርኛ",
       "languageInEnglishName": "Tigragna"
     },
     {
       "appId": 107,
-      "appIconUrl": "webIcons/ComeComeBook.png",
+      "appIconUrl": "appIcons/ComeComeBook.png",
       "title": "Curious Reader Come Come Tigragna",
       "appUrl": "https://ibiza-stage-story-respect.firebaseapp.com/?book=ComeComeTigirigna",
-      "language": "\u1275\u130d\u122d\u129b",
+      "language": "ትግርኛ",
       "languageInEnglishName": "Tigragna"
     },
     {
       "appId": 108,
-      "appIconUrl": "webIcons/IAmFlyingBook.png",
+      "appIconUrl": "appIcons/IAmFlyingBook.png",
       "title": "Curious Reader I am Flying Somali",
       "appUrl": "https://ibiza-stage-story-respect.firebaseapp.com/?book=IAmFlyingSomali",
       "language": "Af Soomaali",
@@ -875,7 +924,7 @@
     },
     {
       "appId": 109,
-      "appIconUrl": "webIcons/ILoveBook.png",
+      "appIconUrl": "appIcons/ILoveBook.png",
       "title": "Curious Reader I Love Somali",
       "appUrl": "https://ibiza-stage-story-respect.firebaseapp.com/?book=ILoveSomali",
       "language": "Af Soomaali",
@@ -883,7 +932,7 @@
     },
     {
       "appId": 110,
-      "appIconUrl": "webIcons/GuessWhatIAm.png",
+      "appIconUrl": "appIcons/GuessWhatIAm.png",
       "title": "Curious Reader Guess What I Am Somali",
       "appUrl": "https://ibiza-stage-story-respect.firebaseapp.com/?book=GuessWhatIAmSomali",
       "language": "Af Soomaali",
@@ -891,7 +940,7 @@
     },
     {
       "appId": 111,
-      "appIconUrl": "webIcons/ComeComeBook.png",
+      "appIconUrl": "appIcons/ComeComeBook.png",
       "title": "Curious Reader Come Come Somali",
       "appUrl": "https://ibiza-stage-story-respect.firebaseapp.com/?book=ComeComeSomali",
       "language": "Af Soomaali",
@@ -899,7 +948,7 @@
     },
     {
       "appId": 112,
-      "appIconUrl": "webIcons/IAmFlyingBook.png",
+      "appIconUrl": "appIcons/IAmFlyingBook.png",
       "title": "Curious Reader I am Flying Oromo",
       "appUrl": "https://ibiza-stage-story-respect.firebaseapp.com/?book=IAmFlyingOromo",
       "language": "Afaan Oromoo",
@@ -907,7 +956,7 @@
     },
     {
       "appId": 113,
-      "appIconUrl": "webIcons/ILoveBook.png",
+      "appIconUrl": "appIcons/ILoveBook.png",
       "title": "Curious Reader I Love Oromo",
       "appUrl": "https://ibiza-stage-story-respect.firebaseapp.com/?book=ILoveOromo",
       "language": "Afaan Oromoo",
@@ -915,7 +964,7 @@
     },
     {
       "appId": 114,
-      "appIconUrl": "webIcons/GuessWhatIAm.png",
+      "appIconUrl": "appIcons/GuessWhatIAm.png",
       "title": "Curious Reader Guess What I Am Oromo",
       "appUrl": "https://ibiza-stage-story-respect.firebaseapp.com/?book=GuessWhatIAmOromo",
       "language": "Afaan Oromoo",
@@ -923,7 +972,7 @@
     },
     {
       "appId": 115,
-      "appIconUrl": "webIcons/ftm_Colours_prod.png",
+      "appIconUrl": "appIcons/ftm_Colours_prod.png",
       "title": "Curious Reader Colours Wolof Level 4",
       "appUrl": "https://ibiza-stage-story-respect.firebaseapp.com/?book=ColoursWolofLv4",
       "language": "Wolof",
@@ -931,7 +980,7 @@
     },
     {
       "appId": 116,
-      "appIconUrl": "webIcons/ftm_TheBeeAndTheElephant_prod.png",
+      "appIconUrl": "appIcons/ftm_TheBeeAndTheElephant_prod.png",
       "title": "Curious Reader The Bee And The Elephant Wolof Level 4",
       "appUrl": "https://ibiza-stage-story-respect.firebaseapp.com/?book=TheBeeAndTheElephantWolofLv4",
       "language": "Wolof",
@@ -939,7 +988,7 @@
     },
     {
       "appId": 117,
-      "appIconUrl": "webIcons/who_Can_Help_Me.png",
+      "appIconUrl": "appIcons/who_Can_Help_Me.png",
       "title": "Curious Reader Who Can Help Me Hausa",
       "appUrl": "https://ibiza-stage-story-respect.firebaseapp.com/?book=WhoCanHelpMeHausa",
       "language": "Hausa",
@@ -947,7 +996,7 @@
     },
     {
       "appId": 118,
-      "appIconUrl": "webIcons/playground.png",
+      "appIconUrl": "appIcons/playground.png",
       "title": "Curious Reader Playground Hausa",
       "appUrl": "https://ibiza-stage-story-respect.firebaseapp.com/?book=PlaygroundHausa",
       "language": "Hausa",
@@ -955,7 +1004,7 @@
     },
     {
       "appId": 119,
-      "appIconUrl": "webIcons/frogs_starry_wish.png",
+      "appIconUrl": "appIcons/frogs_starry_wish.png",
       "title": "Curious Reader Frog's Starry Wish Hausa",
       "appUrl": "https://ibiza-stage-story-respect.firebaseapp.com/?book=FrogsStarryWishHausa",
       "language": "Hausa",
@@ -963,7 +1012,7 @@
     },
     {
       "appId": 120,
-      "appIconUrl": "webIcons/friends.png",
+      "appIconUrl": "appIcons/friends.png",
       "title": "Curious Reader Friends Hausa",
       "appUrl": "https://ibiza-stage-story-respect.firebaseapp.com/?book=FriendsHausa",
       "language": "Hausa",
@@ -971,7 +1020,7 @@
     },
     {
       "appId": 121,
-      "appIconUrl": "webIcons/dads_boots.png",
+      "appIconUrl": "appIcons/dads_boots.png",
       "title": "Curious Reader Dad's Boots Hausa",
       "appUrl": "https://ibiza-stage-story-respect.firebaseapp.com/?book=DadsBootsHausa",
       "language": "Hausa",
@@ -979,7 +1028,7 @@
     },
     {
       "appId": 122,
-      "appIconUrl": "webIcons/chakus_cycle.png",
+      "appIconUrl": "appIcons/chakus_cycle.png",
       "title": "Curious Reader Chaku's Cycle Hausa",
       "appUrl": "https://ibiza-stage-story-respect.firebaseapp.com/?book=ChakusCycleHausa",
       "language": "Hausa",
@@ -987,7 +1036,7 @@
     },
     {
       "appId": 123,
-      "appIconUrl": "webIcons/who_Can_Help_Me.png",
+      "appIconUrl": "appIcons/who_Can_Help_Me.png",
       "title": "Curious Reader Who Can Help Me Isizulu",
       "appUrl": "https://ibiza-stage-story-respect.firebaseapp.com/?book=WhoCanHelpMeIsiZulu",
       "language": "Isizulu",
@@ -995,7 +1044,7 @@
     },
     {
       "appId": 124,
-      "appIconUrl": "webIcons/what_day_is_it.png",
+      "appIconUrl": "appIcons/what_day_is_it.png",
       "title": "Curious Reader What Day Is It Isizulu",
       "appUrl": "https://ibiza-stage-story-respect.firebaseapp.com/?book=WhatDayIsItIsiZulu",
       "language": "Isizulu",
@@ -1003,7 +1052,7 @@
     },
     {
       "appId": 125,
-      "appIconUrl": "webIcons/ftm_tallandshort_prod.png",
+      "appIconUrl": "appIcons/ftm_tallandshort_prod.png",
       "title": "Curious Reader Tall And Short Isizulu",
       "appUrl": "https://ibiza-stage-story-respect.firebaseapp.com/?book=TallAndShortIsiZuluLv4",
       "language": "Isizulu",
@@ -1011,7 +1060,7 @@
     },
     {
       "appId": 126,
-      "appIconUrl": "webIcons/playground.png",
+      "appIconUrl": "appIcons/playground.png",
       "title": "Curious Reader Playground Isizulu",
       "appUrl": "https://ibiza-stage-story-respect.firebaseapp.com/?book=PlaygroundIsiZulu",
       "language": "Isizulu",
@@ -1019,7 +1068,7 @@
     },
     {
       "appId": 127,
-      "appIconUrl": "webIcons/my_first_day_at_the_market.png",
+      "appIconUrl": "appIcons/my_first_day_at_the_market.png",
       "title": "Curious Reader My First Day At The Market Isizulu",
       "appUrl": "https://ibiza-stage-story-respect.firebaseapp.com/?book=MyFirstDayAtTheMarketIsizulu",
       "language": "Isizulu",
@@ -1027,7 +1076,7 @@
     },
     {
       "appId": 128,
-      "appIconUrl": "webIcons/frogs_starry_wish.png",
+      "appIconUrl": "appIcons/frogs_starry_wish.png",
       "title": "Curious Reader Frog's Starry Wish Isizulu",
       "appUrl": "https://ibiza-stage-story-respect.firebaseapp.com/?book=FrogsStarryWishIsiZulu",
       "language": "Isizulu",
@@ -1035,47 +1084,47 @@
     },
     {
       "appId": 129,
-      "appIconUrl": "webIcons/chakus_cycle.png",
+      "appIconUrl": "appIcons/chakus_cycle.png",
       "title": "Curious Reader Chaku's Cycle Cape Verde Portuguese",
       "appUrl": "https://ibiza-stage-story-respect.firebaseapp.com/?book=ChakusCycleCVPortuguese",
-      "language": "Portugu\u00eas - Cape Verde",
+      "language": "Português - Cape Verde",
       "languageInEnglishName": "Cape Verde Portuguese"
     },
     {
       "appId": 130,
-      "appIconUrl": "webIcons/playground.png",
+      "appIconUrl": "appIcons/playground.png",
       "title": "Curious Reader Playground Cape Verde Portuguese",
       "appUrl": "https://ibiza-stage-story-respect.firebaseapp.com/?book=PlaygroundCVPortuguese",
-      "language": "Portugu\u00eas - Cape Verde",
+      "language": "Português - Cape Verde",
       "languageInEnglishName": "Cape Verde Portuguese"
     },
     {
       "appId": 131,
-      "appIconUrl": "webIcons/ftm_tallandshort_prod.png",
+      "appIconUrl": "appIcons/ftm_tallandshort_prod.png",
       "title": "Curious Reader Tall And Short Cape Verde Portuguese Level 4",
       "appUrl": "https://ibiza-stage-story-respect.firebaseapp.com/?book=TallAndShortCVPortugueseLv4",
-      "language": "Portugu\u00eas - Cape Verde",
+      "language": "Português - Cape Verde",
       "languageInEnglishName": "Cape Verde Portuguese"
     },
     {
       "appId": 132,
-      "appIconUrl": "webIcons/friends.png",
+      "appIconUrl": "appIcons/friends.png",
       "title": "Curious Reader Friends Cape Verde Portuguese Level 4",
       "appUrl": "https://ibiza-stage-story-respect.firebaseapp.com/?book=FriendsCVPortugueseLv4",
-      "language": "Portugu\u00eas - Cape Verde",
+      "language": "Português - Cape Verde",
       "languageInEnglishName": "Cape Verde Portuguese"
     },
     {
       "appId": 133,
-      "appIconUrl": "webIcons/the_lion_runs.png",
+      "appIconUrl": "appIcons/the_lion_runs.png",
       "title": "Curious Reader The Lion Runs And The Cow Walks Cape Verde Portuguese ",
       "appUrl": "https://ibiza-stage-story-respect.firebaseapp.com/?book=TheLionRunsAndTheCowWalksCVPortuguese",
-      "language": "Portugu\u00eas - Cape Verde",
+      "language": "Português - Cape Verde",
       "languageInEnglishName": "Cape Verde Portuguese"
     },
     {
       "appId": 134,
-      "appIconUrl": "webIcons/TheUmbrellas.png",
+      "appIconUrl": "appIcons/TheUmbrellas.png",
       "title": "Curious Reader The Umbrellas Oromo",
       "appUrl": "https://ibiza-stage-story-respect.firebaseapp.com/?book=TheUmbrellasOromo",
       "language": "Afaan Oromoo",
@@ -1083,7 +1132,7 @@
     },
     {
       "appId": 135,
-      "appIconUrl": "webIcons/ComeComeBook.png",
+      "appIconUrl": "appIcons/ComeComeBook.png",
       "title": "Curious Reader Come Come Oromo",
       "appUrl": "https://ibiza-stage-story-respect.firebaseapp.com/?book=ComeComeOromo",
       "language": "Afaan Oromoo",
@@ -1091,7 +1140,7 @@
     },
     {
       "appId": 136,
-      "appIconUrl": "webIcons/TheUmbrellas.png",
+      "appIconUrl": "appIcons/TheUmbrellas.png",
       "title": "Curious Reader The Umbrellas Somali",
       "appUrl": "https://ibiza-stage-story-respect.firebaseapp.com/?book=TheUmbrellasSomali",
       "language": "Af Soomaali",
@@ -1099,119 +1148,119 @@
     },
     {
       "appId": 137,
-      "appIconUrl": "webIcons/who_Can_Help_Me.png",
+      "appIconUrl": "appIcons/who_Can_Help_Me.png",
       "title": "Curious Reader Who Can Help Me Hindi",
       "appUrl": "https://ibiza-stage-story-respect.firebaseapp.com/?book=WhoCanHelpMeHindi",
-      "language": "\u0939\u093f\u0928\u094d\u0926\u0940",
+      "language": "हिन्दी",
       "languageInEnglishName": "Hindi"
     },
     {
       "appId": 138,
-      "appIconUrl": "webIcons/ftm_tallandshort_prod.png",
+      "appIconUrl": "appIcons/ftm_tallandshort_prod.png",
       "title": "Curious Reader Tall And Short Hindi Level 4",
       "appUrl": "https://ibiza-stage-story-respect.firebaseapp.com/?book=TallAndShortHindiLv4",
-      "language": "\u0939\u093f\u0928\u094d\u0926\u0940",
+      "language": "हिन्दी",
       "languageInEnglishName": "Hindi"
     },
     {
       "appId": 139,
-      "appIconUrl": "webIcons/playground.png",
+      "appIconUrl": "appIcons/playground.png",
       "title": "Curious Reader Playground Hindi",
       "appUrl": "https://ibiza-stage-story-respect.firebaseapp.com/?book=PlaygroundHindi",
-      "language": "\u0939\u093f\u0928\u094d\u0926\u0940",
+      "language": "हिन्दी",
       "languageInEnglishName": "Hindi"
     },
     {
       "appId": 140,
-      "appIconUrl": "webIcons/my_first_day_at_the_market.png",
+      "appIconUrl": "appIcons/my_first_day_at_the_market.png",
       "title": "Curious Reader My First Day At The Market Hindi",
       "appUrl": "https://ibiza-stage-story-respect.firebaseapp.com/?book=MyFirstDayAtTheMarketHindi",
-      "language": "\u0939\u093f\u0928\u094d\u0926\u0940",
+      "language": "हिन्दी",
       "languageInEnglishName": "Hindi"
     },
     {
       "appId": 141,
-      "appIconUrl": "webIcons/frogs_starry_wish.png",
+      "appIconUrl": "appIcons/frogs_starry_wish.png",
       "title": "Curious Reader Frog's Starry Wish Hindi",
       "appUrl": "https://ibiza-stage-story-respect.firebaseapp.com/?book=FrogsStarryWishHindi",
-      "language": "\u0939\u093f\u0928\u094d\u0926\u0940",
+      "language": "हिन्दी",
       "languageInEnglishName": "Hindi"
     },
     {
       "appId": 142,
-      "appIconUrl": "webIcons/chakus_cycle.png",
+      "appIconUrl": "appIcons/chakus_cycle.png",
       "title": "Curious Reader Chakus Cycle Hindi",
       "appUrl": "https://ibiza-stage-story-respect.firebaseapp.com/?book=ChakusCycleHindi",
-      "language": "\u0939\u093f\u0928\u094d\u0926\u0940",
+      "language": "हिन्दी",
       "languageInEnglishName": "Hindi"
     },
     {
       "appId": 143,
-      "appIconUrl": "webIcons/what_day_is_it.png",
+      "appIconUrl": "appIcons/what_day_is_it.png",
       "title": "Curious Reader What Day Is It Hindi",
       "appUrl": "https://ibiza-stage-story-respect.firebaseapp.com/?book=WhatDayIsItHindi",
-      "language": "\u0939\u093f\u0928\u094d\u0926\u0940",
+      "language": "हिन्दी",
       "languageInEnglishName": "Hindi"
     },
     {
       "appId": 144,
-      "appIconUrl": "webIcons/who_Can_Help_Me.png",
+      "appIconUrl": "appIcons/who_Can_Help_Me.png",
       "title": "Curious Reader Who Can Help Me Ukrainian",
       "appUrl": "https://ibiza-stage-story-respect.firebaseapp.com/?book=WhoCanHelpMeUkrainian",
-      "language": "\u0443\u043a\u0440\u0430\u0457\u043d\u0441\u044c\u043a\u0430",
+      "language": "українська",
       "languageInEnglishName": "Ukrainian"
     },
     {
       "appId": 145,
-      "appIconUrl": "webIcons/what_day_is_it.png",
+      "appIconUrl": "appIcons/what_day_is_it.png",
       "title": "Curious Reader What Day Is It Ukrainian",
       "appUrl": "https://ibiza-stage-story-respect.firebaseapp.com/?book=WhatDayIsItUkrainian",
-      "language": "\u0443\u043a\u0440\u0430\u0457\u043d\u0441\u044c\u043a\u0430",
+      "language": "українська",
       "languageInEnglishName": "Ukrainian"
     },
     {
       "appId": 146,
-      "appIconUrl": "webIcons/playground.png",
+      "appIconUrl": "appIcons/playground.png",
       "title": "Curious Reader Playground Ukrainian",
       "appUrl": "https://ibiza-stage-story-respect.firebaseapp.com/?book=PlaygroundUkrainian",
-      "language": "\u0443\u043a\u0440\u0430\u0457\u043d\u0441\u044c\u043a\u0430",
+      "language": "українська",
       "languageInEnglishName": "Ukrainian"
     },
     {
       "appId": 147,
-      "appIconUrl": "webIcons/my_first_day_at_the_market.png",
+      "appIconUrl": "appIcons/my_first_day_at_the_market.png",
       "title": "Curious Reader My First Day At The Market Ukrainian",
       "appUrl": "https://ibiza-stage-story-respect.firebaseapp.com/?book=MyFirstDayAtTheMarketUkrainian",
-      "language": "\u0443\u043a\u0440\u0430\u0457\u043d\u0441\u044c\u043a\u0430",
+      "language": "українська",
       "languageInEnglishName": "Ukrainian"
     },
     {
       "appId": 148,
-      "appIconUrl": "webIcons/frogs_starry_wish.png",
+      "appIconUrl": "appIcons/frogs_starry_wish.png",
       "title": "Curious Reader Frog's Starry Wish Ukrainian",
       "appUrl": "https://ibiza-stage-story-respect.firebaseapp.com/?book=FrogsStarryWishUkrainian",
-      "language": "\u0443\u043a\u0440\u0430\u0457\u043d\u0441\u044c\u043a\u0430",
+      "language": "українська",
       "languageInEnglishName": "Ukrainian"
     },
     {
       "appId": 149,
-      "appIconUrl": "webIcons/chakus_cycle.png",
+      "appIconUrl": "appIcons/chakus_cycle.png",
       "title": "Curious Reader Chakus Cycle Ukrainian",
       "appUrl": "https://ibiza-stage-story-respect.firebaseapp.com/?book=ChakusCycleUkrainian",
-      "language": "\u0443\u043a\u0440\u0430\u0457\u043d\u0441\u044c\u043a\u0430",
+      "language": "українська",
       "languageInEnglishName": "Ukrainian"
     },
     {
       "appId": 150,
-      "appIconUrl": "webIcons/dads_boots.png",
+      "appIconUrl": "appIcons/dads_boots.png",
       "title": "Curious Reader Dad's Boots Ukrainian",
       "appUrl": "https://ibiza-stage-story-respect.firebaseapp.com/?book=DadsBootsUkrainian",
-      "language": "\u0443\u043a\u0440\u0430\u0457\u043d\u0441\u044c\u043a\u0430",
+      "language": "українська",
       "languageInEnglishName": "Ukrainian"
     },
     {
       "appId": 151,
-      "appIconUrl": "webIcons/playground.png",
+      "appIconUrl": "appIcons/playground.png",
       "title": "Curious Reader Playground Swahili",
       "appUrl": "https://ibiza-stage-story-respect.firebaseapp.com/?book=PlaygroundSwahili",
       "language": "Kiswahili",
@@ -1219,7 +1268,7 @@
     },
     {
       "appId": 152,
-      "appIconUrl": "webIcons/frogs_starry_wish.png",
+      "appIconUrl": "appIcons/frogs_starry_wish.png",
       "title": "Curious Reader Frog's Starry Wish Swahili",
       "appUrl": "https://ibiza-stage-story-respect.firebaseapp.com/?book=FrogsStarryWishSwahili",
       "language": "Kiswahili",
@@ -1227,7 +1276,7 @@
     },
     {
       "appId": 153,
-      "appIconUrl": "webIcons/ftm_tallandshort_prod.png",
+      "appIconUrl": "appIcons/ftm_tallandshort_prod.png",
       "title": "Curious Reader Tall And Short Swahili",
       "appUrl": "https://ibiza-stage-story-respect.firebaseapp.com/?book=TallAndShortSwahiliLv4",
       "language": "Kiswahili",
@@ -1235,7 +1284,7 @@
     },
     {
       "appId": 154,
-      "appIconUrl": "webIcons/dads_boots.png",
+      "appIconUrl": "appIcons/dads_boots.png",
       "title": "Curious Reader Dads Boots Swahili",
       "appUrl": "https://ibiza-stage-story-respect.firebaseapp.com/?book=DadsBootsSwahili",
       "language": "Kiswahili",
@@ -1243,7 +1292,7 @@
     },
     {
       "appId": 155,
-      "appIconUrl": "webIcons/chakus_cycle.png",
+      "appIconUrl": "appIcons/chakus_cycle.png",
       "title": "Curious Reader Chakus Cycle Swahili",
       "appUrl": "https://ibiza-stage-story-respect.firebaseapp.com/?book=ChakusCycleSwahili",
       "language": "Kiswahili",
@@ -1251,7 +1300,7 @@
     },
     {
       "appId": 156,
-      "appIconUrl": "webIcons/who_Can_Help_Me.png",
+      "appIconUrl": "appIcons/who_Can_Help_Me.png",
       "title": "Curious Reader Who Can Help Me Swahili",
       "appUrl": "https://ibiza-stage-story-respect.firebaseapp.com/?book=WhoCanHelpMeSwahili",
       "language": "Kiswahili",
@@ -1259,7 +1308,7 @@
     },
     {
       "appId": 157,
-      "appIconUrl": "webIcons/the_lion_runs.png",
+      "appIconUrl": "appIcons/the_lion_runs.png",
       "title": "Curious Reader The Lion Runs And The Cow Walks Swahili",
       "appUrl": "https://ibiza-stage-story-respect.firebaseapp.com/?book=TheLionRunsAndTheCowWalksSwahili",
       "language": "Kiswahili",
@@ -1267,7 +1316,7 @@
     },
     {
       "appId": 158,
-      "appIconUrl": "webIcons/friends.png",
+      "appIconUrl": "appIcons/friends.png",
       "title": "Curious Reader Friends Swahili",
       "appUrl": "https://ibiza-stage-story-respect.firebaseapp.com/?book=FriendsSwahiliLv4",
       "language": "Kiswahili",
@@ -1275,7 +1324,7 @@
     },
     {
       "appId": 159,
-      "appIconUrl": "webIcons/what_day_is_it.png",
+      "appIconUrl": "appIcons/what_day_is_it.png",
       "title": "Curious Reader What Day Is It Swahili",
       "appUrl": "https://ibiza-stage-story-respect.firebaseapp.com/?book=WhatDayIsItSwahili",
       "language": "Kiswahili",
@@ -1283,7 +1332,7 @@
     },
     {
       "appId": 160,
-      "appIconUrl": "webIcons/who_Can_Help_Me.png",
+      "appIconUrl": "appIcons/who_Can_Help_Me.png",
       "title": "Curious Reader Who Can Help Me Lugandan",
       "appUrl": "https://ibiza-stage-story-respect.firebaseapp.com/?book=WhoCanHelpMeLuganda",
       "language": "Oluganda",
@@ -1291,7 +1340,7 @@
     },
     {
       "appId": 161,
-      "appIconUrl": "webIcons/what_day_is_it.png",
+      "appIconUrl": "appIcons/what_day_is_it.png",
       "title": "Curious Reader What Day Is It Lugandan",
       "appUrl": "https://ibiza-stage-story-respect.firebaseapp.com/?book=WhatDayIsItLuganda",
       "language": "Oluganda",
@@ -1299,7 +1348,7 @@
     },
     {
       "appId": 162,
-      "appIconUrl": "webIcons/the_lion_runs.png",
+      "appIconUrl": "appIcons/the_lion_runs.png",
       "title": "Curious Reader The Lion Runs And The Cow walks Lugandan",
       "appUrl": "https://ibiza-stage-story-respect.firebaseapp.com/?book=TheLionRunsAndTheCowWalksLuganda",
       "language": "Oluganda",
@@ -1307,7 +1356,7 @@
     },
     {
       "appId": 163,
-      "appIconUrl": "webIcons/ftm_tallandshort_prod.png",
+      "appIconUrl": "appIcons/ftm_tallandshort_prod.png",
       "title": "Curious Reader Tall And Short Lugandan",
       "appUrl": "https://ibiza-stage-story-respect.firebaseapp.com/?book=TallAndShortLugandaLv4",
       "language": "Oluganda",
@@ -1315,7 +1364,7 @@
     },
     {
       "appId": 164,
-      "appIconUrl": "webIcons/playground.png",
+      "appIconUrl": "appIcons/playground.png",
       "title": "Curious Reader Playground Lugandan",
       "appUrl": "https://ibiza-stage-story-respect.firebaseapp.com/?book=PlaygroundLuganda",
       "language": "Oluganda",
@@ -1323,7 +1372,7 @@
     },
     {
       "appId": 165,
-      "appIconUrl": "webIcons/my_first_day_at_the_market.png",
+      "appIconUrl": "appIcons/my_first_day_at_the_market.png",
       "title": "Curious Reader My First Day At The Market Lugandan",
       "appUrl": "https://ibiza-stage-story-respect.firebaseapp.com/?book=MyFirstDayAtTheMarketLuganda",
       "language": "Oluganda",
@@ -1331,7 +1380,7 @@
     },
     {
       "appId": 166,
-      "appIconUrl": "webIcons/frogs_starry_wish.png",
+      "appIconUrl": "appIcons/frogs_starry_wish.png",
       "title": "Curious Reader Frog's Starry Wish Lugandan",
       "appUrl": "https://ibiza-stage-story-respect.firebaseapp.com/?book=FrogsStarryWishLuganda",
       "language": "Oluganda",
@@ -1339,7 +1388,7 @@
     },
     {
       "appId": 167,
-      "appIconUrl": "webIcons/dads_boots.png",
+      "appIconUrl": "appIcons/dads_boots.png",
       "title": "Curious Reader Dads Boots Lugandan",
       "appUrl": "https://ibiza-stage-story-respect.firebaseapp.com/?book=DadsBootsLuganda",
       "language": "Oluganda",
@@ -1347,7 +1396,7 @@
     },
     {
       "appId": 168,
-      "appIconUrl": "webIcons/friends.png",
+      "appIconUrl": "appIcons/friends.png",
       "title": "Curious Reader Friends Lugandan Level 4",
       "appUrl": "https://ibiza-stage-story-respect.firebaseapp.com/?book=FriendsLugandaLv4",
       "language": "Oluganda",
@@ -1355,7 +1404,7 @@
     },
     {
       "appId": 169,
-      "appIconUrl": "webIcons/chakus_cycle.png",
+      "appIconUrl": "appIcons/chakus_cycle.png",
       "title": "Curious Reader Chakus Cycle Lugandan",
       "appUrl": "https://ibiza-stage-story-respect.firebaseapp.com/?book=ChakusCycleLuganda",
       "language": "Oluganda",
@@ -1363,151 +1412,154 @@
     },
     {
       "appId": 170,
-      "appIconUrl": "webIcons/the_lion_runs.png",
+      "appIconUrl": "appIcons/the_lion_runs.png",
       "title": "Curious Reader The Lion Runs Bangla",
       "appUrl": "https://ibiza-stage-story-respect.firebaseapp.com/?book=TheLionRunsAndTheCowWalksBangla",
-      "language": "\u09ac\u09be\u0982\u09b2\u09be",
+      "language": "বাংলা",
       "languageInEnglishName": "Bangla"
     },
     {
       "appId": 171,
-      "appIconUrl": "webIcons/who_Can_Help_Me.png",
+      "appIconUrl": "appIcons/who_Can_Help_Me.png",
       "title": "Curious Reader Who Can Help Me Nepali",
       "appUrl": "https://ibiza-stage-story-respect.firebaseapp.com/?book=WhoCanHelpMeNepali",
-      "language": "\u0928\u0947\u092a\u093e\u0932\u0940",
+      "language": "नेपाली",
       "languageInEnglishName": "Nepali"
     },
     {
       "appId": 172,
-      "appIconUrl": "webIcons/what_day_is_it.png",
+      "appIconUrl": "appIcons/what_day_is_it.png",
       "title": "Curious Reader What Day Is It Nepali",
       "appUrl": "https://ibiza-stage-story-respect.firebaseapp.com/?book=WhatDayIsItNepali",
-      "language": "\u0928\u0947\u092a\u093e\u0932\u0940",
+      "language": "नेपाली",
       "languageInEnglishName": "Nepali"
     },
     {
       "appId": 173,
-      "appIconUrl": "webIcons/ftm_tallandshort_prod.png",
+      "appIconUrl": "appIcons/ftm_tallandshort_prod.png",
       "title": "Curious Reader Tall And Short Nepali Level 4",
       "appUrl": "https://curiousreaderdev.curiouscontent.org/?book=TallAndShortNepaliLv4",
-      "language": "\u0928\u0947\u092a\u093e\u0932\u0940",
+      "language": "नेपाली",
       "languageInEnglishName": "Nepali"
     },
     {
       "appId": 174,
-      "appIconUrl": "webIcons/playground.png",
+      "appIconUrl": "appIcons/playground.png",
       "title": "Curious Reader Playground Nepali",
       "appUrl": "https://ibiza-stage-story-respect.firebaseapp.com/?book=PlaygroundNepali",
-      "language": "\u0928\u0947\u092a\u093e\u0932\u0940",
+      "language": "नेपाली",
       "languageInEnglishName": "Nepali"
     },
     {
       "appId": 175,
-      "appIconUrl": "webIcons/my_first_day_at_the_market.png",
+      "appIconUrl": "appIcons/my_first_day_at_the_market.png",
       "title": "Curious Reader My First Day At The Market Nepali",
       "appUrl": "https://ibiza-stage-story-respect.firebaseapp.com/?book=MyFirstDayAtTheMarketNepali",
-      "language": "\u0928\u0947\u092a\u093e\u0932\u0940",
+      "language": "नेपाली",
       "languageInEnglishName": "Nepali"
     },
     {
       "appId": 176,
-      "appIconUrl": "webIcons/frogs_starry_wish.png",
+      "appIconUrl": "appIcons/frogs_starry_wish.png",
       "title": "Curious Reader Frog's Starry Wish Nepali",
       "appUrl": "https://ibiza-stage-story-respect.firebaseapp.com/?book=FrogsStarryWishNepali",
-      "language": "\u0928\u0947\u092a\u093e\u0932\u0940",
+      "language": "नेपाली",
       "languageInEnglishName": "Nepali"
     },
     {
       "appId": 177,
-      "appIconUrl": "webIcons/chakus_cycle.png",
+      "appIconUrl": "appIcons/chakus_cycle.png",
       "title": "Curious Reader Chakus Cycle Nepali",
       "appUrl": "https://ibiza-stage-story-respect.firebaseapp.com/?book=ChakusCycleNepali",
-      "language": "\u0928\u0947\u092a\u093e\u0932\u0940",
+      "language": "नेपाली",
       "languageInEnglishName": "Nepali"
     },
     {
       "appId": 178,
-      "appIconUrl": "webIcons/ftm_bangla_prod.png",
+      "appIconUrl": "appIcons/ftm_bangla_prod.png",
       "title": "Feed The Monster Bangla",
       "appUrl": "https://ibiza-stage-ftm-respect.firebaseapp.com/?cr_lang=bangla",
-      "language": "\u09ac\u09be\u0982\u09b2\u09be",
+      "language": "বাংলা",
+      "langCode":"bn",
       "languageInEnglishName": "Bangla"
     },
     {
       "appId": 179,
-      "appIconUrl": "webIcons/ftm_CapeVerdePortuguese_prod.png",
+      "appIconUrl": "appIcons/ftm_CapeVerdePortuguese_prod.png",
       "title": "Feed The Monster Cape Verdean Portuguese",
       "appUrl": "https://ibiza-stage-ftm-respect.firebaseapp.com/?cr_lang=caboverdeportuguese",
-      "language": "Portugu\u00eas - Cape Verde",
+      "language": "Português - Cape Verde",
+      "langCode":"pt",
       "languageInEnglishName": "CabOverdePortuguese"
     },
     {
       "appId": 180,
-      "appIconUrl": "webIcons/the_lion_runs.png",
+      "appIconUrl": "appIcons/the_lion_runs.png",
       "title": "Curious Reader The Lion Runs Marathi",
       "appUrl": "https://ibiza-stage-story-respect.firebaseapp.com/?book=TheLionRunsAndTheCowWalksMarathi",
-      "language": "\u092e\u0930\u093e\u0920\u0940",
+      "language": "मराठी",
       "languageInEnglishName": "Marathi"
     },
     {
       "appId": 181,
-      "appIconUrl": "webIcons/who_Can_Help_Me.png",
+      "appIconUrl": "appIcons/who_Can_Help_Me.png",
       "title": "Curious Reader Who Can Help Me Marathi",
       "appUrl": "https://ibiza-stage-story-respect.firebaseapp.com/?book=WhoCanHelpMeMarathi",
-      "language": "\u092e\u0930\u093e\u0920\u0940",
+      "language": "मराठी",
       "languageInEnglishName": "Marathi"
     },
     {
       "appId": 182,
-      "appIconUrl": "webIcons/what_day_is_it.png",
+      "appIconUrl": "appIcons/what_day_is_it.png",
       "title": "Curious Reader What Day Is It Marathi",
       "appUrl": "https://ibiza-stage-story-respect.firebaseapp.com/?book=WhatDayIsItMarathi",
-      "language": "\u092e\u0930\u093e\u0920\u0940",
+      "language": "मराठी",
       "languageInEnglishName": "Marathi"
     },
     {
       "appId": 183,
-      "appIconUrl": "webIcons/ftm_tallandshort_prod.png",
+      "appIconUrl": "appIcons/ftm_tallandshort_prod.png",
       "title": "Curious Reader Tall And Short Marathi",
       "appUrl": "https://ibiza-stage-story-respect.firebaseapp.com/?book=TallAndShortMarathiLv4",
-      "language": "\u092e\u0930\u093e\u0920\u0940",
+      "language": "मराठी",
       "languageInEnglishName": "Marathi"
     },
     {
       "appId": 184,
-      "appIconUrl": "webIcons/playground.png",
+      "appIconUrl": "appIcons/playground.png",
       "title": "Curious Reader Playground Marathi",
       "appUrl": "https://ibiza-stage-story-respect.firebaseapp.com/?book=PlaygroundMarathi",
-      "language": "\u092e\u0930\u093e\u0920\u0940",
+      "language": "मराठी",
       "languageInEnglishName": "Marathi"
     },
     {
       "appId": 185,
-      "appIconUrl": "webIcons/dads_boots.png",
+      "appIconUrl": "appIcons/dads_boots.png",
       "title": "Curious Reader Dads Boots Marathi",
       "appUrl": "https://ibiza-stage-story-respect.firebaseapp.com/?book=DadsBootsMarathi",
-      "language": "\u092e\u0930\u093e\u0920\u0940",
+      "language": "मराठी",
       "languageInEnglishName": "Marathi"
     },
     {
       "appId": 186,
-      "appIconUrl": "webIcons/chakus_cycle.png",
+      "appIconUrl": "appIcons/chakus_cycle.png",
       "title": "Curious Reader Chakus Cycle Marathi",
       "appUrl": "https://ibiza-stage-story-respect.firebaseapp.com/?book=ChakusCycleMarathi",
-      "language": "\u092e\u0930\u093e\u0920\u0940",
+      "language": "मराठी",
       "languageInEnglishName": "Marathi"
     },
     {
       "appId": 187,
-      "appIconUrl": "webIcons/ftm_cvcreole_prod.png",
+      "appIconUrl": "appIcons/ftm_cvcreole_prod.png",
       "title": "Feed The Monster Cape Verde Creole",
       "appUrl": "https://ibiza-stage-ftm-respect.firebaseapp.com/?cr_lang=caboverdecreole",
       "language": "Kriolu - Cape Verde",
+      "langCode":"kea",
       "languageInEnglishName": "CabOverdeCreole"
     },
     {
       "appId": 188,
-      "appIconUrl": "webIcons/ftm_tallandshort_prod.png",
+      "appIconUrl": "appIcons/ftm_tallandshort_prod.png",
       "title": "Curious Reader Tall And Short Cape Verde Creole Level 4",
       "appUrl": "https://ibiza-stage-story-respect.firebaseapp.com/?book=TallAndShortCVCreoleLv4",
       "language": "Kriolu - Cape Verde",
@@ -1515,7 +1567,7 @@
     },
     {
       "appId": 189,
-      "appIconUrl": "webIcons/who_Can_Help_Me.png",
+      "appIconUrl": "appIcons/who_Can_Help_Me.png",
       "title": "Curious Reader Who Can Help Me Cape Verde Creole",
       "appUrl": "https://ibiza-stage-story-respect.firebaseapp.com/?book=WhoCanHelpMeCVCreole",
       "language": "Kriolu - Cape Verde",
@@ -1523,7 +1575,7 @@
     },
     {
       "appId": 190,
-      "appIconUrl": "webIcons/chakus_cycle.png",
+      "appIconUrl": "appIcons/chakus_cycle.png",
       "title": "Curious Reader Chaku's Cycle Cape Verde Creole",
       "appUrl": "https://ibiza-stage-story-respect.firebaseapp.com/?book=ChakusCycleCVCreole",
       "language": "Kriolu - Cape Verde",
@@ -1531,23 +1583,23 @@
     },
     {
       "appId": 191,
-      "appIconUrl": "webIcons/friends.png",
+      "appIconUrl": "appIcons/friends.png",
       "title": "Curious Reader Friends Marathi Level 4",
       "appUrl": "https://ibiza-stage-story-respect.firebaseapp.com/?book=FriendsMarathiLv4",
-      "language": "\u092e\u0930\u093e\u0920\u0940",
+      "language": "मराठी",
       "languageInEnglishName": "Marathi"
     },
     {
       "appId": 192,
-      "appIconUrl": "webIcons/frogs_starry_wish.png",
+      "appIconUrl": "appIcons/frogs_starry_wish.png",
       "title": "Curious Reader Frog's Starry Wish Marathi",
       "appUrl": "https://ibiza-stage-story-respect.firebaseapp.com/?book=FrogsStarryWishMarathi",
-      "language": "\u092e\u0930\u093e\u0920\u0940",
+      "language": "मराठी",
       "languageInEnglishName": "Marathi"
     },
     {
       "appId": 193,
-      "appIconUrl": "webIcons/chakus_cycle.png",
+      "appIconUrl": "appIcons/chakus_cycle.png",
       "title": "Curious Reader Chakus Cycle Isizulu",
       "appUrl": "https://ibiza-stage-story-respect.firebaseapp.com/?book=ChakusCycleIsiZulu",
       "language": "Isizulu",
@@ -1555,39 +1607,39 @@
     },
     {
       "appId": 194,
-      "appIconUrl": "webIcons/who_Can_Help_Me.png",
+      "appIconUrl": "appIcons/who_Can_Help_Me.png",
       "title": "Curious Reader Who Can Help Me Bangla",
       "appUrl": "https://ibiza-stage-story-respect.firebaseapp.com/?book=WhoCanHelpMeBangla",
-      "language": "\u09ac\u09be\u0982\u09b2\u09be",
+      "language": "বাংলা",
       "languageInEnglishName": "Bangla"
     },
     {
       "appId": 195,
-      "appIconUrl": "webIcons/chakus_cycle.png",
+      "appIconUrl": "appIcons/chakus_cycle.png",
       "title": "Curious Reader Chakus Cycle Bangla",
       "appUrl": "https://ibiza-stage-story-respect.firebaseapp.com/?book=ChakusCycleBangla",
-      "language": "\u09ac\u09be\u0982\u09b2\u09be",
+      "language": "বাংলা",
       "languageInEnglishName": "Bangla"
     },
     {
       "appId": 196,
-      "appIconUrl": "webIcons/friends.png",
+      "appIconUrl": "appIcons/friends.png",
       "title": "Curious Reader Friends Bangla Level 4",
       "appUrl": "https://ibiza-stage-story-respect.firebaseapp.com/?book=FriendsBanglaLv4",
-      "language": "\u09ac\u09be\u0982\u09b2\u09be",
+      "language": "বাংলা",
       "languageInEnglishName": "Bangla"
     },
     {
       "appId": 197,
-      "appIconUrl": "webIcons/ftm_tallandshort_prod.png",
+      "appIconUrl": "appIcons/ftm_tallandshort_prod.png",
       "title": "Curious Reader Tall And Short Bangla Level 4",
       "appUrl": "https://ibiza-stage-story-respect.firebaseapp.com/?book=TallAndShortBanglaLv4",
-      "language": "\u09ac\u09be\u0982\u09b2\u09be",
+      "language": "বাংলা",
       "languageInEnglishName": "Bangla"
     },
     {
       "appId": 198,
-      "appIconUrl": "webIcons/LetsFly_icon.png",
+      "appIconUrl": "appIcons/LetsFly_icon.png",
       "title": "Curious Reader Let's Fly English Level 2",
       "appUrl": "https://ibiza-stage-story-respect.firebaseapp.com/?book=LetsFlyEnLv2",
       "language": "English - US",
@@ -1595,7 +1647,7 @@
     },
     {
       "appId": 199,
-      "appIconUrl": "webIcons/ftm_TheLostDoll_prod.png",
+      "appIconUrl": "appIcons/ftm_TheLostDoll_prod.png",
       "title": "Curious Reader The Lost Doll English Level 4",
       "appUrl": "https://ibiza-stage-story-respect.firebaseapp.com/?book=TheLostDollEnLv4",
       "language": "English - US",
@@ -1603,7 +1655,7 @@
     },
     {
       "appId": 200,
-      "appIconUrl": "webIcons/ftm_TheBeeAndTheElephant_prod.png",
+      "appIconUrl": "appIcons/ftm_TheBeeAndTheElephant_prod.png",
       "title": "Curious Reader The Bee And The Elephant English Level 4",
       "appUrl": "https://ibiza-stage-story-respect.firebaseapp.com/?book=TheBeeAndTheElephantEnLv4",
       "language": "English - US",
@@ -1611,7 +1663,7 @@
     },
     {
       "appId": 201,
-      "appIconUrl": "webIcons/ftm_CicadasSong_prod.png",
+      "appIconUrl": "appIcons/ftm_CicadasSong_prod.png",
       "title": "Curious Reader Cicadas Song English Level 4",
       "appUrl": "https://ibiza-stage-story-respect.firebaseapp.com/?book=CicadasSongEnLv4",
       "language": "English - US",
@@ -1619,15 +1671,16 @@
     },
     {
       "appId": 202,
-      "appIconUrl": "webIcons/ftm_telugu.png",
+      "appIconUrl": "appIcons/ftm_telugu.png",
       "title": "Feed The Monster Telugu",
       "appUrl": "https://ibiza-stage-ftm-respect.firebaseapp.com/?cr_lang=telugu",
-      "language": "\u0c24\u0c46\u0c32\u0c41\u0c17\u0c41",
+      "language": "తెలుగు",
+      "langCode":"te",
       "languageInEnglishName": "Telugu"
     },
     {
       "appId": 203,
-      "appIconUrl": "webIcons/colours_of_nature.png",
+      "appIconUrl": "appIcons/colours_of_nature.png",
       "title": "Curious Colours Of Nature English Level 2",
       "appUrl": "https://ibiza-stage-story-respect.firebaseapp.com/?book=ColoursOfNatureEnLv2",
       "language": "English - US",
@@ -1635,7 +1688,7 @@
     },
     {
       "appId": 204,
-      "appIconUrl": "webIcons/i_am_not_afraid.png",
+      "appIconUrl": "appIcons/i_am_not_afraid.png",
       "title": "Curious I Am Not Afraid Level 4",
       "appUrl": "https://ibiza-stage-story-respect.firebaseapp.com/?book=IAmNotAfraidEnLv4",
       "language": "English - US",
@@ -1643,15 +1696,15 @@
     },
     {
       "appId": 205,
-      "appIconUrl": "webIcons/playground.png",
+      "appIconUrl": "appIcons/playground.png",
       "title": "Curious Reader Playground Bangla",
       "appUrl": "https://ibiza-stage-story-respect.firebaseapp.com/?book=PlaygroundBangla",
-      "language": "\u09ac\u09be\u0982\u09b2\u09be",
+      "language": "বাংলা",
       "languageInEnglishName": "Bangla"
     },
     {
       "appId": 206,
-      "appIconUrl": "webIcons/ftm_tallandshort_prod.png",
+      "appIconUrl": "appIcons/ftm_tallandshort_prod.png",
       "title": "Curious Tall And Short Level 4",
       "appUrl": "https://ibiza-stage-story-respect.firebaseapp.com/?book=TallAndShortEnLv4",
       "language": "English - US",
@@ -1659,7 +1712,7 @@
     },
     {
       "appId": 207,
-      "appIconUrl": "webIcons/friends.png",
+      "appIconUrl": "appIcons/friends.png",
       "title": "Curious Reader Friends English Level 2",
       "appUrl": "https://ibiza-stage-story-respect.firebaseapp.com/?book=FriendsEnLv2",
       "language": "English - US",
@@ -1667,7 +1720,7 @@
     },
     {
       "appId": 208,
-      "appIconUrl": "webIcons/ftm_Colours_prod.png",
+      "appIconUrl": "appIcons/ftm_Colours_prod.png",
       "title": "Curious Reader Colours Level 4",
       "appUrl": "https://ibiza-stage-story-respect.firebaseapp.com/?book=ColoursEnLv4",
       "language": "English - US",
@@ -1675,7 +1728,7 @@
     },
     {
       "appId": 209,
-      "appIconUrl": "webIcons/ftm_HideAndSeek_prod.png",
+      "appIconUrl": "appIcons/ftm_HideAndSeek_prod.png",
       "title": "Curious Reader Hide And Seek English Level 2",
       "appUrl": "https://ibiza-stage-story-respect.firebaseapp.com/?book=HideAndSeekEnLv2",
       "language": "English - US",
@@ -1683,26 +1736,29 @@
     },
     {
       "appId": 210,
-      "appIconUrl": "webIcons/ftm_gujarati_prod.png",
+      "appIconUrl": "appIcons/ftm_gujarati_prod.png",
       "title": "Feed The Monster Gujarati",
       "appUrl": "https://ibiza-stage-ftm-respect.firebaseapp.com/?cr_lang=gujarati",
-      "language": "\u0a97\u0ac1\u0a9c\u0ab0\u0abe\u0aa4\u0ac0",
+      "language": "ગુજરાતી",
+      "langCode":"gu",
       "languageInEnglishName": "Gujarati"
     },
     {
       "appId": 211,
-      "appIconUrl": "webIcons/ftm_punjabi_prod.png",
+      "appIconUrl": "appIcons/ftm_punjabi_prod.png",
       "title": "Feed The Monster Punjabi",
       "appUrl": "https://ibiza-stage-ftm-respect.firebaseapp.com/?cr_lang=punjabi",
-      "language": "\u0a2a\u0a70\u0a1c\u0a3e\u0a2c\u0a40",
+      "language": "ਪੰਜਾਬੀ",
+      "langCode":"pa",
       "languageInEnglishName": "Punjabi"
     },
     {
       "appId": 212,
-      "appIconUrl": "webIcons/ftm_arabic_prod.png",
+      "appIconUrl": "appIcons/ftm_arabic_prod.png",
       "title": "Feed The Monster Arabic",
       "appUrl": "https://ibiza-stage-ftm-respect.firebaseapp.com/?cr_lang=arabictest",
-      "language": "\u0627\u0644\u0639\u0631\u0628\u064a\u0629",
+      "language": "العربية",
+      "langCode":"ar",
       "languageInEnglishName": "Arabic"
     }
   ]
