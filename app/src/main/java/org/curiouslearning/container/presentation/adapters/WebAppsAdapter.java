@@ -14,6 +14,10 @@ import android.widget.ImageView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import java.io.InputStream;
+
 import org.curiouslearning.container.R;
 import org.curiouslearning.container.data.model.WebApp;
 import org.curiouslearning.container.utilities.AnimationUtil;
@@ -32,8 +36,10 @@ public class WebAppsAdapter extends RecyclerView.Adapter<WebAppsAdapter.ViewHold
     public List<WebApp> webApps;
     private AudioPlayer audioPlayer;
     private Handler handler = new Handler();
+    private static final String TAG = "WebAppsAdapter";
     private static final String SHARED_PREFS_NAME = "animatePulse";
     private static final String PULSE_ANIMATION_KEY = "pulse_animaton";
+    public static boolean isRespect = true;
     private SharedPreferences prefs;
     private boolean isAnimated;
     public WebAppsAdapter(Context context, List<WebApp> webApps) {
@@ -55,7 +61,15 @@ public class WebAppsAdapter extends RecyclerView.Adapter<WebAppsAdapter.ViewHold
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, @SuppressLint("RecyclerView") int position) {
 
+        if(isRespect) {
+            WebApp webapp = webApps.get(position);
+            String iconPath = webapp.getAppIconUrl();
+
+            loadWebAppIconWithFallback(iconPath, holder.appIconImage);
+        } else {
         ImageLoader.loadWebAppIcon(ctx, webApps.get(position).getAppIconUrl(), holder.appIconImage);
+        }
+
         holder.appIconImage.clearColorFilter();
         holder.pulsatorLayout.stopAnimation();
         if ( webApps.get(position).getTitle().contains("Feed The Monster") && !isAppCached(webApps.get(position).getAppId())) {
@@ -112,6 +126,22 @@ public class WebAppsAdapter extends RecyclerView.Adapter<WebAppsAdapter.ViewHold
         if(activity_id != "" && isDeepLink) {
             isDeepLink = false;
             holder.itemView.post(() -> holder.itemView.performClick());
+        }
+    }
+
+    private void loadWebAppIconWithFallback(String imageSrc, ImageView imageView) {
+        Log.d(TAG, "Loading icon from assets: " + imageSrc);
+
+        try {
+            // Load directly from assets using AssetManager
+            InputStream inputStream = ctx.getAssets().open(imageSrc);
+            Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
+            imageView.setImageBitmap(bitmap);
+            inputStream.close();
+            Log.d(TAG, "Successfully loaded icon from assets: " + imageSrc);
+        } catch (Exception e) {
+            Log.e(TAG, "Failed to load icon from assets: " + imageSrc, e);
+            imageView.setImageResource(android.R.drawable.ic_menu_gallery);
         }
     }
 

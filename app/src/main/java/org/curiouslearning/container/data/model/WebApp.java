@@ -19,7 +19,7 @@ public class WebApp {
 
     private String languageInEnglishName;
 
-
+    private String langCode;
 
     public int getAppId() {
         return appId;
@@ -67,6 +67,14 @@ public class WebApp {
 
     public void setLanguageInEnglishName(String languageInEnglishName) {
         this.languageInEnglishName = languageInEnglishName;
+    }
+
+    public String getLangCode() {
+        return langCode;
+    }
+
+    public void setLangCode(String langCode) {
+        this.langCode = langCode;
     }
 
 }
