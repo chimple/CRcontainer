@@ -538,7 +538,6 @@ public class MainActivity extends BaseActivity {
                 audioPlayer.play(MainActivity.this, R.raw.sound_button_pressed);
                 selectedLanguage = (String) parent.getItemAtPosition(position);
                 String selectedLanguageEnglishName = langPrefs.getString(selectedLanguage,null);
-
                 autoCompleteTextView.setText(selectedLanguage, false);
 
                 dialog.dismiss();
@@ -579,10 +578,27 @@ public class MainActivity extends BaseActivity {
             if(editor != null) {
                 for (int i = 0; i < webAppsArray.length(); i++) {
                     JSONObject appObject = webAppsArray.getJSONObject(i);
-                    String languageCode = appObject.getString("language");
+                    String language = appObject.getString("language");
                     String languageEnglishName = appObject.getString("languageInEnglishName");
+                    boolean hasLangCode = appObject.has("langCode");
 
-                    editor.putString(languageCode, languageEnglishName);
+                    if (!langPrefs.contains(language)) {
+                        if (hasLangCode) {
+                            String langCode = appObject.getString("langCode");
+                            editor.putString(language, langCode);
+                        } else {
+                            editor.putString(language, languageEnglishName);
+                        }
+                    } else {
+                        if (hasLangCode) {
+                            String langCode = appObject.getString("langCode");
+                            String existingValue = langPrefs.getString(language, "");
+                            if (!existingValue.equals(langCode)) {
+                                editor.putString(language, langCode);
+                            }
+                        }
+                    }
+
                 }
             }
 
@@ -621,6 +637,10 @@ public class MainActivity extends BaseActivity {
                 webApp.setAppUrl(appObject.getString("appUrl"));
                 webApp.setAppIconUrl(appObject.getString("appIconUrl"));
                 webApp.setLanguageInEnglishName(appObject.getString("languageInEnglishName"));
+
+                if (appObject.has("langCode")) {
+                    webApp.setLangCode(appObject.getString("langCode"));
+                }
 
                 String key = "webapp_" + webApp.getAppId();
                 String jsonString = gson.toJson(webApp);
@@ -748,7 +768,15 @@ public class MainActivity extends BaseActivity {
                         String jsonString = webAppsPrefs.getString(key, null);
                         if (jsonString != null) {
                             WebApp webApp = gson.fromJson(jsonString, WebApp.class);
-                            if (webApp.getLanguageInEnglishName().equalsIgnoreCase(selectedlanguage)) {
+
+                            String langCode = webApp.getLangCode() != null ?
+                            webApp.getLangCode().toLowerCase() : "";
+
+                            String langEnglishName = webApp.getLanguageInEnglishName() != null ?
+                            webApp.getLanguageInEnglishName().toLowerCase() : "";
+
+                            if(langCode.equals(selectedlanguage.toLowerCase()) ||
+                                langEnglishName.equals(selectedlanguage.toLowerCase())) {
                                 filteredApps.add(webApp);
                             }
                         }
