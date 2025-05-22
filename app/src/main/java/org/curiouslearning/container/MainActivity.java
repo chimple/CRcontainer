@@ -579,26 +579,8 @@ public class MainActivity extends BaseActivity {
                 for (int i = 0; i < webAppsArray.length(); i++) {
                     JSONObject appObject = webAppsArray.getJSONObject(i);
                     String language = appObject.getString("language");
-                    String languageEnglishName = appObject.getString("languageInEnglishName");
-                    boolean hasLangCode = appObject.has("langCode");
-
-                    if (!langPrefs.contains(language)) {
-                        if (hasLangCode) {
-                            String langCode = appObject.getString("langCode");
-                            editor.putString(language, langCode);
-                        } else {
-                            editor.putString(language, languageEnglishName);
-                        }
-                    } else {
-                        if (hasLangCode) {
-                            String langCode = appObject.getString("langCode");
-                            String existingValue = langPrefs.getString(language, "");
-                            if (!existingValue.equals(langCode)) {
-                                editor.putString(language, langCode);
-                            }
-                        }
-                    }
-
+                    String langCode = appObject.getString("langCode");
+                    editor.putString(language, langCode);
                 }
             }
 
@@ -637,10 +619,7 @@ public class MainActivity extends BaseActivity {
                 webApp.setAppUrl(appObject.getString("appUrl"));
                 webApp.setAppIconUrl(appObject.getString("appIconUrl"));
                 webApp.setLanguageInEnglishName(appObject.getString("languageInEnglishName"));
-
-                if (appObject.has("langCode")) {
-                    webApp.setLangCode(appObject.getString("langCode"));
-                }
+                webApp.setLangCode(appObject.getString("langCode"));
 
                 String key = "webapp_" + webApp.getAppId();
                 String jsonString = gson.toJson(webApp);
@@ -772,11 +751,7 @@ public class MainActivity extends BaseActivity {
                             String langCode = webApp.getLangCode() != null ?
                             webApp.getLangCode().toLowerCase() : "";
 
-                            String langEnglishName = webApp.getLanguageInEnglishName() != null ?
-                            webApp.getLanguageInEnglishName().toLowerCase() : "";
-
-                            if(langCode.equals(selectedlanguage.toLowerCase()) ||
-                                langEnglishName.equals(selectedlanguage.toLowerCase())) {
+                            if(langCode.equals(selectedlanguage.toLowerCase())) {
                                 filteredApps.add(webApp);
                             }
                         }
