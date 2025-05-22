@@ -581,10 +581,8 @@ public class MainActivity extends BaseActivity {
                         if (hasLangCode) {
                             String langCode = appObject.getString("langCode");
                             editor.putString(language, langCode);
-                            Log.d(TAG, "Adding new language with langCode: " + language + " -> " + langCode);
                         } else {
                             editor.putString(language, languageEnglishName);
-                            Log.d(TAG, "Adding new language with languageEnglishName: " + language + " -> " + languageEnglishName);
                         }
                     } else {
                         if (hasLangCode) {
@@ -592,7 +590,6 @@ public class MainActivity extends BaseActivity {
                             String existingValue = langPrefs.getString(language, "");
                             if (!existingValue.equals(langCode)) {
                                 editor.putString(language, langCode);
-                                Log.d(TAG, "Updating existing language to use langCode: " + language + " -> " + langCode);
                             }
                         }
                     }

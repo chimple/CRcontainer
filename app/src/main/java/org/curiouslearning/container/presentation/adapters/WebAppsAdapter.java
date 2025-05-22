@@ -138,9 +138,7 @@ public class WebAppsAdapter extends RecyclerView.Adapter<WebAppsAdapter.ViewHold
             Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
             imageView.setImageBitmap(bitmap);
             inputStream.close();
-            Log.d(TAG, "Successfully loaded icon from assets: " + imageSrc);
         } catch (Exception e) {
-            Log.e(TAG, "Failed to load icon from assets: " + imageSrc, e);
             imageView.setImageResource(android.R.drawable.ic_menu_gallery);
         }
     }
