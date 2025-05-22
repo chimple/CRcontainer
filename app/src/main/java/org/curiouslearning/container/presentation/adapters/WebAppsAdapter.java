@@ -28,6 +28,7 @@ import org.curiouslearning.container.utilities.PulsingView;
 import java.util.List;
 import static org.curiouslearning.container.MainActivity.activity_id;
 import static org.curiouslearning.container.MainActivity.isDeepLink;
+import static org.curiouslearning.container.MainActivity.isRespect;
 
 public class WebAppsAdapter extends RecyclerView.Adapter<WebAppsAdapter.ViewHolder> {
 
@@ -39,7 +40,6 @@ public class WebAppsAdapter extends RecyclerView.Adapter<WebAppsAdapter.ViewHold
     private static final String TAG = "WebAppsAdapter";
     private static final String SHARED_PREFS_NAME = "animatePulse";
     private static final String PULSE_ANIMATION_KEY = "pulse_animaton";
-    public static boolean isRespect = true;
     private SharedPreferences prefs;
     private boolean isAnimated;
     public WebAppsAdapter(Context context, List<WebApp> webApps) {
