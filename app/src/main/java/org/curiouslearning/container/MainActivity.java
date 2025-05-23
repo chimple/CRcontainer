@@ -117,31 +117,6 @@ public class MainActivity extends BaseActivity {
         setContentView(R.layout.activity_main);
         loadOPDSCatalog("https://feedthemonster.curiouscontent.org/lang/english/feed_the_monster_en.opds.json");
         //      respectClientManager.bindService(this);
-        xapiManager = new XAPIManager();
-
-        // Send xAPI statement with required parameters
-        xapiManager.sendXAPIStatement(
-                "test01@gmail.com",
-                "test",
-                "http://adlnet.gov/expapi/verbs/completed",
-                "completed",
-                "http://example.com/activity/" + "l2",
-                "Lesson1" + 'e',
-                "lessonId",
-                "courseId",
-                "classId",
-                "schoolId",
-                "assignmentId",
-                "chapterId",
-                15,
-                4,
-                6
-
-        );
-
-
-        // call xapi Retrieve data
-        xapiManager.retrieveXAPIStatements("test01@gmail.com");
 
         prefs = getSharedPreferences(SHARED_PREFS_NAME, MODE_PRIVATE);
         utmPrefs = getSharedPreferences(UTM_PREFS_NAME, MODE_PRIVATE);
@@ -152,6 +127,26 @@ public class MainActivity extends BaseActivity {
         initialSlackAlertTime= AnalyticsUtils.getCurrentEpochTime();
         homeViewModal = new HomeViewModal((Application) getApplicationContext(), this);
         cachePseudoId();
+
+        // Print all data in 'prefs'
+//        SharedPreferences prefs = getSharedPreferences("prefs", MODE_PRIVATE);
+        Map<String, ?> prefsMap = prefs.getAll();
+        Log.d("PREFS_DATA", "prefs:");
+        for (Map.Entry<String, ?> entry : prefsMap.entrySet()) {
+            Log.d("PREFS_DATA", entry.getKey() + " = " + entry.getValue().toString());
+        }
+
+// Print all data in 'langPrefs'
+//        SharedPreferences langPrefs = getSharedPreferences("langPrefs", MODE_PRIVATE);
+        Map<String, ?> langPrefsMap = langPrefs.getAll();
+        Log.d("PREFS_DATA", "langPrefs:");
+        for (Map.Entry<String, ?> entry : langPrefsMap.entrySet()) {
+            Log.d("PREFS_DATA", entry.getKey() + " = " + entry.getValue().toString());
+        }
+
+        Log.d(TAG, "done printing prefs and langPrefs data");
+
+
 
         if(webAppsPrefs.getAll().isEmpty()) {
             storeWebAppsInPrefs();
