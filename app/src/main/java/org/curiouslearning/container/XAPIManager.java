@@ -5,11 +5,13 @@ import com.rusticisoftware.tincan.lrsresponses.*;
 import com.rusticisoftware.tincan.v10x.StatementsQuery;
 import com.rusticisoftware.tincan.lrsresponses.StatementsResultLRSResponse;
 import android.util.Log;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.net.URI;
 
 import android.content.SharedPreferences;
 
@@ -115,6 +117,7 @@ public class XAPIManager {
             groupingActivities.add(new Activity("http://example.com/school/" + schoolId));
             groupingActivities.add(new Activity("http://example.com/assignment/" + assignmentId));
             groupingActivities.add(new Activity("http://example.com/chapter/" + chapterId));
+            groupingActivities.add(new Activity("http://example.com/language/" + selectedLanguage));
 
             contextActivities.setGrouping(groupingActivities);
             context.setContextActivities(contextActivities);
@@ -149,9 +152,6 @@ public class XAPIManager {
 
             for (Map<String, Object> statement : statements) {
                 Map<String, Object> object = (Map<String, Object>) statement.get("object");
-                if (object == null) {
-                    continue;
-                }
 
                 String objectId = null;
                 Object idObj = object.get("id");
@@ -172,12 +172,10 @@ public class XAPIManager {
                 if (activityId.equals(extractedId)) {
                     return true;
                 }
-
             }
         } catch (Exception e) {
             Log.e(TAG, "Error in doesStatementExist: " + e.getMessage(), e);
         }
-
         return false;
     }
 
@@ -196,6 +194,11 @@ public class XAPIManager {
             query.setAgent(agent);
             query.setLimit(100);
 
+            //Create language filter
+            String languageURI = "http://example.com/language/" + selectedLanguage;
+            query.setActivityID(new URI(languageURI));
+            query.setRelatedActivities(true); // Match language URI in related context activities
+
             // Execute query
             StatementsResultLRSResponse response = lrs.queryStatements(query);
 
@@ -205,26 +208,6 @@ public class XAPIManager {
                 if (statements != null && !statements.isEmpty()) {
                     for (Statement statement : statements) {
                         try {
-                            //filter the statements through language first
-                            if (!(statement.getObject() instanceof Activity)) {
-                                continue; // skip if not Activity type object
-                            }
-
-                            Activity activity = (Activity) statement.getObject();
-                            ActivityDefinition definition = activity.getDefinition();
-
-                            if (definition == null) {
-                                continue; // skip if no definition
-                            }
-                            Object nameObj = definition.getName();
-                            if (!(nameObj instanceof LanguageMap)) {
-                                continue; // skip if name is not LanguageMap
-                            }
-                            LanguageMap nameMap = (LanguageMap) nameObj;
-                            if (!nameMap.containsKey(selectedLanguage)) {
-                                continue; // skip if language doesn't match
-                            }
-
                             // Parse statement data
                             Map<String, Object> parsedStatement = new LinkedHashMap<>();
 
@@ -251,9 +234,11 @@ public class XAPIManager {
 
                             // Object/Activity info
                             if (statement.getObject() instanceof Activity) {
+                                Activity activity = (Activity) statement.getObject();
                                 Map<String, Object> activityMap = new HashMap<>();
                                 activityMap.put("id", activity.getId());
 
+                                ActivityDefinition definition = activity.getDefinition();
                                 if (definition != null) {
                                     Map<String, Object> definitionMap = new HashMap<>();
                                     definitionMap.put("name", definition.getName());
