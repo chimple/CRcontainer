@@ -128,26 +128,6 @@ public class MainActivity extends BaseActivity {
         homeViewModal = new HomeViewModal((Application) getApplicationContext(), this);
         cachePseudoId();
 
-        // Print all data in 'prefs'
-//        SharedPreferences prefs = getSharedPreferences("prefs", MODE_PRIVATE);
-        Map<String, ?> prefsMap = prefs.getAll();
-        Log.d("PREFS_DATA", "prefs:");
-        for (Map.Entry<String, ?> entry : prefsMap.entrySet()) {
-            Log.d("PREFS_DATA", entry.getKey() + " = " + entry.getValue().toString());
-        }
-
-// Print all data in 'langPrefs'
-//        SharedPreferences langPrefs = getSharedPreferences("langPrefs", MODE_PRIVATE);
-        Map<String, ?> langPrefsMap = langPrefs.getAll();
-        Log.d("PREFS_DATA", "langPrefs:");
-        for (Map.Entry<String, ?> entry : langPrefsMap.entrySet()) {
-            Log.d("PREFS_DATA", entry.getKey() + " = " + entry.getValue().toString());
-        }
-
-        Log.d(TAG, "done printing prefs and langPrefs data");
-
-
-
         if(webAppsPrefs.getAll().isEmpty()) {
             storeWebAppsInPrefs();
         }

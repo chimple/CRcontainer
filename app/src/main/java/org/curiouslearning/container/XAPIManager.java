@@ -1,8 +1,6 @@
 package org.curiouslearning.container;
 
-import com.facebook.share.Share;
 import com.rusticisoftware.tincan.*;
-import com.rusticisoftware.tincan.LanguageMap;
 import com.rusticisoftware.tincan.lrsresponses.*;
 import com.rusticisoftware.tincan.v10x.StatementsQuery;
 import com.rusticisoftware.tincan.lrsresponses.StatementsResultLRSResponse;
@@ -25,24 +23,13 @@ public class XAPIManager {
 
     private RemoteLRS lrs;
     private SharedPreferences prefs;
-    private SharedPreferences langPrefs;
     private static final String SHARED_PREFS_NAME = "appCached";
-    private String selectedLanguage;
-    private String langCode;
 
     public XAPIManager(android.content.Context applicationContext) {
         try{
-
             //need applicationContext to access getSharedPreferences() method
             prefs = applicationContext.getSharedPreferences(SHARED_PREFS_NAME, android.content.Context.MODE_PRIVATE);
-            selectedLanguage = prefs.getString("selectedLanguage", "");
-            langPrefs = applicationContext.getSharedPreferences(SHARED_PREFS_NAME, android.content.Context.MODE_PRIVATE);
-            langCode = langPrefs.getString("langCode", "");
-
-            Log.d(TAG, "In XAPIManager selectedLanguage is: " + selectedLanguage);
-            Log.d(TAG, "In XAPIManager langCode is: " + langCode);
-
-
+            String selectedLanguage = prefs.getString("selectedLanguage", "");
         }catch(Exception e){
             Log.e(TAG, "Error in retrieving selectedLanguage in XAPIManager: " + e.getMessage());
         }
@@ -83,16 +70,12 @@ public class XAPIManager {
     {
         try {
             boolean doesExist = doesStatementExist(userEmail, activityId);
-            Log.d(TAG, "In sendXAPIStatements doesExist is: " + doesExist);
             if (doesExist) {
                 Log.d(TAG, "Statement already exists for this user, activityId and language.");
                 return; // Skip sending
             }
 
-//            Log.d(TAG, "In sendXAPIStatements userEmail is: " + userEmail);
-//            Log.d(TAG, "In sendXAPIStatements activityId is: " + activityId);
-//            Log.d(TAG, "In sendXAPIStatements activityName is: " + activityName);
-//            Log.d(TAG, "In sendXAPIStatements selectedLanguage is: " + selectedLanguage);
+            String selectedLanguage = prefs.getString("selectedLanguage", "");
 
             // Create Actor
             Agent actor = new Agent();
@@ -160,13 +143,13 @@ public class XAPIManager {
 
     private boolean doesStatementExist(String userEmail, String activityId) {
         try {
+            String selectedLanguage = prefs.getString("selectedLanguage", "");
+
             List<Map<String, Object>> statements = retrieveXAPIStatements(userEmail);
-            Log.d(TAG, "Retrieved " + statements.size() + " xAPI statements");
 
             for (Map<String, Object> statement : statements) {
                 Map<String, Object> object = (Map<String, Object>) statement.get("object");
                 if (object == null) {
-                    Log.d(TAG, "Statement object is null, skipping");
                     continue;
                 }
 
@@ -183,28 +166,13 @@ public class XAPIManager {
                     String[] parts = objectId.split("activities:");
                     if (parts.length > 1) {
                         extractedId = parts[1].trim();
-                        Log.d(TAG, "Extracted activityId: " + extractedId);
                     }
                 }
 
-                Map<String, Object> definition = (Map<String, Object>) object.get("definition");
-                if (definition == null) {
-                    Log.d(TAG, "Object definition is null, skipping");
-                    continue;
+                if (activityId.equals(extractedId)) {
+                    return true;
                 }
 
-                Object nameObj = definition.get("name");
-                if (nameObj instanceof LanguageMap) {
-                    LanguageMap nameMap = (LanguageMap) nameObj;
-                    Log.d(TAG, "LanguageMap contents: " + nameMap.toJSON().toString());
-
-                    if (activityId.equals(extractedId) && nameMap.containsKey(selectedLanguage)) {
-                        Log.d(TAG, "Matching statement found for activityId: " + activityId + " and language: " + selectedLanguage);
-                        return true;
-                    }
-                } else {
-                    Log.d(TAG, "Name is not a LanguageMap or is null");
-                }
             }
         } catch (Exception e) {
             Log.e(TAG, "Error in doesStatementExist: " + e.getMessage(), e);
@@ -220,12 +188,13 @@ public class XAPIManager {
     public List<Map<String, Object>> retrieveXAPIStatements(String agentEmail) {
         List<Map<String, Object>> parsedStatements = new ArrayList<>();
         try {
+            String selectedLanguage = prefs.getString("selectedLanguage", "");
             // Create query with agent filter
             StatementsQuery query = new StatementsQuery();
             Agent agent = new Agent();
             agent.setMbox("mailto:" + agentEmail);
             query.setAgent(agent);
-            query.setLimit(15);
+            query.setLimit(100);
 
             // Execute query
             StatementsResultLRSResponse response = lrs.queryStatements(query);
@@ -236,6 +205,26 @@ public class XAPIManager {
                 if (statements != null && !statements.isEmpty()) {
                     for (Statement statement : statements) {
                         try {
+                            //filter the statements through language first
+                            if (!(statement.getObject() instanceof Activity)) {
+                                continue; // skip if not Activity type object
+                            }
+
+                            Activity activity = (Activity) statement.getObject();
+                            ActivityDefinition definition = activity.getDefinition();
+
+                            if (definition == null) {
+                                continue; // skip if no definition
+                            }
+                            Object nameObj = definition.getName();
+                            if (!(nameObj instanceof LanguageMap)) {
+                                continue; // skip if name is not LanguageMap
+                            }
+                            LanguageMap nameMap = (LanguageMap) nameObj;
+                            if (!nameMap.containsKey(selectedLanguage)) {
+                                continue; // skip if language doesn't match
+                            }
+
                             // Parse statement data
                             Map<String, Object> parsedStatement = new LinkedHashMap<>();
 
@@ -262,11 +251,9 @@ public class XAPIManager {
 
                             // Object/Activity info
                             if (statement.getObject() instanceof Activity) {
-                                Activity activity = (Activity) statement.getObject();
                                 Map<String, Object> activityMap = new HashMap<>();
                                 activityMap.put("id", activity.getId());
 
-                                ActivityDefinition definition = activity.getDefinition();
                                 if (definition != null) {
                                     Map<String, Object> definitionMap = new HashMap<>();
                                     definitionMap.put("name", definition.getName());
