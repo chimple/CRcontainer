@@ -484,7 +484,9 @@ public class WebApp extends BaseActivity {
 
                 // Retrieve xAPI statements
                 XAPIManager xs = new XAPIManager(getApplicationContext());
-                List<Map<String, Object>> statements = xs.retrieveXAPIStatements("johndoe01@example.com");
+                String selectedLanguage = sharedPref.getString("selectedLanguage", "");
+                String selectedLanguageURI = "http://example.com/language/" + selectedLanguage;
+                List<Map<String, Object>> statements = xs.retrieveXAPIStatements("johndoe01@example.com", selectedLanguageURI);
                 Log.d(TAG, "Successfully retrieved xAPI statements");
 
                 for (Map<String, Object> statement : statements) {

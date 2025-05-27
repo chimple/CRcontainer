@@ -148,7 +148,8 @@ public class XAPIManager {
         try {
             String selectedLanguage = prefs.getString("selectedLanguage", "");
 
-            List<Map<String, Object>> statements = retrieveXAPIStatements(userEmail);
+            String selectedLanguageURI = "http://example.com/language/" + selectedLanguage;
+            List<Map<String, Object>> statements = retrieveXAPIStatements(userEmail, selectedLanguageURI);
 
             for (Map<String, Object> statement : statements) {
                 Map<String, Object> object = (Map<String, Object>) statement.get("object");
@@ -183,7 +184,7 @@ public class XAPIManager {
     /**
      * Retrieve xAPI Statements
      */
-    public List<Map<String, Object>> retrieveXAPIStatements(String agentEmail) {
+    public List<Map<String, Object>> retrieveXAPIStatements(String agentEmail, String filterActivityURI) {
         List<Map<String, Object>> parsedStatements = new ArrayList<>();
         try {
             String selectedLanguage = prefs.getString("selectedLanguage", "");
@@ -194,10 +195,9 @@ public class XAPIManager {
             query.setAgent(agent);
             query.setLimit(100);
 
-            //Create language filter
-            String languageURI = "http://example.com/language/" + selectedLanguage;
-            query.setActivityID(new URI(languageURI));
-            query.setRelatedActivities(true); // Match language URI in related context activities
+            //Filtering with filterActivityURI in relatedActivities
+            query.setActivityID(new URI(filterActivityURI));
+            query.setRelatedActivities(true); // Match  filterActivityURI in related context activities
 
             // Execute query
             StatementsResultLRSResponse response = lrs.queryStatements(query);
