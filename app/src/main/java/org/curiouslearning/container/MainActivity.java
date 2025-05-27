@@ -117,31 +117,6 @@ public class MainActivity extends BaseActivity {
         setContentView(R.layout.activity_main);
         loadOPDSCatalog("https://feedthemonster.curiouscontent.org/lang/english/feed_the_monster_en.opds.json");
         //      respectClientManager.bindService(this);
-        xapiManager = new XAPIManager();
-
-        // Send xAPI statement with required parameters
-        xapiManager.sendXAPIStatement(
-                "test01@gmail.com",
-                "test",
-                "http://adlnet.gov/expapi/verbs/completed",
-                "completed",
-                "http://example.com/activity/" + "l2",
-                "Lesson1" + 'e',
-                "lessonId",
-                "courseId",
-                "classId",
-                "schoolId",
-                "assignmentId",
-                "chapterId",
-                15,
-                4,
-                6
-
-        );
-
-
-        // call xapi Retrieve data
-        xapiManager.retrieveXAPIStatements("test01@gmail.com");
 
         prefs = getSharedPreferences(SHARED_PREFS_NAME, MODE_PRIVATE);
         utmPrefs = getSharedPreferences(UTM_PREFS_NAME, MODE_PRIVATE);

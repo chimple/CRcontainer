@@ -408,7 +408,7 @@ public class WebApp extends BaseActivity {
 
                 // Check if this is gameData and process it
                 if(key.equals("gameData")) {  // Use equals() instead of == for string comparison
-                    XAPIManager xs = new XAPIManager();
+                    XAPIManager xs = new XAPIManager(getApplicationContext());
 
                     // Extract values from the JSONObject
                     String crUserId = gameData.optString("cr_user_id", "");
@@ -483,8 +483,10 @@ public class WebApp extends BaseActivity {
                 JSONArray levelInfoArray = new JSONArray();
 
                 // Retrieve xAPI statements
-                XAPIManager xs = new XAPIManager();
-                List<Map<String, Object>> statements = xs.retrieveXAPIStatements("johndoe01@example.com");
+                XAPIManager xs = new XAPIManager(getApplicationContext());
+                String selectedLanguage = sharedPref.getString("selectedLanguage", "");
+                String selectedLanguageURI = "http://example.com/language/" + selectedLanguage;
+                List<Map<String, Object>> statements = xs.retrieveXAPIStatements("johndoe01@example.com", selectedLanguageURI);
                 Log.d(TAG, "Successfully retrieved xAPI statements");
 
                 for (Map<String, Object> statement : statements) {
@@ -536,6 +538,8 @@ public class WebApp extends BaseActivity {
                         levelData.put("levelNumber", levelNumber);
                         levelData.put("score", (int) rawScore);
                         levelData.put("starCount", starCount);
+
+                        //need to put language as well
 
                         // Add to the array
                         levelInfoArray.put(levelData);
