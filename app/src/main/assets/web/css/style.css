@@ -1,0 +1,499 @@
+body,
+html {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: BalooBhai2, Kalam, sans-serif;
+  height: 100%;
+  overflow: hidden;
+}
+@font-face {
+  font-family: Kalam;
+  src: url(Kalam-Bold.ttf);
+}
+
+@font-face {
+  font-family: BalooBhai2;
+  src: url(BalooBhai2-VariableFont_wght.ttf);
+}
+
+body {
+  background-color: #3d85d1;
+  text-align: center;
+  height: 100%;
+  overflow: hidden;
+}
+
+.landingPageWrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  position: relative;
+}
+
+.landingMonster {
+  width: 50%;
+  margin: 0 auto;
+  display: block;
+  height: auto;
+}
+
+.questionViewWrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  overflow: hidden;
+  padding-top: 8vh;
+}
+
+.chestWrapper {
+  margin: 0 auto;
+  width: 80%;
+  padding-left: 10%;
+  padding-right: 10%;
+  margin-top: 40px;
+  margin-bottom: 30px;
+}
+
+.chestdiv {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin-left: 20px;
+}
+
+.nextQuestionInput {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 40px;
+  width: 100%;
+  /* margin: 40px 100px 0px 0px; */
+}
+
+#pbutton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  flex-basis: 70%;
+}
+
+.chestdiv img {
+  width: 65%;
+  /* float: left; */
+}
+
+.starWrapper {
+  width: 100%;
+  /* margin-bottom: 40px; */
+  /* padding-top: 20px; */
+  padding-bottom: 20px;
+  margin-bottom: 20px;
+  position: relative;
+}
+
+.topstarh {
+  width: 8%;
+  padding-left: 1%;
+  padding-right: 1%;
+  visibility: hidden;
+}
+
+.topstarv {
+  width: 8%;
+  padding-left: 1%;
+  padding-right: 1%;
+  visibility: visible;
+}
+
+.endingPageWrapper {
+  /* padding-top:50px;
+	width:100%;
+	height:100%; */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 700px;
+}
+
+.bodyWrapper {
+  margin: 0 auto;
+  width: 100%;
+  max-width: 540px;
+  min-height: 100vh;
+  height: 100%;
+  background: linear-gradient(
+    180deg,
+    rgba(80, 90, 220, 1) 0%,
+    rgba(247, 247, 161, 1) 100%
+  );
+  background-size: 100% 100%;
+  bottom: 0;
+  position: relative;
+}
+
+.questionContainer img {
+  max-width: 200px;
+  max-height: 200px;
+}
+
+.questionContainer {
+  width: 100%;
+  margin: 0 auto;
+  padding: 5px;
+  float: left;
+  text-align: center;
+}
+
+.feedbackContainer {
+  display: flex;
+  border-radius: 10px;
+  background-color: beige;
+  border: 2px solid #323232;
+  margin: auto;
+  color: rgb(109, 204, 122);
+  width: 70%;
+  height: 120px;
+  font-size: 200%;
+  font-weight: bold;
+  position: relative;
+  top: -100px;
+  z-index: 5;
+  justify-content: center;
+  align-items: center;
+}
+
+.visible {
+  visibility: visible;
+  opacity: 1;
+  transition: opacity 0.5s linear;
+}
+
+.hidden {
+  visibility: hidden;
+  opacity: 0;
+  transition:
+    visibility 0s 0.25s,
+    opacity 0.25s linear;
+}
+
+.answerContainer {
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-column-gap: 4%;
+  /* grid-row-gap: 2%; */
+  width: 85%;
+  height: auto;
+  min-height: 200px;
+  margin-top: -20px;
+}
+
+button {
+  border-radius: 10px;
+  border: 2px solid rgb(150, 150, 150);
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  overflow-x: hidden;
+  min-height: 28px;
+  padding: 10px;
+  margin: 10px;
+}
+
+#startButton {
+  background-color: rgb(80, 143, 0);
+  border: none;
+  color: white;
+  padding: 10px 50px;
+  border-radius: 38px;
+}
+
+.answerButton {
+  margin-top: 16px;
+  /* margin-right: 10px; */
+  padding: 16px 10px;
+  color: rgb(60, 67, 162);
+  min-height: 32px;
+
+  cursor: pointer;
+
+  max-height: 200px;
+  max-width: 200px;
+
+  background-color: #ffee6b;
+  border-radius: 4px;
+  /* box-shadow: 0px 6px 8px #606060; */
+
+  font-family: BalooBhai2, Kalam, sans-serif;
+
+  transition: box-shadow 1s;
+
+  text-shadow: 0px 2px 6px rgba(80, 90, 220, 0.7);
+
+  font-size: 1.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  overflow: hidden;
+}
+
+.answerButton img {
+  margin: 2% 2%;
+  width: 96%;
+  height: 96%;
+}
+
+#nextqButton {
+  background-color: rgba(0, 0, 0, 0);
+  border: none;
+  cursor: pointer;
+  margin: 0;
+  padding: 0;
+}
+
+#loadingScreen {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 100;
+  background-color: white;
+  flex-direction: column;
+}
+
+@media (min-width: 420px) {
+  #loading-screen {
+    max-width: 420px;
+  }
+}
+#loading-gif {
+  display: flex;
+  height: 100%;
+  width: 100%;
+  position: absolute; /* Position it within #loading-screen */
+}
+
+#progressBarContainer {
+  position: absolute;
+  top: 70%;
+  width: 62%;
+  height: 34px;
+  border: 2px solid orange;
+  border-radius: 2px;
+  overflow: hidden;
+  background-color: #343434;
+}
+
+#progressBar {
+  height: 100%;
+  width: 10%;
+  background-color: orange;
+  transition: width 1.5s ease-in-out;
+}
+
+@keyframes zoomIn {
+  from {
+    transform: scale(0);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+#devModeModalToggleButtonContainer {
+  position: absolute;
+  bottom: 8px;
+  left: 8px;
+  color: white;
+  border: none;
+  border-radius: 100%;
+  cursor: pointer;
+  z-index: 100;
+  outline: none;
+  display: none;
+}
+
+#devModeModalToggleButton {
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  border: none;
+  border-radius: 100%;
+  cursor: pointer;
+  font-size: 10px;
+  width: 50px;
+  height: 50px;
+  outline: none;
+}
+
+#devModeSettingsModal {
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(30, 30, 30, 0.7);
+  z-index: 80;
+  color: #ccc;
+}
+
+#devModeSettingsContainer {
+  width: 90%;
+  height: 80%;
+  overflow: hidden;
+  overflow-y: auto;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  padding-right: 10px;
+  padding-left: 10px;
+}
+
+.devModeLabel {
+  font-size: 14px;
+  color: #9a9a9a;
+  margin-top: 12px;
+  margin-bottom: 4px;
+}
+
+select {
+  width: 100%;
+  padding: 6px;
+  margin-bottom: 16px;
+  font-size: 16px;
+  height: 40px;
+  background-color: #303030;
+  color: white;
+  border: 2px solid #ccc;
+}
+
+input[type='checkbox'] {
+  width: 24px;
+  height: 24px;
+  padding: 6px;
+  margin-bottom: 16px;
+  font-size: 20px;
+  accent-color: #303030;
+  color: white;
+  outline: 2px solid #ccc;
+  align-self: flex-start;
+}
+
+#devModeBucketInfoContainer {
+  position: absolute;
+  bottom: 12px;
+  right: 12px;
+  color: white;
+  border: none;
+  z-index: 100;
+  display: none;
+  font-family: BalooBhai2, Kalam, sans-serif;
+  font-size: 12px;
+  text-align: left;
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 10px;
+  border-radius: 4px;
+}
+
+.correct-label {
+  background-color: rgb(102, 255, 99);
+  color: rgb(33, 33, 33);
+  font-size: 12px;
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  padding: 4px;
+  border-radius: 6px;
+}
+
+input[type='range'] {
+  -webkit-appearance: none; /* Remove default WebKit styles */
+  width: 100%;
+  height: 14px;
+  background: #ddd;
+  border-radius: 5px;
+  outline: none;
+}
+
+/* Track styling for WebKit browsers (Chrome, Safari, Edge) */
+input[type='range']::-webkit-slider-runnable-track {
+  width: 100%;
+  height: 14px;
+  background: rgb(33, 33, 33);
+  border-radius: 5px;
+}
+
+/* Thumb styling for WebKit browsers */
+input[type='range']::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 24px;
+  height: 24px;
+  background: rgb(102, 255, 99);
+  border-radius: 50%;
+  cursor: pointer;
+  margin-top: -6px; /* Adjust to align with the track */
+}
+
+/* Track styling for Firefox */
+input[type='range']::-moz-range-track {
+  width: 100%;
+  height: 14px;
+  background: rgb(33, 33, 33);
+  border-radius: 5px;
+}
+
+/* Thumb styling for Firefox */
+input[type='range']::-moz-range-thumb {
+  -webkit-appearance: none;
+  width: 24px;
+  height: 24px;
+  background: rgb(102, 255, 99);
+  border-radius: 50%;
+  cursor: pointer;
+  margin-top: -6px; /* Adjust to align with the track */
+}
+
+/* Track styling for IE */
+input[type='range']::-ms-track {
+  width: 100%;
+  height: 14px;
+  background: rgb(33, 33, 33);
+  border-radius: 5px;
+}
+
+/* Thumb styling for IE */
+input[type='range']::-ms-thumb {
+  -webkit-appearance: none;
+  width: 24px;
+  height: 24px;
+  background: rgb(102, 255, 99);
+  border-radius: 50%;
+  cursor: pointer;
+  margin-top: -6px; /* Adjust to align with the track */
+}
+
+/* Additional styles for IE to hide the tick marks */
+input[type='range']::-ms-fill-lower,
+input[type='range']::-ms-fill-upper {
+  background: #ddd;
+  border-radius: 5px;
+}
+
+#devModeAnimationSpeedMultiplierValue {
+  font-size: 16px;
+}

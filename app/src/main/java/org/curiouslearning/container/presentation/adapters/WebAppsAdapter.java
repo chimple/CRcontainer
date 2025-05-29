@@ -18,6 +18,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import java.io.InputStream;
 
+import org.curiouslearning.container.MainActivity;
 import org.curiouslearning.container.R;
 import org.curiouslearning.container.data.model.WebApp;
 import org.curiouslearning.container.utilities.AnimationUtil;
@@ -110,13 +111,20 @@ public class WebAppsAdapter extends RecyclerView.Adapter<WebAppsAdapter.ViewHold
                 AnimationUtil.scaleButton(v, new Runnable() {
                     @Override
                     public void run() {
+                        WebApp webApp = webApps.get(position);
                         Intent intent = new Intent(ctx, org.curiouslearning.container.WebApp.class);
                         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         intent.putExtra("appId", String.valueOf(webApps.get(position).getAppId()));
-                        intent.putExtra("appUrl", webApps.get(position).getAppUrl());
                         intent.putExtra("title", webApps.get(position).getTitle());
                         intent.putExtra("language", webApps.get(position).getLanguage());
                         intent.putExtra("languageInEnglishName", webApps.get(position).getLanguageInEnglishName());
+                        if (webApp.getTitle().equalsIgnoreCase("assessment")) {
+                            // Set activity_id so WebApp.java uses getAppURL() and loads local server
+                            MainActivity.activity_id = "assessment";
+                        } else {
+                            intent.putExtra("appUrl", webApp.getAppUrl());
+                            MainActivity.activity_id = "";
+                        }
                         ctx.startActivity(intent);
                         holder.pulsatorLayout.stopAnimation();
                     }

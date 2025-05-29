@@ -1,7 +1,7 @@
 package org.curiouslearning.container;
 
 import static org.curiouslearning.container.MainActivity.activity_id;
-
+import org.curiouslearning.container.server.AppServer;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -19,6 +19,7 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
@@ -44,6 +45,7 @@ public class WebApp extends BaseActivity {
     private String title;
     private String appUrl;
     private WebView webView;
+    private AppServer localWebServer;
     private SharedPreferences sharedPref;
     private SharedPreferences utmPrefs;
     private String urlIndex;
@@ -60,23 +62,62 @@ public class WebApp extends BaseActivity {
     private static final String TAG = "WebApp";
 
 
+    // @Override
+    // protected void onCreate(Bundle savedInstanceState) {
+    //     super.onCreate(savedInstanceState);
+    //     audioPlayer = new AudioPlayer();
+    //     setContentView(R.layout.activity_web_app);
+    //     getIntentData();
+    //     if(appUrl.equals("-1")) {
+    //         activity_id = "";
+    //         Toast.makeText(this, "Activity ID is Invalid!", Toast.LENGTH_SHORT).show();
+    //         finish();
+    //     }
+    //     initViews();
+    //     logAppLaunchEvent();
+    //     loadWebView();
+    // }
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        audioPlayer = new AudioPlayer();
-        setContentView(R.layout.activity_web_app);
-        getIntentData();
-        initViews();
-        logAppLaunchEvent();
-        loadWebView();
+protected void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    audioPlayer = new AudioPlayer();
+    setContentView(R.layout.activity_web_app);
+    getIntentData();
+    if(appUrl.equals("-1")) {
+        activity_id = "";
+        Toast.makeText(this, "Activity ID is Invalid!", Toast.LENGTH_SHORT).show();
+        finish();
+        return;
     }
+    initViews();
+    logAppLaunchEvent();
+
+    // Start local server only for assessment
+    if (appUrl.startsWith("http://localhost:8080")) {
+        try {
+            localWebServer = new AppServer(this, 8080);
+            localWebServer.start();
+            Log.d("LocalWebServer", "Server started on port 8080");
+        } catch (IOException e) {
+            Log.e("LocalWebServer", "Failed to start server", e);
+        }
+    }
+
+    // Load the WebView
+    webView = findViewById(R.id.web_app);
+    webView.setWebViewClient(new WebViewClient());
+    webView.getSettings().setJavaScriptEnabled(true);
+    webView.getSettings().setDomStorageEnabled(true);
+    webView.loadUrl(appUrl);
+}
 
     private void getIntentData() {
         Intent intent = getIntent();
         if (intent != null) {
             urlIndex = intent.getStringExtra("appId");
             title = intent.getStringExtra("title");
-            appUrl = "https://ibiza-stage-ftm-respect.firebaseapp.com/";
+            appUrl = "http://localhost:8080/index.html";
             language = intent.getStringExtra("language");
             languageInEnglishName = intent.getStringExtra("languageInEnglishName");
             Log.d(TAG, "appUrl : " + appUrl);
@@ -277,7 +318,7 @@ public class WebApp extends BaseActivity {
                             rightMoves,
                             wrongMoves
                     );
-                    
+
                 }
 
 
@@ -310,7 +351,7 @@ public class WebApp extends BaseActivity {
                         if (object != null) {
                             Object idObj = object.get("id");
                             String objectId = null;
-                            
+
                             if (idObj instanceof java.net.URI) {
                                 objectId = idObj.toString();
                             } else if (idObj instanceof String) {
@@ -318,7 +359,7 @@ public class WebApp extends BaseActivity {
                             } else if (idObj != null) {
                                 objectId = idObj.toString();
                             }
-                            
+
                             if (objectId != null && objectId.contains("activities:")) {
                                 String[] parts = objectId.split("activities:");
                                 if (parts.length > 1) {
@@ -407,4 +448,65 @@ public class WebApp extends BaseActivity {
             return 0;
         }
     }
+
+    private String getAppURL() {
+        String[] arr = activity_id.split("_");
+
+        for(String parts : arr) {
+            Log.d(TAG, "split data : " + parts);
+        }
+
+        String appName = arr[0];
+        String lessonId = arr[1];
+
+        String appUrldata = getAppUrlByName(appName, lessonId);
+        Log.d(TAG, "appUrlData : " + appUrldata);
+
+        return appUrldata;
+    }
+
+    // private String getAppUrlByName(String appName, String lessonId) {
+
+    //     if(appName.equals("ftm")) {
+    //         activity_id = lessonId;
+    //         return "https://ibiza-stage-ftm-respect.firebaseapp.com/";
+    //     }
+    //     else if (appName.equals("assessment")) {
+    //         return "https://ibiza-stage-assessment-respect.web.app/?data=" + lessonId;
+    //     }
+    //     else if(appName.equals("storyBook")) {
+    //         return "https://ibiza-stage-story-respect.web.app/?book=" + lessonId;
+    //     }
+    //     return "-1";
+    // }
+
+    private String getAppUrlByName(String appName, String lessonId) {
+        if(appName.equals("ftm")) {
+            activity_id = lessonId;
+            return "https://ibiza-stage-ftm-respect.firebaseapp.com/";
+        }
+        else if (appName.equals("assessment")) {
+            // Use local server URL
+            return "http://localhost:8080/index.html";
+        }
+        else if(appName.equals("storyBook")) {
+            return "https://ibiza-stage-story-respect.web.app/?book=" + lessonId;
+        }
+        return "-1";
+    }
+
+    @Override
+    protected void onDestroy() {
+        if (localWebServer != null) {
+            localWebServer.stop();
+        }
+        super.onDestroy();
+    }
+
+    @Override
+    public void onBackPressed() {
+        activity_id = "";
+        super.onBackPressed();
+    }
+
 }

@@ -1,0 +1,18 @@
+{
+  "name": "Assessment and Survey app",
+  "short_name": "Assessment/Survey app",
+  "icons": [
+    {
+      "src": "images/red_bird_256.webp",
+      "sizes": "256x256",
+      "purpose": "any",
+      "type": "image/png"
+    }
+  ],
+  "start_url": "/",
+  "display": "standalone",
+  "orientation": "landscape",
+  "incognito": "split",
+  "background_color": "#fff",
+  "theme_color": ""
+}
