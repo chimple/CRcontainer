@@ -201,24 +201,36 @@ public class MainActivity extends BaseActivity {
                 }
 
         };
+
         InstallReferrerManager installReferrerManager = new InstallReferrerManager(getApplicationContext(), referrerCallback);
         installReferrerManager.checkPlayStoreAvailability();
         Intent intent = getIntent();
         if (intent.getData() != null) {
             Log.d(TAG, "deepLink Data : " + intent.getData());
 
-            String language = intent.getData().getQueryParameter("language");
             activity_id = intent.getData().getQueryParameter("activity_id");
             Log.d(TAG, "Lesson id : " + activity_id);
-            if (language != null) {
-                selectedLanguage = Character.toUpperCase(language.charAt(0))
-                        + language.substring(1).toLowerCase();
-            }
-            if(!Objects.equals(activity_id, "")) {
+
+            if(activity_id != null && !activity_id.isEmpty()) {
                 isDeepLink = true;
+                //extract the language from activity_id and set it in shared preference
+                String[] activityIdParts = activity_id.split("_");
+                String languageFromDeepLink = "";
+                if(activityIdParts.length == 3) {
+                    languageFromDeepLink = activityIdParts[1];
+                }
+                else{
+                    Log.e(TAG, "Invalid activity_id Format");
+                }
+
+                if(!languageFromDeepLink.isEmpty()){
+                    selectedLanguage = languageFromDeepLink;
+                }
+                storeSelectLanguage(selectedLanguage);
+                Toast.makeText(this, "Opening your Lesson", Toast.LENGTH_SHORT).show();
             }
             else {
-                Toast.makeText(this, "Activity ID is Empty!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Lesson ID is Empty!", Toast.LENGTH_SHORT).show();
             }
         }
         audioPlayer = new AudioPlayer();
@@ -555,7 +567,9 @@ public class MainActivity extends BaseActivity {
                     JSONObject appObject = webAppsArray.getJSONObject(i);
                     String language = appObject.getString("language");
                     String langCode = appObject.getString("langCode");
+                    String languageInEnglishName = appObject.getString("languageInEnglishName");
                     editor.putString(language, langCode);
+//                    editor.putString(languageInEnglishName, languageInEnglishName);
                 }
             }
 
