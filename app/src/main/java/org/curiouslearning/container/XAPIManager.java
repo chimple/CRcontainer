@@ -5,11 +5,15 @@ import com.rusticisoftware.tincan.lrsresponses.*;
 import com.rusticisoftware.tincan.v10x.StatementsQuery;
 import com.rusticisoftware.tincan.lrsresponses.StatementsResultLRSResponse;
 import android.util.Log;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.net.URI;
+
+import android.content.SharedPreferences;
 
 
 public class XAPIManager {
@@ -20,8 +24,18 @@ public class XAPIManager {
     private static final String LRS_PASSWORD = "chimpoo";
 
     private RemoteLRS lrs;
+    private SharedPreferences prefs;
+    private static final String SHARED_PREFS_NAME = "appCached";
 
-    public XAPIManager() {
+    public XAPIManager(android.content.Context applicationContext) {
+        try{
+            //need applicationContext to access getSharedPreferences() method
+            prefs = applicationContext.getSharedPreferences(SHARED_PREFS_NAME, android.content.Context.MODE_PRIVATE);
+            String selectedLanguage = prefs.getString("selectedLanguage", "");
+        }catch(Exception e){
+            Log.e(TAG, "Error in retrieving selectedLanguage in XAPIManager: " + e.getMessage());
+        }
+
         try {
             lrs = new RemoteLRS();
             lrs.setEndpoint(LRS_ENDPOINT);
@@ -57,6 +71,14 @@ public class XAPIManager {
     )
     {
         try {
+            boolean doesExist = doesStatementExist(userEmail, activityId);
+            if (doesExist) {
+                Log.d(TAG, "Statement already exists for this user, activityId and language.");
+                return; // Skip sending
+            }
+
+            String selectedLanguage = prefs.getString("selectedLanguage", "");
+
             // Create Actor
             Agent actor = new Agent();
             actor.setMbox("mailto:" + userEmail);
@@ -65,13 +87,13 @@ public class XAPIManager {
             // Create Verb
             Verb verb = new Verb(verbId);
             verb.setDisplay(new LanguageMap());
-            verb.getDisplay().put("en-US", verbDisplay);
+            verb.getDisplay().put(selectedLanguage, verbDisplay);
 
             // Create Activity
             Activity activity = new Activity(activityId);
             activity.setDefinition(new ActivityDefinition());
             activity.getDefinition().setName(new LanguageMap());
-            activity.getDefinition().getName().put("en-US", activityName);
+            activity.getDefinition().getName().put(selectedLanguage, activityName);
 
             // Create Result
             Result result = new Result();
@@ -95,6 +117,7 @@ public class XAPIManager {
             groupingActivities.add(new Activity("http://example.com/school/" + schoolId));
             groupingActivities.add(new Activity("http://example.com/assignment/" + assignmentId));
             groupingActivities.add(new Activity("http://example.com/chapter/" + chapterId));
+            groupingActivities.add(new Activity("http://example.com/language/" + selectedLanguage));
 
             contextActivities.setGrouping(groupingActivities);
             context.setContextActivities(contextActivities);
@@ -121,18 +144,60 @@ public class XAPIManager {
         }
     }
 
+    private boolean doesStatementExist(String userEmail, String activityId) {
+        try {
+            String selectedLanguage = prefs.getString("selectedLanguage", "");
+
+            String selectedLanguageURI = "http://example.com/language/" + selectedLanguage;
+            List<Map<String, Object>> statements = retrieveXAPIStatements(userEmail, selectedLanguageURI);
+
+            for (Map<String, Object> statement : statements) {
+                Map<String, Object> object = (Map<String, Object>) statement.get("object");
+
+                String objectId = null;
+                Object idObj = object.get("id");
+                if (idObj instanceof String) {
+                    objectId = (String) idObj;
+                } else if (idObj != null) {
+                    objectId = idObj.toString();
+                }
+
+                String extractedId = null;
+                if (objectId != null && objectId.contains("activities:")) {
+                    String[] parts = objectId.split("activities:");
+                    if (parts.length > 1) {
+                        extractedId = parts[1].trim();
+                    }
+                }
+
+                if (activityId.equals(extractedId)) {
+                    return true;
+                }
+            }
+        } catch (Exception e) {
+            Log.e(TAG, "Error in doesStatementExist: " + e.getMessage(), e);
+        }
+        return false;
+    }
+
+
     /**
      * Retrieve xAPI Statements
      */
-    public List<Map<String, Object>> retrieveXAPIStatements(String agentEmail) {
+    public List<Map<String, Object>> retrieveXAPIStatements(String agentEmail, String filterActivityURI) {
         List<Map<String, Object>> parsedStatements = new ArrayList<>();
         try {
+            String selectedLanguage = prefs.getString("selectedLanguage", "");
             // Create query with agent filter
             StatementsQuery query = new StatementsQuery();
             Agent agent = new Agent();
             agent.setMbox("mailto:" + agentEmail);
             query.setAgent(agent);
-            query.setLimit(15);
+            query.setLimit(100);
+
+            //Filtering with filterActivityURI in relatedActivities
+            query.setActivityID(new URI(filterActivityURI));
+            query.setRelatedActivities(true); // Match  filterActivityURI in related context activities
 
             // Execute query
             StatementsResultLRSResponse response = lrs.queryStatements(query);
