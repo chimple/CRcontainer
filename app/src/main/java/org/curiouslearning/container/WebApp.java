@@ -75,7 +75,7 @@ public class WebApp extends BaseActivity {
         getIntentData();
         if(appUrl.equals("-1")) {
             activity_id = "";
-            Toast.makeText(this, "Activity ID is Invalid!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Unable to load the lesson. Please try again.", Toast.LENGTH_SHORT).show();
             finish();
         }
         initViews();

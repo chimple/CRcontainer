@@ -227,10 +227,10 @@ public class MainActivity extends BaseActivity {
                     selectedLanguage = languageFromDeepLink;
                 }
                 storeSelectLanguage(selectedLanguage);
-                Toast.makeText(this, "Opening your Lesson", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Launching the lesson. Please wait...", Toast.LENGTH_SHORT).show();
             }
             else {
-                Toast.makeText(this, "Lesson ID is Empty!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Unable to load the lesson. Please try again.", Toast.LENGTH_SHORT).show();
             }
         }
         audioPlayer = new AudioPlayer();
@@ -801,7 +801,7 @@ public class MainActivity extends BaseActivity {
                 loadApps(selectedLanguage);
             }
             else {
-                Toast.makeText(this, "Activity ID is Empty!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Unable to load the lesson. Please try again.", Toast.LENGTH_SHORT).show();
             }
         }
     }
