@@ -65,7 +65,7 @@ public class WebApp extends BaseActivity {
     private static final String UTM_PREFS_NAME = "utmPrefs";
     private AudioPlayer audioPlayer;
     private static final String TAG = "WebApp";
-    private String lessonIdFromDeepLink = "";
+    private static String lesonId = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -393,8 +393,9 @@ public class WebApp extends BaseActivity {
 
         @JavascriptInterface
         public String getLessonId() {
+            String lesson_id = activity_id;
             activity_id = "";
-            return lessonIdFromDeepLink;
+            return lesson_id;
         }
         @JavascriptInterface
         public void sendDataToContainer(String key, String payload) {
@@ -602,8 +603,8 @@ public class WebApp extends BaseActivity {
         //activity_id example:  ftm_hi_1
         if(activityIdParts.length == 3){
             String appName = activityIdParts[0];
-            lessonIdFromDeepLink = activityIdParts[2];
-            return getAppUrlByName(appName);
+            String lessonId = activityIdParts[2];
+            return getAppUrlByName(appName, lessonId);
         }
         else{
             Log.e(TAG, "Invalid activity_id format");
@@ -611,10 +612,10 @@ public class WebApp extends BaseActivity {
         }
     }
 
-    private String getAppUrlByName(String appName) {
+    private String getAppUrlByName(String appName, String lessonId) {
 
-        Log.d(TAG, "in getAppUrlByName languageInEnglishName is " + languageInEnglishName);
         if(appName.equals("ftm")) {
+            activity_id = lessonId;
             if(languageInEnglishName != null){ //check so that application doesn't crash
                 return "https://ibiza-stage-ftm-respect.firebaseapp.com/?cr_lang=" + languageInEnglishName.toLowerCase();
             }
@@ -623,10 +624,10 @@ public class WebApp extends BaseActivity {
             }
         }
         else if (appName.equals("assessment")) {
-            return "https://ibiza-stage-assessment-respect.web.app/?data=" + lessonIdFromDeepLink;
+            return "https://ibiza-stage-assessment-respect.web.app/?data=" + lessonId;
         }
         else if(appName.equals("storyBook")) {
-            return "https://ibiza-stage-story-respect.web.app/?book=" + lessonIdFromDeepLink;
+            return "https://ibiza-stage-story-respect.web.app/?book=" + lessonId;
         }
         return "-1";
     }

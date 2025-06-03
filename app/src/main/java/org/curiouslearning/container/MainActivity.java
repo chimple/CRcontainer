@@ -567,9 +567,7 @@ public class MainActivity extends BaseActivity {
                     JSONObject appObject = webAppsArray.getJSONObject(i);
                     String language = appObject.getString("language");
                     String langCode = appObject.getString("langCode");
-                    String languageInEnglishName = appObject.getString("languageInEnglishName");
                     editor.putString(language, langCode);
-//                    editor.putString(languageInEnglishName, languageInEnglishName);
                 }
             }
 
