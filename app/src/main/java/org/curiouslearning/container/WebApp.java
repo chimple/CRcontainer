@@ -87,52 +87,56 @@ public class WebApp extends BaseActivity {
     // }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        audioPlayer = new AudioPlayer();
-        setContentView(R.layout.activity_web_app);
-        getIntentData();
-        
-        Log.d(TAG, "onCreate: appUrl = " + appUrl);
-        
-        if(appUrl.equals("-1")) {
-            activity_id = "";
-            Toast.makeText(this, "Activity ID is Invalid!", Toast.LENGTH_SHORT).show();
-            finish();
-            return;
-        }
-        
-        initViews();
-        logAppLaunchEvent();
+protected void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    audioPlayer = new AudioPlayer();
+    setContentView(R.layout.activity_web_app);
+    getIntentData();
 
-        // Start local server for FTM
-        if (appUrl.startsWith("http://localhost:8080")) {
-            try {
-                Log.d(TAG, "Starting local server on port 8080");
-                localWebServer = new AppServer(this, 8080, "web");
-                localWebServer.start();
-                Log.d(TAG, "Local server started successfully");
-            } catch (IOException e) {
-                Log.e(TAG, "Failed to start local server", e);
-                Toast.makeText(this, "Failed to start local server", Toast.LENGTH_SHORT).show();
-            }
-        }
+    // Copy assets to internal storage
+    copyAssetsToInternalStorage();
 
-        // Load the WebView
-        webView = findViewById(R.id.web_app);
-        webView.setWebViewClient(new WebViewClient() {
-            @Override
-            public void onReceivedError(WebView view, int errorCode, String description, String failingUrl) {
-                Log.e(TAG, "WebView error: " + description);
-                Toast.makeText(WebApp.this, "Error loading content: " + description, Toast.LENGTH_SHORT).show();
-            }
-        });
-        webView.getSettings().setJavaScriptEnabled(true);
-        webView.getSettings().setDomStorageEnabled(true);
-        webView.addJavascriptInterface(new WebAppInterface(this), "Android");
-        Log.d(TAG, "Loading URL in WebView: " + appUrl);
-        webView.loadUrl(appUrl);
+    if (title != null) {
+        String lowerTitle = title.toLowerCase();
+        if (lowerTitle.contains("assessment")) {
+            assetFolder = "web2";
+        } else if (lowerTitle.contains("curious reader")) {
+            assetFolder = "web3";
+        } else {
+            assetFolder = "web";
+        }
+    } else {
+        assetFolder = "web";
     }
+
+    if(appUrl.equals("-1")) {
+        activity_id = "";
+        Toast.makeText(this, "Activity ID is Invalid!", Toast.LENGTH_SHORT).show();
+        finish();
+        return;
+    }
+    initViews();
+    logAppLaunchEvent();
+
+    // Start local server only for assessment or ftm or curious reader
+    if (appUrl.startsWith("http://localhost:8080")) {
+        try {
+            localWebServer = new org.curiouslearning.container.server.AppServer(this, 8080, assetFolder);
+            localWebServer.start();
+            Log.d("LocalWebServer", "Server started on port 8080 with assets: " + assetFolder);
+        } catch (IOException e) {
+            Log.e("LocalWebServer", "Failed to start server", e);
+        }
+    }
+
+    // Load the WebView
+    webView = findViewById(R.id.web_app);
+    webView.setWebViewClient(new WebViewClient());
+    webView.getSettings().setJavaScriptEnabled(true);
+    webView.addJavascriptInterface(new WebAppInterface(this), "Android");
+    webView.getSettings().setDomStorageEnabled(true);
+    webView.loadUrl(appUrl);
+}
 
     private void getIntentData() {
     Intent intent = getIntent();
@@ -657,33 +661,49 @@ public class WebApp extends BaseActivity {
     }
 
     private String getAppURL() {
-        String[] activityIdParts = activity_id.split("_");
-        Log.d(TAG, "Activity ID parts: " + String.join(", ", activityIdParts));
+        String[] arr = activity_id.split("_");
 
-        //activity_id example:  ftm_hi_1
-        if(activityIdParts.length == 3){
-            String appName = activityIdParts[0];
-            String lessonId = activityIdParts[2];
-            Log.d(TAG, "App name: " + appName + ", Lesson ID: " + lessonId);
-            return getAppUrlByName(appName, lessonId);
+        for(String parts : arr) {
+            Log.d(TAG, "split data : " + parts);
         }
-        else{
-            Log.e(TAG, "Invalid activity_id format: " + activity_id);
-            return "-1";
-        }
+
+        String appName = arr[0];
+        String lessonId = arr[1];
+
+        String appUrldata = getAppUrlByName(appName, lessonId);
+        Log.d(TAG, "appUrlData : " + appUrldata);
+
+        return appUrldata;
     }
 
+    // private String getAppUrlByName(String appName, String lessonId) {
+
+    //     if(appName.equals("ftm")) {
+    //         activity_id = lessonId;
+    //         return "https://ibiza-stage-ftm-respect.firebaseapp.com/";
+    //     }
+    //     else if (appName.equals("assessment")) {
+    //         return "https://ibiza-stage-assessment-respect.web.app/?data=" + lessonId;
+    //     }
+    //     else if(appName.equals("storyBook")) {
+    //         return "https://ibiza-stage-story-respect.web.app/?book=" + lessonId;
+    //     }
+    //     return "-1";
+    // }
+
     private String getAppUrlByName(String appName, String lessonId) {
-        if (appName.equals("ftm")) {
-            // Use local server URL
-            Log.d(TAG, "Using local server URL for FTM app");
+        if(appName.equals("assessment")) {
             activity_id = lessonId;
+            return "https://ibiza-stage-ftm-respect.firebaseapp.com/";
+        }
+        else if (appName.equals("ftm")) {
+            // Use local server URL
+            Log.d("anmol--------------------", "anmol started on port 8080");
             return "http://localhost:8080/index.html";
         }
         else if(appName.equals("storyBook")) {
             return "https://ibiza-stage-story-respect.web.app/?book=" + lessonId;
         }
-        Log.e(TAG, "Invalid app name: " + appName);
         return "-1";
     }
 

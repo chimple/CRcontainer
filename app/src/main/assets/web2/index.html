@@ -1,0 +1,129 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Assessment / Survey</title>
+
+    <meta name="description" content="Assessment/Survey from Curious Learning" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <link rel="manifest" href="manifest.json" />
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+
+  <body>
+    <div class="bodyWrapper">
+      <div class="landingPageWrapper" id="landWrap">
+        <img class="landingMonster" src="img/monster.png" />
+        <br />
+        <button id="startButton">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M9 18L15 12L9 6V18Z"
+              fill="currentColor"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            ></path>
+          </svg>
+        </button>
+        <div id="loadingScreen">
+          <img id="loading-gif" src="img/loadingImg.gif" alt="Loading Animation" />
+          <div id="progressBarContainer">
+            <div id="progressBar"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="questionViewWrapper" id="gameWrap" style="display: none">
+        <div class="starWrapper" id="starWrapper"></div>
+        <div class="chestWrapper">
+          <div class="chestdiv">
+            <img id="chestImage" src="img/chestprogression/TreasureChestOpen01.svg" />
+          </div>
+        </div>
+        <div class="questionContainer" id="qWrap"></div>
+
+        <div class="answerContainer" id="aWrap">
+          <div class="answerButton" id="answerButton1">1</div>
+          <div class="answerButton" id="answerButton2">2</div>
+          <div class="answerButton" id="answerButton3">3</div>
+          <div class="answerButton" id="answerButton4">4</div>
+          <div class="answerButton" id="answerButton5" style="display: none">5</div>
+          <div class="answerButton" id="answerButton6" style="display: none">6</div>
+        </div>
+        <div>
+          <div class="nextQuestionInput">
+            <div id="pbutton"></div>
+          </div>
+
+          <div class="feedbackContainer hidden" id="feedbackWrap">kuyancomeka!</div>
+        </div>
+      </div>
+
+      <div class="endingPageWrapper" id="endWrap" style="display: none">click to exit!</div>
+
+      <!-- Bucket info container that later contains real-time details on the progress -->
+      <div id="devModeBucketInfoContainer"></div>
+
+      <div id="devModeModalToggleButtonContainer">
+        <button id="devModeModalToggleButton">
+          Dev<br />
+          Mode
+        </button>
+      </div>
+
+      <div id="devModeSettingsModal">
+        <p style="font-size: 26px">Dev Mode Settings</p>
+        <form id="devModeSettingsContainer">
+          <!-- Bucket generation mode range -->
+          <span class="devModeLabel">Assessment bucket generation mode</span>
+          <select id="devModeBucketGenSelect">
+            <option value="0">Randomized Middle Point BST</option>
+            <option value="1">Sequential Array Based</option>
+          </select>
+          <!-- Show correct target label checkbox -->
+          <span class="devModeLabel">Show a Label on correct target</span>
+          <div style="display: flex; align-items: center; height: 40px; gap: 8px">
+            <input id="devModeCorrectLabelShownCheckbox" type="checkbox" />
+            <label for="devModeCorrectLabelShownCheckbox">Show correct label on answer button</label>
+          </div>
+          <!-- Show bucket information checkbox -->
+          <span class="devModeLabel">Show bucket details on screen</span>
+          <div style="display: flex; align-items: center; height: 40px; gap: 8px">
+            <input id="devModeBucketInfoShownCheckbox" type="checkbox" />
+            <label for="devModeBucketInfoShownCheckbox">Show bucket index, tried and passed</label>
+          </div>
+          <!-- Enable bucket controls -->
+          <span class="devModeLabel">Enable bucket controls</span>
+          <div style="display: flex; align-items: center; height: 40px; gap: 8px">
+            <input id="devModeBucketControlsShownCheckbox" type="checkbox" />
+            <label for="devModeBucketControlsShownCheckbox">Enable item buttons, next and prev buckets</label>
+          </div>
+          <!-- Animation speed adjustment slider control -->
+          <span class="devModeLabel">Animations speed</span>
+          <div style="width: 100%; position: relative">
+            <input id="devModeAnimationSpeedMultiplierRange" type="range" min="0" max="1" value="1" step="0.1" />
+            <div style="display: flex; width: 100%; justify-content: space-between">
+              <span style="font-size: 12px"><- Faster</span>
+              <text id="devModeAnimationSpeedMultiplierValue">1</text>
+              <span style="font-size: 12px">Slower -></span>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- <script async src="https://www.googletagmanager.com/gtag/js?id=G-DGTWM534Z4"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag() { dataLayer.push(arguments); }
+		gtag('js', new Date());
+
+		gtag('config', 'G-DGTWM534Z4');
+	</script> -->
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.0/gsap.min.js"></script>
+
+    <script src="bundle.js"></script>
+  </body>
+</html>
