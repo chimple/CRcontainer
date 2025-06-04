@@ -1,6 +1,6 @@
 package org.curiouslearning.container;
 import static org.curiouslearning.container.MainActivity.activity_id;
-import org.curiouslearning.container.server.AppServer;
+
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -51,7 +51,6 @@ public class WebApp extends BaseActivity {
     private String title;
     private String appUrl;
     private WebView webView;
-    private AppServer localWebServer;
     private SharedPreferences sharedPref;
     private SharedPreferences utmPrefs;
     private String urlIndex;
@@ -69,22 +68,6 @@ public class WebApp extends BaseActivity {
 
     private static String lesonId = "";
     private String assetFolder = "web";
-
-    // @Override
-    // protected void onCreate(Bundle savedInstanceState) {
-    //     super.onCreate(savedInstanceState);
-    //     audioPlayer = new AudioPlayer();
-    //     setContentView(R.layout.activity_web_app);
-    //     getIntentData();
-    //     if(appUrl.equals("-1")) {
-    //         activity_id = "";
-    //         Toast.makeText(this, "Activity ID is Invalid!", Toast.LENGTH_SHORT).show();
-    //         finish();
-    //     }
-    //     initViews();
-    //     logAppLaunchEvent();
-    //     loadWebView();
-    // }
 
     @Override
 protected void onCreate(Bundle savedInstanceState) {
@@ -555,7 +538,7 @@ protected void onCreate(Bundle savedInstanceState) {
                         if (object != null) {
                             Object idObj = object.get("id");
                             String objectId = null;
-
+                            
                             if (idObj instanceof java.net.URI) {
                                 objectId = idObj.toString();
                             } else if (idObj instanceof String) {
@@ -563,7 +546,7 @@ protected void onCreate(Bundle savedInstanceState) {
                             } else if (idObj != null) {
                                 objectId = idObj.toString();
                             }
-
+                            
                             if (objectId != null && objectId.contains("activities:")) {
                                 String[] parts = objectId.split("activities:");
                                 if (parts.length > 1) {
@@ -705,14 +688,6 @@ protected void onCreate(Bundle savedInstanceState) {
             return "https://ibiza-stage-story-respect.web.app/?book=" + lessonId;
         }
         return "-1";
-    }
-
-    @Override
-    protected void onDestroy() {
-        if (localWebServer != null) {
-            localWebServer.stop();
-        }
-        super.onDestroy();
     }
 
     @Override
