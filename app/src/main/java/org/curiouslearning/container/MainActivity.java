@@ -269,7 +269,6 @@ public class MainActivity extends BaseActivity {
             }
         });
     }
-
     private void fetchFacebookDeferredData(){
         AppLinkData.fetchDeferredAppLinkData(this, new AppLinkData.CompletionHandler() {
             @Override
@@ -789,7 +788,7 @@ public class MainActivity extends BaseActivity {
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
         setIntent(intent);
-
+        
         // Handle the new intent
         if (intent.getData() != null) {
             Log.d(TAG, "onNewIntent: deepLink Data : " + intent.getData());
