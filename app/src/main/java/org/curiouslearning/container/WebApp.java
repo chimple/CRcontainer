@@ -66,7 +66,9 @@ public class WebApp extends BaseActivity {
     private static final String UTM_PREFS_NAME = "utmPrefs";
     private AudioPlayer audioPlayer;
     private static final String TAG = "WebApp";
+
     private static String lesonId = "";
+    private String assetFolder = "web";
 
     // @Override
     // protected void onCreate(Bundle savedInstanceState) {
@@ -85,53 +87,66 @@ public class WebApp extends BaseActivity {
     // }
 
     @Override
-
-protected void onCreate(Bundle savedInstanceState) {
-    super.onCreate(savedInstanceState);
-    audioPlayer = new AudioPlayer();
-    setContentView(R.layout.activity_web_app);
-    getIntentData();
-    if(appUrl.equals("-1")) {
-        activity_id = "";
-        Toast.makeText(this, "Activity ID is Invalid!", Toast.LENGTH_SHORT).show();
-        finish();
-        return;
-    }
-    initViews();
-    logAppLaunchEvent();
-
-    // Start local server only for assessment
-    if (appUrl.startsWith("http://localhost:8080")) {
-        try {
-            localWebServer = new AppServer(this, 8080);
-            localWebServer.start();
-            Log.d("LocalWebServer", "Server started on port 8080");
-        } catch (IOException e) {
-            Log.e("LocalWebServer", "Failed to start server", e);
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        audioPlayer = new AudioPlayer();
+        setContentView(R.layout.activity_web_app);
+        getIntentData();
+        
+        Log.d(TAG, "onCreate: appUrl = " + appUrl);
+        
+        if(appUrl.equals("-1")) {
+            activity_id = "";
+            Toast.makeText(this, "Activity ID is Invalid!", Toast.LENGTH_SHORT).show();
+            finish();
+            return;
         }
-    }
+        
+        initViews();
+        logAppLaunchEvent();
 
-    // Load the WebView
-    webView = findViewById(R.id.web_app);
-    webView.setWebViewClient(new WebViewClient());
-    webView.getSettings().setJavaScriptEnabled(true);
-    webView.getSettings().setDomStorageEnabled(true);
-    webView.loadUrl(appUrl);
-}
+        // Start local server for FTM
+        if (appUrl.startsWith("http://localhost:8080")) {
+            try {
+                Log.d(TAG, "Starting local server on port 8080");
+                localWebServer = new AppServer(this, 8080, "web");
+                localWebServer.start();
+                Log.d(TAG, "Local server started successfully");
+            } catch (IOException e) {
+                Log.e(TAG, "Failed to start local server", e);
+                Toast.makeText(this, "Failed to start local server", Toast.LENGTH_SHORT).show();
+            }
+        }
+
+        // Load the WebView
+        webView = findViewById(R.id.web_app);
+        webView.setWebViewClient(new WebViewClient() {
+            @Override
+            public void onReceivedError(WebView view, int errorCode, String description, String failingUrl) {
+                Log.e(TAG, "WebView error: " + description);
+                Toast.makeText(WebApp.this, "Error loading content: " + description, Toast.LENGTH_SHORT).show();
+            }
+        });
+        webView.getSettings().setJavaScriptEnabled(true);
+        webView.getSettings().setDomStorageEnabled(true);
+        webView.addJavascriptInterface(new WebAppInterface(this), "Android");
+        Log.d(TAG, "Loading URL in WebView: " + appUrl);
+        webView.loadUrl(appUrl);
+    }
 
     private void getIntentData() {
-        Intent intent = getIntent();
-        if (intent != null) {
-            urlIndex = intent.getStringExtra("appId");
-            title = intent.getStringExtra("title");
-            appUrl = "http://localhost:8080/index.html";
-            language = intent.getStringExtra("language");
-            languageInEnglishName = intent.getStringExtra("languageInEnglishName");
-
-            //call appUrl after initializing languageInEnglishName
-            appUrl = !activity_id.isEmpty() ? getAppURL() : intent.getStringExtra("appUrl");
-        }
+    Intent intent = getIntent();
+    if (intent != null) {
+        urlIndex = intent.getStringExtra("appId");
+        title = intent.getStringExtra("title");
+        appUrl = "http://localhost:8080/index.html";
+        language = intent.getStringExtra("language");
+        languageInEnglishName = intent.getStringExtra("languageInEnglishName");
+        String folder = intent.getStringExtra("assetFolder");
+        if (folder != null) assetFolder = folder;
+        Log.d(TAG, "appUrl : " + appUrl + ", assetFolder: " + assetFolder);
     }
+}
 
     private void initViews() {
         sharedPref = getApplicationContext().getSharedPreferences(SHARED_PREFS_NAME, Context.MODE_PRIVATE);
@@ -430,6 +445,7 @@ protected void onCreate(Bundle savedInstanceState) {
 
         @JavascriptInterface
         public String getLessonId() {
+            Log.d("getlessonID", activity_id);
             String lesson_id = activity_id;
             activity_id = "";
             return lesson_id;
@@ -519,10 +535,10 @@ protected void onCreate(Bundle savedInstanceState) {
                 JSONArray levelInfoArray = new JSONArray();
 
                 // Retrieve xAPI statements
-                XAPIManager xs = new XAPIManager();
+                XAPIManager xs = new XAPIManager(getApplicationContext());
                 String selectedLanguage = sharedPref.getString("selectedLanguage", "");
                 String selectedLanguageURI = "http://example.com/language/" + selectedLanguage;
-                List<Map<String, Object>> statements = xs.retrieveXAPIStatements("johndoe01@example.com");
+                List<Map<String, Object>> statements = xs.retrieveXAPIStatements("johndoe01@example.com", selectedLanguageURI);
                 Log.d(TAG, "Successfully retrieved xAPI statements");
 
                 for (Map<String, Object> statement : statements) {
@@ -597,6 +613,12 @@ protected void onCreate(Bundle savedInstanceState) {
                 Log.e(TAG, "Error creating game level info", e);
             }
         }
+
+        @JavascriptInterface
+        public String getAssetPath(String filePath) {
+            // Use internal storage path instead of external storage
+            return getFilesDir().getAbsolutePath() + "/" + filePath;
+        }
     }
 
     public void setAppOrientation(String orientationType) {
@@ -636,52 +658,32 @@ protected void onCreate(Bundle savedInstanceState) {
 
     private String getAppURL() {
         String[] activityIdParts = activity_id.split("_");
+        Log.d(TAG, "Activity ID parts: " + String.join(", ", activityIdParts));
 
         //activity_id example:  ftm_hi_1
         if(activityIdParts.length == 3){
             String appName = activityIdParts[0];
             String lessonId = activityIdParts[2];
+            Log.d(TAG, "App name: " + appName + ", Lesson ID: " + lessonId);
             return getAppUrlByName(appName, lessonId);
         }
         else{
-            Log.e(TAG, "Invalid activity_id format");
+            Log.e(TAG, "Invalid activity_id format: " + activity_id);
             return "-1";
         }
     }
 
-    // private String getAppUrlByName(String appName, String lessonId) {
-
-    //     if(appName.equals("ftm")) {
-    //         activity_id = lessonId;
-    //         return "https://ibiza-stage-ftm-respect.firebaseapp.com/";
-    //     }
-    //     else if (appName.equals("assessment")) {
-    //         return "https://ibiza-stage-assessment-respect.web.app/?data=" + lessonId;
-    //     }
-    //     else if(appName.equals("storyBook")) {
-    //         return "https://ibiza-stage-story-respect.web.app/?book=" + lessonId;
-    //     }
-    //     return "-1";
-    // }
-
     private String getAppUrlByName(String appName, String lessonId) {
-        if(appName.equals("assessment")) {
-            activity_id = lessonId;
-            if(languageInEnglishName != null){ //check so that application doesn't crash
-                return "https://ibiza-stage-ftm-respect.firebaseapp.com/?cr_lang=" + languageInEnglishName.toLowerCase();
-            }
-            else{
-                return "https://ibiza-stage-ftm-respect.firebaseapp.com/";
-            }
-        }
-        else if (appName.equals("ftm")) {
+        if (appName.equals("ftm")) {
             // Use local server URL
-            Log.d("anmol--------------------", "anmol started on port 8080");
+            Log.d(TAG, "Using local server URL for FTM app");
+            activity_id = lessonId;
             return "http://localhost:8080/index.html";
         }
         else if(appName.equals("storyBook")) {
             return "https://ibiza-stage-story-respect.web.app/?book=" + lessonId;
         }
+        Log.e(TAG, "Invalid app name: " + appName);
         return "-1";
     }
 
@@ -697,6 +699,40 @@ protected void onCreate(Bundle savedInstanceState) {
     public void onBackPressed() {
         activity_id = "";
         super.onBackPressed();
+    }
+
+    private void copyAssetsToInternalStorage() {
+        try {
+            AssetManager assetManager = getAssets();
+            String[] files = assetManager.list("");
+            
+            for (String file : files) {
+                // Create directories if they don't exist
+                File destFile = new File(getFilesDir(), file);
+                if (!destFile.exists()) {
+                    if (file.contains("/")) {
+                        // Create parent directories
+                        destFile.getParentFile().mkdirs();
+                    }
+                    
+                    // Copy file from assets to internal storage
+                    InputStream in = assetManager.open(file);
+                    OutputStream out = Files.newOutputStream(destFile.toPath());
+                    
+                    byte[] buffer = new byte[1024];
+                    int read;
+                    while ((read = in.read(buffer)) != -1) {
+                        out.write(buffer, 0, read);
+                    }
+                    
+                    in.close();
+                    out.flush();
+                    out.close();
+                }
+            }
+        } catch (IOException e) {
+            Log.e(TAG, "Error copying assets to internal storage", e);
+        }
     }
 
 }
