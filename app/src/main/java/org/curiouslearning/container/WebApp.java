@@ -609,7 +609,7 @@ public class WebApp extends BaseActivity {
         if(activityIdParts.length == 3){
             String appName = activityIdParts[0];
             String lessonId = activityIdParts[2];
-            loadLesson(lessonId);
+            loadAsset(lessonId);
             return getAppUrlByName(appName, lessonId);
         }
         else{
@@ -644,12 +644,12 @@ public class WebApp extends BaseActivity {
         super.onBackPressed();
     }
 
-    private void loadLesson(String lessonId) {
+    private void loadAsset(String lessonId) {
         fetchAsset.downloadAssets(lessonId, new FetchAsset.LessonCallBack() {
             @Override
             public void onSucccess(File lessonFolder) {
                 Toast.makeText(WebApp.this,
-                        "Success to load asset: " ,
+                        "Successfull to load asset" ,
                         Toast.LENGTH_LONG).show();
             }
             @Override
