@@ -17,7 +17,9 @@ export class AudioController {
     }
     static PrepareAudioAndImagesForSurvey(questionsData, dataURL) {
         AudioController.getInstance().dataURL = dataURL;
-        const feedbackSoundPath = 'audio/' + AudioController.getInstance().dataURL + '/answer_feedback.mp3';
+        // const feedbackSoundPath = 'audio/' + AudioController.getInstance().dataURL + '/answer_feedback.mp3';
+        const feedbackSoundPath = '../lessonAsset/audio/' + AudioController.getInstance().dataURL + '/answer_feedback.mp3';
+
         AudioController.getInstance().wavToCache.push(feedbackSoundPath);
         AudioController.getInstance().correctAudio.src = feedbackSoundPath;
         for (var questionIndex in questionsData) {
@@ -57,10 +59,10 @@ export class AudioController {
         console.log('Filtered: ' + newAudioURL);
         let newAudio = new Audio();
         if (getCaseIndependentLangList().includes(AudioController.getInstance().dataURL.split('-')[0])) {
-            newAudio.src = 'audio/' + AudioController.getInstance().dataURL + '/' + newAudioURL;
+            newAudio.src = '../lessonAsset/audio/' + AudioController.getInstance().dataURL + '/' + newAudioURL;
         }
         else {
-            newAudio.src = 'audio/' + AudioController.getInstance().dataURL + '/' + newAudioURL;
+            newAudio.src = '../lessonAsset/audio/' + AudioController.getInstance().dataURL + '/' + newAudioURL;
         }
         AudioController.getInstance().allAudios[newAudioURL] = newAudio;
         console.log(newAudio.src);
@@ -68,7 +70,7 @@ export class AudioController {
     static PreloadBucket(newBucket, dataURL) {
         AudioController.getInstance().dataURL = dataURL;
         AudioController.getInstance().correctAudio.src =
-            'audio/' + AudioController.getInstance().dataURL + '/answer_feedback.mp3';
+      '../lessonAsset/audio/' + AudioController.getInstance().dataURL + '/answer_feedback.mp3';
         for (var itemIndex in newBucket.items) {
             var item = newBucket.items[itemIndex];
             AudioController.FilterAndAddAudioToAllAudios(item.itemName.toLowerCase());

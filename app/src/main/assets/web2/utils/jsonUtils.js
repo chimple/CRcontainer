@@ -43,7 +43,7 @@ export function fetchAssessmentBuckets(url) {
     });
 }
 export function getDataURL(url) {
-    return '/data/' + url + '.json';
+    return '/lessonAsset/data/' + url + '.json';
 }
 export function getCaseIndependentLangList() {
     return ['luganda'];

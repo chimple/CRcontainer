@@ -71,15 +71,15 @@ export class App {
                                     if (data['quizName'].includes('Luganda') ||
                                         data['quizName'].toLowerCase().includes('west african english')) {
                                         audioItemURL =
-                                            '/audio/' + this.dataURL + '/' + buckets[i].items[j].itemName.toLowerCase().trim() + '.mp3';
+                                            '..lessonAsset/audio/' + this.dataURL + '/' + buckets[i].items[j].itemName.toLowerCase().trim() + '.mp3';
                                     }
                                     else {
-                                        audioItemURL = '/audio/' + this.dataURL + '/' + buckets[i].items[j].itemName.trim() + '.mp3';
+                                        audioItemURL = '../lessonAsset/audio/' + this.dataURL + '/' + buckets[i].items[j].itemName.trim() + '.mp3';
                                     }
                                     this.cacheModel.addItemToAudioVisualResources(audioItemURL);
                                 }
                             }
-                            this.cacheModel.addItemToAudioVisualResources('/audio/' + this.dataURL + '/answer_feedback.mp3');
+                            this.cacheModel.addItemToAudioVisualResources('../lessonAsset/audio/' + this.dataURL + '/answer_feedback.mp3');
                             this.game = new Assessment(this.dataURL, this.unityBridge);
                         }
                         this.game.unityBridge = this.unityBridge;
