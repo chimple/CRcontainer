@@ -76,8 +76,8 @@ public class WebApp extends BaseActivity {
         super.onCreate(savedInstanceState);
         audioPlayer = new AudioPlayer();
         setContentView(R.layout.activity_web_app);
-        getIntentData();
         fetchAsset = new FetchAsset(this, ZIP_BASE_URL);
+        getIntentData();
         if(appUrl.equals("-1")) {
             activity_id = "";
             Toast.makeText(this, "Unable to load the lesson. Please try again.", Toast.LENGTH_SHORT).show();
