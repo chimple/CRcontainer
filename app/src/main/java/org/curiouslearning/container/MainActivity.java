@@ -117,31 +117,6 @@ public class MainActivity extends BaseActivity {
         setContentView(R.layout.activity_main);
         loadOPDSCatalog("https://feedthemonster.curiouscontent.org/lang/english/feed_the_monster_en.opds.json");
         //      respectClientManager.bindService(this);
-        xapiManager = new XAPIManager();
-
-        // Send xAPI statement with required parameters
-        xapiManager.sendXAPIStatement(
-                "test01@gmail.com",
-                "test",
-                "http://adlnet.gov/expapi/verbs/completed",
-                "completed",
-                "http://example.com/activity/" + "l2",
-                "Lesson1" + 'e',
-                "lessonId",
-                "courseId",
-                "classId",
-                "schoolId",
-                "assignmentId",
-                "chapterId",
-                15,
-                4,
-                6
-
-        );
-
-
-        // call xapi Retrieve data
-        xapiManager.retrieveXAPIStatements("test01@gmail.com");
 
         prefs = getSharedPreferences(SHARED_PREFS_NAME, MODE_PRIVATE);
         utmPrefs = getSharedPreferences(UTM_PREFS_NAME, MODE_PRIVATE);
@@ -226,24 +201,36 @@ public class MainActivity extends BaseActivity {
                 }
 
         };
+
         InstallReferrerManager installReferrerManager = new InstallReferrerManager(getApplicationContext(), referrerCallback);
         installReferrerManager.checkPlayStoreAvailability();
         Intent intent = getIntent();
         if (intent.getData() != null) {
             Log.d(TAG, "deepLink Data : " + intent.getData());
 
-            String language = intent.getData().getQueryParameter("language");
             activity_id = intent.getData().getQueryParameter("activity_id");
             Log.d(TAG, "Lesson id : " + activity_id);
-            if (language != null) {
-                selectedLanguage = Character.toUpperCase(language.charAt(0))
-                        + language.substring(1).toLowerCase();
-            }
-            if(!Objects.equals(activity_id, "")) {
+
+            if(activity_id != null && !activity_id.isEmpty()) {
                 isDeepLink = true;
+                //extract the language from activity_id and set it in shared preference
+                String[] activityIdParts = activity_id.split("_");
+                String languageFromDeepLink = "";
+                if(activityIdParts.length == 3) {
+                    languageFromDeepLink = activityIdParts[1];
+                }
+                else{
+                    Log.e(TAG, "Invalid activity_id Format");
+                }
+
+                if(!languageFromDeepLink.isEmpty()){
+                    selectedLanguage = languageFromDeepLink;
+                }
+                storeSelectLanguage(selectedLanguage);
+                Toast.makeText(this, "Launching the lesson. Please wait...", Toast.LENGTH_SHORT).show();
             }
             else {
-                Toast.makeText(this, "Activity ID is Empty!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Unable to load the lesson. Please try again.", Toast.LENGTH_SHORT).show();
             }
         }
         audioPlayer = new AudioPlayer();
@@ -538,7 +525,6 @@ public class MainActivity extends BaseActivity {
                 audioPlayer.play(MainActivity.this, R.raw.sound_button_pressed);
                 selectedLanguage = (String) parent.getItemAtPosition(position);
                 String selectedLanguageEnglishName = langPrefs.getString(selectedLanguage,null);
-
                 autoCompleteTextView.setText(selectedLanguage, false);
 
                 dialog.dismiss();
@@ -579,10 +565,9 @@ public class MainActivity extends BaseActivity {
             if(editor != null) {
                 for (int i = 0; i < webAppsArray.length(); i++) {
                     JSONObject appObject = webAppsArray.getJSONObject(i);
-                    String languageCode = appObject.getString("language");
-                    String languageEnglishName = appObject.getString("languageInEnglishName");
-
-                    editor.putString(languageCode, languageEnglishName);
+                    String language = appObject.getString("language");
+                    String langCode = appObject.getString("langCode");
+                    editor.putString(language, langCode);
                 }
             }
 
@@ -621,6 +606,7 @@ public class MainActivity extends BaseActivity {
                 webApp.setAppUrl(appObject.getString("appUrl"));
                 webApp.setAppIconUrl(appObject.getString("appIconUrl"));
                 webApp.setLanguageInEnglishName(appObject.getString("languageInEnglishName"));
+                webApp.setLangCode(appObject.getString("langCode"));
 
                 String key = "webapp_" + webApp.getAppId();
                 String jsonString = gson.toJson(webApp);
@@ -748,7 +734,11 @@ public class MainActivity extends BaseActivity {
                         String jsonString = webAppsPrefs.getString(key, null);
                         if (jsonString != null) {
                             WebApp webApp = gson.fromJson(jsonString, WebApp.class);
-                            if (webApp.getLanguageInEnglishName().equalsIgnoreCase(selectedlanguage)) {
+
+                            String langCode = webApp.getLangCode() != null ?
+                            webApp.getLangCode().toLowerCase() : "";
+
+                            if(langCode.equals(selectedlanguage.toLowerCase())) {
                                 filteredApps.add(webApp);
                             }
                         }
@@ -811,7 +801,7 @@ public class MainActivity extends BaseActivity {
                 loadApps(selectedLanguage);
             }
             else {
-                Toast.makeText(this, "Activity ID is Empty!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Unable to load the lesson. Please try again.", Toast.LENGTH_SHORT).show();
             }
         }
     }

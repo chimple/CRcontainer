@@ -65,7 +65,6 @@ public class WebApp extends BaseActivity {
     private static final String UTM_PREFS_NAME = "utmPrefs";
     private AudioPlayer audioPlayer;
     private static final String TAG = "WebApp";
-
     private static String lesonId = "";
 
     @Override
@@ -76,7 +75,7 @@ public class WebApp extends BaseActivity {
         getIntentData();
         if(appUrl.equals("-1")) {
             activity_id = "";
-            Toast.makeText(this, "Activity ID is Invalid!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Unable to load the lesson. Please try again.", Toast.LENGTH_SHORT).show();
             finish();
         }
         initViews();
@@ -89,10 +88,11 @@ public class WebApp extends BaseActivity {
         if (intent != null) {
             urlIndex = intent.getStringExtra("appId");
             title = intent.getStringExtra("title");
-            appUrl = !activity_id.isEmpty() ? getAppURL() : intent.getStringExtra("appUrl");
             language = intent.getStringExtra("language");
             languageInEnglishName = intent.getStringExtra("languageInEnglishName");
-            Log.d(TAG, "appUrl : " + appUrl);
+
+            //call appUrl after initializing languageInEnglishName
+            appUrl = !activity_id.isEmpty() ? getAppURL() : intent.getStringExtra("appUrl");
         }
     }
 
@@ -393,7 +393,6 @@ public class WebApp extends BaseActivity {
 
         @JavascriptInterface
         public String getLessonId() {
-            Log.d("getlessonID", activity_id);
             String lesson_id = activity_id;
             activity_id = "";
             return lesson_id;
@@ -408,7 +407,7 @@ public class WebApp extends BaseActivity {
 
                 // Check if this is gameData and process it
                 if(key.equals("gameData")) {  // Use equals() instead of == for string comparison
-                    XAPIManager xs = new XAPIManager();
+                    XAPIManager xs = new XAPIManager(getApplicationContext());
 
                     // Extract values from the JSONObject
                     String crUserId = gameData.optString("cr_user_id", "");
@@ -453,7 +452,7 @@ public class WebApp extends BaseActivity {
 
         @JavascriptInterface
         public void sendInstalledAppInfoToJS() {
-            Log.d(TAG, "Inside sendInstalledAppInfoToJS method");
+//            Log.d(TAG, "Inside sendInstalledAppInfoToJS method");
 
             boolean isAppInstalled = false;
             try {
@@ -462,15 +461,9 @@ public class WebApp extends BaseActivity {
                 Log.e(TAG, "Error checking if the app is installed", e);
             }
 
-            //Debugging purpose only
-            if (isAppInstalled) {
-                Log.d(TAG, "onCreate: The app org.chimple.bahama is installed.");
-            } else {
-                Log.d(TAG, "onCreate: The app org.chimple.bahama is not installed.");
-            }
-
             JSONObject installedAppInfoData = new JSONObject();
             try {
+                installedAppInfoData.put("type", "installedAppInfo");
                 installedAppInfoData.put("isAppInstalled", isAppInstalled);
             } catch (JSONException e) {
                 Log.e(TAG, "Error creating JSON data for app installation info", e);
@@ -489,8 +482,10 @@ public class WebApp extends BaseActivity {
                 JSONArray levelInfoArray = new JSONArray();
 
                 // Retrieve xAPI statements
-                XAPIManager xs = new XAPIManager();
-                List<Map<String, Object>> statements = xs.retrieveXAPIStatements("johndoe01@example.com");
+                XAPIManager xs = new XAPIManager(getApplicationContext());
+                String selectedLanguage = sharedPref.getString("selectedLanguage", "");
+                String selectedLanguageURI = "http://example.com/language/" + selectedLanguage;
+                List<Map<String, Object>> statements = xs.retrieveXAPIStatements("johndoe01@example.com", selectedLanguageURI);
                 Log.d(TAG, "Successfully retrieved xAPI statements");
 
                 for (Map<String, Object> statement : statements) {
@@ -542,6 +537,8 @@ public class WebApp extends BaseActivity {
                         levelData.put("levelNumber", levelNumber);
                         levelData.put("score", (int) rawScore);
                         levelData.put("starCount", starCount);
+
+                        //need to put language as well
 
                         // Add to the array
                         levelInfoArray.put(levelData);
@@ -601,26 +598,30 @@ public class WebApp extends BaseActivity {
     }
 
     private String getAppURL() {
-        String[] arr = activity_id.split("_");
+        String[] activityIdParts = activity_id.split("_");
 
-        for(String parts : arr) {
-            Log.d(TAG, "split data : " + parts);
+        //activity_id example:  ftm_hi_1
+        if(activityIdParts.length == 3){
+            String appName = activityIdParts[0];
+            String lessonId = activityIdParts[2];
+            return getAppUrlByName(appName, lessonId);
         }
-
-        String appName = arr[0];
-        String lessonId = arr[1];
-
-        String appUrldata = getAppUrlByName(appName, lessonId);
-        Log.d(TAG, "appUrlData : " + appUrldata);
-
-        return appUrldata;
+        else{
+            Log.e(TAG, "Invalid activity_id format");
+            return "-1";
+        }
     }
 
     private String getAppUrlByName(String appName, String lessonId) {
 
         if(appName.equals("ftm")) {
             activity_id = lessonId;
-            return "https://ibiza-stage-ftm-respect.firebaseapp.com/";
+            if(languageInEnglishName != null){ //check so that application doesn't crash
+                return "https://ibiza-stage-ftm-respect.firebaseapp.com/?cr_lang=" + languageInEnglishName.toLowerCase();
+            }
+            else{
+                return "https://ibiza-stage-ftm-respect.firebaseapp.com/";
+            }
         }
         else if (appName.equals("assessment")) {
             return "https://ibiza-stage-assessment-respect.web.app/?data=" + lessonId;
