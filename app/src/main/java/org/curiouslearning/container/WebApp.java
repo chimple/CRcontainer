@@ -31,6 +31,7 @@ import org.curiouslearning.container.utilities.AppUtils;
 import org.curiouslearning.container.utilities.ConnectionUtils;
 import org.curiouslearning.container.utilities.AudioPlayer;
 
+import org.curiouslearning.container.utilities.FetchAsset;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -66,6 +67,9 @@ public class WebApp extends BaseActivity {
     private AudioPlayer audioPlayer;
     private static final String TAG = "WebApp";
     private static String lesonId = "";
+    private static final String ZIP_BASE_URL = "https://raw.githubusercontent.com/niteshmandal0/assetsCR/main/";
+    private FetchAsset fetchAsset;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,6 +77,7 @@ public class WebApp extends BaseActivity {
         audioPlayer = new AudioPlayer();
         setContentView(R.layout.activity_web_app);
         getIntentData();
+        fetchAsset = new FetchAsset(this, ZIP_BASE_URL);
         if(appUrl.equals("-1")) {
             activity_id = "";
             Toast.makeText(this, "Unable to load the lesson. Please try again.", Toast.LENGTH_SHORT).show();
@@ -604,6 +609,7 @@ public class WebApp extends BaseActivity {
         if(activityIdParts.length == 3){
             String appName = activityIdParts[0];
             String lessonId = activityIdParts[2];
+            loadLesson(lessonId);
             return getAppUrlByName(appName, lessonId);
         }
         else{
@@ -636,6 +642,23 @@ public class WebApp extends BaseActivity {
     public void onBackPressed() {
         activity_id = "";
         super.onBackPressed();
+    }
+
+    private void loadLesson(String lessonId) {
+        fetchAsset.downloadAssets(lessonId, new FetchAsset.LessonCallBack() {
+            @Override
+            public void onSucccess(File lessonFolder) {
+                Toast.makeText(WebApp.this,
+                        "Success to load asset: " ,
+                        Toast.LENGTH_LONG).show();
+            }
+            @Override
+            public void onFalure(Exception e) {
+                Toast.makeText(WebApp.this,
+                        "Failed to load asset: " + e.getMessage(),
+                        Toast.LENGTH_LONG).show();
+            }
+        });
     }
 
 }
