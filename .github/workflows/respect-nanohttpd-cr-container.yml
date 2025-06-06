@@ -28,20 +28,11 @@ jobs:
       - name: Build Debug APK
         run: ./gradlew assembleDebug
 
-      - name: Upload APK to GitHub Releases (Optional)
-        uses: actions/upload-artifact@v4
+      - name: Create GitHub Release and Upload APK
+        uses: softprops/action-gh-release@v1
         with:
-          name: app-debug.apk
-          path: app/build/outputs/apk/debug/app-debug.apk
-
-      - name: Push APK to GitHub Branch
-        run: |
-          cd app/build/outputs/apk/debug/
-          git init
-          git config --global user.email "skanda@sutara.org"
-          git config --global user.name "kvskandakumar"
-          git remote add origin https://${{ secrets.ACCESS_TOKEN }}@github.com/chimple/CRcontainer.git
-          git checkout -b respect-nano-apk
-          git add app-debug.apk
-          git commit -m "created apk"
-          git push origin respect-nano-apk -f
+          name: "Respect NanoHTTPD APK"
+          tag_name: "respect-nanohttpd-apk-${{ github.run_number }}"
+          files: app/build/outputs/apk/debug/app-debug.apk
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
