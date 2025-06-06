@@ -3,6 +3,8 @@
   "appType": "assessment",
   "assessmentType": "letter-sounds",
   "feedbackText": "চমৎকার!",
+  "langname": "ZULU",
+  "langCode":"zu",
   "contentVersion": "v0.1",
   "buckets": [
     {
