@@ -138,19 +138,37 @@ protected void onCreate(Bundle savedInstanceState) {
     webView.loadUrl(appUrl);
 }
 
+
     private void getIntentData() {
-    Intent intent = getIntent();
-    if (intent != null) {
-        urlIndex = intent.getStringExtra("appId");
-        title = intent.getStringExtra("title");
-        appUrl = "http://localhost:8080/index.html";
-        language = intent.getStringExtra("language");
-        languageInEnglishName = intent.getStringExtra("languageInEnglishName");
-        String folder = intent.getStringExtra("assetFolder");
-        if (folder != null) assetFolder = folder;
-        Log.d(TAG, "appUrl : " + appUrl + ", assetFolder: " + assetFolder);
+        Intent intent = getIntent();
+        if (intent != null) {
+            urlIndex = intent.getStringExtra("appId");
+            title = intent.getStringExtra("title");
+            language = intent.getStringExtra("language");
+            languageInEnglishName = intent.getStringExtra("languageInEnglishName");
+
+            //call oldAppUrl after initializing languageInEnglishName
+            String oldAppUrl = !activity_id.isEmpty() ? getAppURL() : intent.getStringExtra("appUrl");
+            Log.d(TAG, "oldAppUrl is: " + oldAppUrl);
+            String queryString = getQueryString(oldAppUrl);
+
+            Log.d(TAG, "oldAppUrl queryString is: " + queryString);
+            appUrl = "http://localhost:8080/index.html" + queryString;
+        }
     }
-}
+
+    private String getQueryString(String oldAppUrl){
+        String queryString = "";
+        int index = oldAppUrl.indexOf(".com");
+        if (index != -1) {
+            int start = index + 4;
+            if (start < oldAppUrl.length()) {
+                if (oldAppUrl.charAt(start) == '/') start++;
+                if (start < oldAppUrl.length()) queryString = oldAppUrl.substring(start);
+            }
+        }
+       return queryString;
+    }
 
     private void initViews() {
         sharedPref = getApplicationContext().getSharedPreferences(SHARED_PREFS_NAME, Context.MODE_PRIVATE);
@@ -660,46 +678,35 @@ protected void onCreate(Bundle savedInstanceState) {
         }
     }
 
+
     private String getAppURL() {
-        String[] arr = activity_id.split("_");
+        String[] activityIdParts = activity_id.split("_");
 
-        for(String parts : arr) {
-            Log.d(TAG, "split data : " + parts);
+        //activity_id example:  ftm_hi_1
+        if(activityIdParts.length == 3){
+            String appName = activityIdParts[0];
+            String lessonId = activityIdParts[2];
+            return getAppUrlByName(appName, lessonId);
         }
-
-        String appName = arr[0];
-        String lessonId = arr[1];
-
-        String appUrldata = getAppUrlByName(appName, lessonId);
-        Log.d(TAG, "appUrlData : " + appUrldata);
-
-        return appUrldata;
+        else{
+            Log.e(TAG, "Invalid activity_id format");
+            return "-1";
+        }
     }
 
-    // private String getAppUrlByName(String appName, String lessonId) {
-
-    //     if(appName.equals("ftm")) {
-    //         activity_id = lessonId;
-    //         return "https://ibiza-stage-ftm-respect.firebaseapp.com/";
-    //     }
-    //     else if (appName.equals("assessment")) {
-    //         return "https://ibiza-stage-assessment-respect.web.app/?data=" + lessonId;
-    //     }
-    //     else if(appName.equals("storyBook")) {
-    //         return "https://ibiza-stage-story-respect.web.app/?book=" + lessonId;
-    //     }
-    //     return "-1";
-    // }
-
     private String getAppUrlByName(String appName, String lessonId) {
-        if(appName.equals("assessment")) {
+
+        if(appName.equals("ftm")) {
             activity_id = lessonId;
-            return "https://ibiza-stage-ftm-respect.firebaseapp.com/";
+            if(languageInEnglishName != null){ //check so that application doesn't crash
+                return "https://ibiza-stage-ftm-respect.firebaseapp.com/?cr_lang=" + languageInEnglishName.toLowerCase();
+            }
+            else{
+                return "https://ibiza-stage-ftm-respect.firebaseapp.com/";
+            }
         }
-        else if (appName.equals("ftm")) {
-            // Use local server URL
-            Log.d("anmol--------------------", "anmol started on port 8080");
-            return "http://localhost:8080/index.html";
+        else if (appName.equals("assessment")) {
+            return "https://ibiza-stage-assessment-respect.web.app/?data=" + lessonId;
         }
         else if(appName.equals("storyBook")) {
             return "https://ibiza-stage-story-respect.web.app/?book=" + lessonId;
