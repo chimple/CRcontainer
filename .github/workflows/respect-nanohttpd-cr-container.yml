@@ -1,0 +1,50 @@
+name: Respect CR Container APK
+
+on:
+  push:
+    branches:
+      - respect-nanohttpd
+
+jobs:
+  build:
+    name: Build Android APK
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v3
+
+      - name: Setup Java
+        uses: actions/setup-java@v1
+        with:
+          java-version: "17"
+
+      - name: Setup Android SDK
+        uses: android-actions/setup-android@v2
+
+      - name: Make gradlew executable
+        run: chmod +x ./gradlew
+
+      - name: Build Debug APK
+        run: ./gradlew assembleDebug
+
+      # - name: Upload APK to GitHub Actions Artifacts
+      #   uses: actions/upload-artifact@v4
+      #   with:
+      #     name: respect-container-app-debug.apk
+      #     path: app/build/outputs/apk/debug/app-debug.apk
+
+      # Optional: Push to a separate repo using Git LFS (Only if file < 100MB or Git LFS enabled)
+      - name: Push APK to Separate GitHub Repo
+        run: |
+          cd app/build/outputs/apk/debug/
+          git init
+          git lfs install
+          git config user.email "skanda@sutara.org"
+          git config user.name "kvskandakumar"
+          git remote add origin https://${{ secrets.ACCESS_TOKEN }}@github.com/chimple/CRcontainer.git
+          git checkout -b respect-nano-apk
+          git lfs track "*.apk"
+          git add .gitattributes app-debug.apk
+          git commit -m "Upload APK using Git LFS"
+          git push origin respect-nano-apk -f

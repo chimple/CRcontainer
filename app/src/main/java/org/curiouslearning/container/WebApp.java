@@ -1,6 +1,6 @@
 package org.curiouslearning.container;
 import static org.curiouslearning.container.MainActivity.activity_id;
-
+import org.curiouslearning.container.server.AppServer;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -31,7 +31,6 @@ import org.curiouslearning.container.utilities.AppUtils;
 import org.curiouslearning.container.utilities.ConnectionUtils;
 import org.curiouslearning.container.utilities.AudioPlayer;
 
-import org.curiouslearning.container.utilities.FetchAsset;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -52,6 +51,7 @@ public class WebApp extends BaseActivity {
     private String title;
     private String appUrl;
     private WebView webView;
+    private AppServer localWebServer;
     private SharedPreferences sharedPref;
     private SharedPreferences utmPrefs;
     private String urlIndex;
@@ -66,40 +66,91 @@ public class WebApp extends BaseActivity {
     private static final String UTM_PREFS_NAME = "utmPrefs";
     private AudioPlayer audioPlayer;
     private static final String TAG = "WebApp";
-    private static String lesonId = "";
-    private static final String ZIP_BASE_URL = "https://raw.githubusercontent.com/niteshmandal0/assetsCR/main/";
-    private FetchAsset fetchAsset;
 
+    private static String lesonId = "";
+    private String assetFolder = "web";
+
+    // @Override
+    // protected void onCreate(Bundle savedInstanceState) {
+    //     super.onCreate(savedInstanceState);
+    //     audioPlayer = new AudioPlayer();
+    //     setContentView(R.layout.activity_web_app);
+    //     getIntentData();
+    //     if(appUrl.equals("-1")) {
+    //         activity_id = "";
+    //         Toast.makeText(this, "Activity ID is Invalid!", Toast.LENGTH_SHORT).show();
+    //         finish();
+    //     }
+    //     initViews();
+    //     logAppLaunchEvent();
+    //     loadWebView();
+    // }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        audioPlayer = new AudioPlayer();
-        setContentView(R.layout.activity_web_app);
-        fetchAsset = new FetchAsset(this, ZIP_BASE_URL);
-        getIntentData();
-        if(appUrl.equals("-1")) {
-            activity_id = "";
-            Toast.makeText(this, "Unable to load the lesson. Please try again.", Toast.LENGTH_SHORT).show();
-            finish();
+protected void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    audioPlayer = new AudioPlayer();
+    setContentView(R.layout.activity_web_app);
+    getIntentData();
+
+    // Copy assets to internal storage
+    copyAssetsToInternalStorage();
+
+    if (title != null) {
+        String lowerTitle = title.toLowerCase();
+        if (lowerTitle.contains("assessment")) {
+            assetFolder = "web2";
+        } else if (lowerTitle.contains("curious reader")) {
+            assetFolder = "web3";
+        } else {
+            assetFolder = "web";
         }
-        initViews();
-        logAppLaunchEvent();
-        loadWebView();
+    } else {
+        assetFolder = "web";
     }
+
+    if(appUrl.equals("-1")) {
+        activity_id = "";
+        Toast.makeText(this, "Activity ID is Invalid!", Toast.LENGTH_SHORT).show();
+        finish();
+        return;
+    }
+    initViews();
+    logAppLaunchEvent();
+
+    // Start local server only for assessment or ftm or curious reader
+    if (appUrl.startsWith("http://localhost:8080")) {
+        try {
+            localWebServer = new org.curiouslearning.container.server.AppServer(this, 8080, assetFolder);
+            localWebServer.start();
+            Log.d("LocalWebServer", "Server started on port 8080 with assets: " + assetFolder);
+        } catch (IOException e) {
+            Log.e("LocalWebServer", "Failed to start server", e);
+        }
+    }
+
+    // Load the WebView
+    webView = findViewById(R.id.web_app);
+    webView.setWebViewClient(new WebViewClient());
+    webView.getSettings().setJavaScriptEnabled(true);
+    webView.addJavascriptInterface(new WebAppInterface(this), "Android");
+    webView.getSettings().setDomStorageEnabled(true);
+    webView.loadUrl(appUrl);
+}
 
     private void getIntentData() {
-        Intent intent = getIntent();
-        if (intent != null) {
-            urlIndex = intent.getStringExtra("appId");
-            title = intent.getStringExtra("title");
-            language = intent.getStringExtra("language");
-            languageInEnglishName = intent.getStringExtra("languageInEnglishName");
-
-            //call appUrl after initializing languageInEnglishName
-            appUrl = !activity_id.isEmpty() ? getAppURL() : intent.getStringExtra("appUrl");
-        }
+    Intent intent = getIntent();
+    if (intent != null) {
+        urlIndex = intent.getStringExtra("appId");
+        title = intent.getStringExtra("title");
+        appUrl = "http://localhost:8080/index.html";
+        language = intent.getStringExtra("language");
+        languageInEnglishName = intent.getStringExtra("languageInEnglishName");
+        String folder = intent.getStringExtra("assetFolder");
+        if (folder != null) assetFolder = folder;
+        Log.d(TAG, "appUrl : " + appUrl + ", assetFolder: " + assetFolder);
     }
+}
 
     private void initViews() {
         sharedPref = getApplicationContext().getSharedPreferences(SHARED_PREFS_NAME, Context.MODE_PRIVATE);
@@ -398,6 +449,7 @@ public class WebApp extends BaseActivity {
 
         @JavascriptInterface
         public String getLessonId() {
+            Log.d("getlessonID", activity_id);
             String lesson_id = activity_id;
             activity_id = "";
             return lesson_id;
@@ -503,7 +555,7 @@ public class WebApp extends BaseActivity {
                         if (object != null) {
                             Object idObj = object.get("id");
                             String objectId = null;
-                            
+
                             if (idObj instanceof java.net.URI) {
                                 objectId = idObj.toString();
                             } else if (idObj instanceof String) {
@@ -511,7 +563,7 @@ public class WebApp extends BaseActivity {
                             } else if (idObj != null) {
                                 objectId = idObj.toString();
                             }
-                            
+
                             if (objectId != null && objectId.contains("activities:")) {
                                 String[] parts = objectId.split("activities:");
                                 if (parts.length > 1) {
@@ -565,6 +617,12 @@ public class WebApp extends BaseActivity {
                 Log.e(TAG, "Error creating game level info", e);
             }
         }
+
+        @JavascriptInterface
+        public String getAssetPath(String filePath) {
+            // Use internal storage path instead of external storage
+            return getFilesDir().getAbsolutePath() + "/" + filePath;
+        }
     }
 
     public void setAppOrientation(String orientationType) {
@@ -603,34 +661,45 @@ public class WebApp extends BaseActivity {
     }
 
     private String getAppURL() {
-        String[] activityIdParts = activity_id.split("_");
+        String[] arr = activity_id.split("_");
 
-        //activity_id example:  ftm_hi_1
-        if(activityIdParts.length == 3){
-            String appName = activityIdParts[0];
-            String lessonId = activityIdParts[2];
-            loadAsset(lessonId);
-            return getAppUrlByName(appName, lessonId);
+        for(String parts : arr) {
+            Log.d(TAG, "split data : " + parts);
         }
-        else{
-            Log.e(TAG, "Invalid activity_id format");
-            return "-1";
-        }
+
+        String appName = arr[0];
+        String lessonId = arr[1];
+
+        String appUrldata = getAppUrlByName(appName, lessonId);
+        Log.d(TAG, "appUrlData : " + appUrldata);
+
+        return appUrldata;
     }
 
-    private String getAppUrlByName(String appName, String lessonId) {
+    // private String getAppUrlByName(String appName, String lessonId) {
 
-        if(appName.equals("ftm")) {
+    //     if(appName.equals("ftm")) {
+    //         activity_id = lessonId;
+    //         return "https://ibiza-stage-ftm-respect.firebaseapp.com/";
+    //     }
+    //     else if (appName.equals("assessment")) {
+    //         return "https://ibiza-stage-assessment-respect.web.app/?data=" + lessonId;
+    //     }
+    //     else if(appName.equals("storyBook")) {
+    //         return "https://ibiza-stage-story-respect.web.app/?book=" + lessonId;
+    //     }
+    //     return "-1";
+    // }
+
+    private String getAppUrlByName(String appName, String lessonId) {
+        if(appName.equals("assessment")) {
             activity_id = lessonId;
-            if(languageInEnglishName != null){ //check so that application doesn't crash
-                return "https://ibiza-stage-ftm-respect.firebaseapp.com/?cr_lang=" + languageInEnglishName.toLowerCase();
-            }
-            else{
-                return "https://ibiza-stage-ftm-respect.firebaseapp.com/";
-            }
+            return "https://ibiza-stage-ftm-respect.firebaseapp.com/";
         }
-        else if (appName.equals("assessment")) {
-            return "https://ibiza-stage-assessment-respect.web.app/?data=" + lessonId;
+        else if (appName.equals("ftm")) {
+            // Use local server URL
+            Log.d("anmol--------------------", "anmol started on port 8080");
+            return "http://localhost:8080/index.html";
         }
         else if(appName.equals("storyBook")) {
             return "https://ibiza-stage-story-respect.web.app/?book=" + lessonId;
@@ -639,26 +708,51 @@ public class WebApp extends BaseActivity {
     }
 
     @Override
+    protected void onDestroy() {
+        if (localWebServer != null) {
+            localWebServer.stop();
+        }
+        super.onDestroy();
+    }
+
+    @Override
     public void onBackPressed() {
         activity_id = "";
         super.onBackPressed();
     }
 
-    private void loadAsset(String lessonId) {
-        fetchAsset.downloadAssets(lessonId, new FetchAsset.LessonCallBack() {
-            @Override
-            public void onSucccess(File lessonFolder) {
-                Toast.makeText(WebApp.this,
-                        "Successfull to load asset" ,
-                        Toast.LENGTH_LONG).show();
+    private void copyAssetsToInternalStorage() {
+        try {
+            AssetManager assetManager = getAssets();
+            String[] files = assetManager.list("");
+            
+            for (String file : files) {
+                // Create directories if they don't exist
+                File destFile = new File(getFilesDir(), file);
+                if (!destFile.exists()) {
+                    if (file.contains("/")) {
+                        // Create parent directories
+                        destFile.getParentFile().mkdirs();
+                    }
+                    
+                    // Copy file from assets to internal storage
+                    InputStream in = assetManager.open(file);
+                    OutputStream out = Files.newOutputStream(destFile.toPath());
+                    
+                    byte[] buffer = new byte[1024];
+                    int read;
+                    while ((read = in.read(buffer)) != -1) {
+                        out.write(buffer, 0, read);
+                    }
+                    
+                    in.close();
+                    out.flush();
+                    out.close();
+                }
             }
-            @Override
-            public void onFalure(Exception e) {
-                Toast.makeText(WebApp.this,
-                        "Failed to load asset: " + e.getMessage(),
-                        Toast.LENGTH_LONG).show();
-            }
-        });
+        } catch (IOException e) {
+            Log.e(TAG, "Error copying assets to internal storage", e);
+        }
     }
 
 }
