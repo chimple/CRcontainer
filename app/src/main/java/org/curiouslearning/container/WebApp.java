@@ -68,7 +68,7 @@ public class WebApp extends BaseActivity {
     private static final String TAG = "WebApp";
 
     private static String lesonId = "";
-    private String assetFolder = "web";
+    private String assetFolder = "ftm";
 
     // @Override
     // protected void onCreate(Bundle savedInstanceState) {
@@ -99,14 +99,14 @@ protected void onCreate(Bundle savedInstanceState) {
     if (title != null) {
         String lowerTitle = title.toLowerCase();
         if (lowerTitle.contains("assessment")) {
-            assetFolder = "web2";
+            assetFolder = "assessment";
         } else if (lowerTitle.contains("curious reader")) {
-            assetFolder = "web3";
+            assetFolder = "story";
         } else {
-            assetFolder = "web";
+            assetFolder = "ftm";
         }
     } else {
-        assetFolder = "web";
+        assetFolder = "ftm";
     }
 
     if(appUrl.equals("-1")) {
