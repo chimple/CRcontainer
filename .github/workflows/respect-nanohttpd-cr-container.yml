@@ -42,7 +42,7 @@ jobs:
           git lfs install
           git config user.email "skanda@sutara.org"
           git config user.name "kvskandakumar"
-          git remote add origin https://${{ secrets.ACCESS_TOKEN }}@github.com/chimple/CRcontainer-apks.git
+          git remote add origin https://${{ secrets.ACCESS_TOKEN }}@github.com/chimple/CRcontainer.git
           git checkout -b respect-nano-apk
           git lfs track "*.apk"
           git add .gitattributes app-debug.apk
