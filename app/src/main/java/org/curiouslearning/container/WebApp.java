@@ -31,6 +31,7 @@ import org.curiouslearning.container.utilities.AppUtils;
 import org.curiouslearning.container.utilities.ConnectionUtils;
 import org.curiouslearning.container.utilities.AudioPlayer;
 
+import org.curiouslearning.container.utilities.FetchAsset;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -70,6 +71,10 @@ public class WebApp extends BaseActivity {
     private static String lesonId = "";
     private String assetFolder = "web";
 
+    private static final String ZIP_BASE_URL = "https://raw.githubusercontent.com/niteshmandal0/assetsCR/main/";
+    private FetchAsset fetchAsset;
+
+
     // @Override
     // protected void onCreate(Bundle savedInstanceState) {
     //     super.onCreate(savedInstanceState);
@@ -92,7 +97,9 @@ protected void onCreate(Bundle savedInstanceState) {
     audioPlayer = new AudioPlayer();
     setContentView(R.layout.activity_web_app);
     getIntentData();
-
+    //example here to download the assets
+    fetchAsset = new FetchAsset(this, ZIP_BASE_URL);
+    loadAsset("BeeandElephantPashto");
     // Copy assets to internal storage
     copyAssetsToInternalStorage();
 
@@ -753,6 +760,23 @@ protected void onCreate(Bundle savedInstanceState) {
         } catch (IOException e) {
             Log.e(TAG, "Error copying assets to internal storage", e);
         }
+    }
+
+    private void loadAsset(String lessonId) {
+        fetchAsset.downloadAssets(lessonId, new FetchAsset.LessonCallBack() {
+            @Override
+            public void onSucccess(File lessonFolder) {
+                Toast.makeText(WebApp.this,
+                        "Successfull to load asset" ,
+                        Toast.LENGTH_LONG).show();
+            }
+            @Override
+            public void onFalure(Exception e) {
+                Toast.makeText(WebApp.this,
+                        "Failed to load asset: " + e.getMessage(),
+                        Toast.LENGTH_LONG).show();
+            }
+        });
     }
 
 }

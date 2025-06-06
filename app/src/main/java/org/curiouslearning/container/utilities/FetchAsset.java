@@ -53,19 +53,23 @@ public class FetchAsset {
     }
 
     public void downloadAssets(String lessonId, LessonCallBack callback) {
+        Log.d(TAG, "Starting asset download for lessonId: " + lessonId);
         File assetFolder = new File(context.getExternalFilesDir(null), lessonId);
 
         if (assetFolder.exists() && assetFolder.list().length > 0) {
+            Log.d(TAG, "Assets already exist for lessonId: " + lessonId);
             mainHandler.post(() -> callback.onSucccess(assetFolder));
             return;
         }
 
         if (!ConnectionUtils.getInstance().isInternetConnected(context)) {
+            Log.e(TAG, "No internet connection available");
             mainHandler.post(() -> callback.onFalure(new IOException("No internet connection")));
             return;
         }
 
         String zipUrl = zipBaseUrl + lessonId + ".zip";
+        Log.d(TAG, "Downloading assets from URL: " + zipUrl);
 
         apiService.downloadLesson(zipUrl).enqueue(new Callback<ResponseBody>() {
             @Override
@@ -77,15 +81,18 @@ public class FetchAsset {
                 }
 
                 try {
+                    Log.d(TAG, "Download successful, creating temp zip file");
                     File tempZipFile = new File(context.getCacheDir(), lessonId + ".zip");
 
                     try (FileOutputStream fos = new FileOutputStream(tempZipFile)) {
                         fos.write(response.body().bytes());
                     }
 
+                    Log.d(TAG, "Unzipping assets to: " + assetFolder.getAbsolutePath());
                     unzipLesson(tempZipFile, assetFolder);
                     tempZipFile.delete();
 
+                    Log.d(TAG, "Asset download and extraction completed successfully");
                     mainHandler.post(() -> callback.onSucccess(assetFolder));
                 } catch (Exception e) {
                     Log.e(TAG, "Error while downloading or unzipping", e);
