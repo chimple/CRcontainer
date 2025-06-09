@@ -31,6 +31,7 @@ import org.curiouslearning.container.utilities.AppUtils;
 import org.curiouslearning.container.utilities.ConnectionUtils;
 import org.curiouslearning.container.utilities.AudioPlayer;
 
+import org.curiouslearning.container.utilities.FetchAsset;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -45,6 +46,8 @@ import java.nio.file.Files;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public class WebApp extends BaseActivity {
 
@@ -70,6 +73,10 @@ public class WebApp extends BaseActivity {
     private static String lesonId = "";
     private String assetFolder = "web";
 
+    private static final String ZIP_BASE_URL = "https://github.com/chimple/curious-learning-assests/blob/main/";
+    private FetchAsset fetchAsset;
+
+
     // @Override
     // protected void onCreate(Bundle savedInstanceState) {
     //     super.onCreate(savedInstanceState);
@@ -92,6 +99,19 @@ protected void onCreate(Bundle savedInstanceState) {
     audioPlayer = new AudioPlayer();
     setContentView(R.layout.activity_web_app);
     getIntentData();
+    //example here to download the assets
+    fetchAsset = new FetchAsset(this, ZIP_BASE_URL);
+//    example code here
+    new Thread(() -> {
+        boolean ok = loadAsset("BeeandElephantPashto"); // put user lesson_id here
+        runOnUiThread(() -> {
+            if (ok) {
+                Log.d(TAG, "Assets downloaded successfully : " + ok);
+            } else {
+                Log.d(TAG, "Assets download failed : " + ok);
+            }
+        });
+    }).start();
 
     // Copy assets to internal storage
     copyAssetsToInternalStorage();
@@ -753,6 +773,34 @@ protected void onCreate(Bundle savedInstanceState) {
         } catch (IOException e) {
             Log.e(TAG, "Error copying assets to internal storage", e);
         }
+    }
+
+    public boolean loadAsset(String lessonId) {
+        final CountDownLatch latch = new CountDownLatch(1);
+        final AtomicBoolean result = new AtomicBoolean(false);
+
+        fetchAsset.downloadAssets(lessonId, new FetchAsset.LessonCallBack() {
+            @Override
+            public void onSucccess(File lessonFolder) {
+                result.set(true);
+                latch.countDown();
+            }
+            @Override
+            public void onFalure(Exception e) {
+                result.set(false);
+                latch.countDown();
+            }
+        });
+
+        try {
+            // Wait until the callback calls countDown()
+            latch.await();
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+            return false;
+        }
+
+        return result.get();
     }
 
 }
