@@ -46,6 +46,8 @@ import java.nio.file.Files;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public class WebApp extends BaseActivity {
 
@@ -71,7 +73,7 @@ public class WebApp extends BaseActivity {
     private static String lesonId = "";
     private String assetFolder = "web";
 
-    private static final String ZIP_BASE_URL = "https://raw.githubusercontent.com/niteshmandal0/assetsCR/main/";
+    private static final String ZIP_BASE_URL = "https://github.com/chimple/curious-learning-assests/blob/main/";
     private FetchAsset fetchAsset;
 
 
@@ -99,7 +101,18 @@ protected void onCreate(Bundle savedInstanceState) {
     getIntentData();
     //example here to download the assets
     fetchAsset = new FetchAsset(this, ZIP_BASE_URL);
-    loadAsset("BeeandElephantPashto");
+//    example code here
+    new Thread(() -> {
+        boolean ok = loadAsset("BeeandElephantPashto"); // put user lesson_id here
+        runOnUiThread(() -> {
+            if (ok) {
+                Log.d(TAG, "Assets downloaded successfully : " + ok);
+            } else {
+                Log.d(TAG, "Assets download failed : " + ok);
+            }
+        });
+    }).start();
+
     // Copy assets to internal storage
     copyAssetsToInternalStorage();
 
@@ -762,21 +775,32 @@ protected void onCreate(Bundle savedInstanceState) {
         }
     }
 
-    private void loadAsset(String lessonId) {
+    public boolean loadAsset(String lessonId) {
+        final CountDownLatch latch = new CountDownLatch(1);
+        final AtomicBoolean result = new AtomicBoolean(false);
+
         fetchAsset.downloadAssets(lessonId, new FetchAsset.LessonCallBack() {
             @Override
             public void onSucccess(File lessonFolder) {
-                Toast.makeText(WebApp.this,
-                        "Successfull to load asset" ,
-                        Toast.LENGTH_LONG).show();
+                result.set(true);
+                latch.countDown();
             }
             @Override
             public void onFalure(Exception e) {
-                Toast.makeText(WebApp.this,
-                        "Failed to load asset: " + e.getMessage(),
-                        Toast.LENGTH_LONG).show();
+                result.set(false);
+                latch.countDown();
             }
         });
+
+        try {
+            // Wait until the callback calls countDown()
+            latch.await();
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+            return false;
+        }
+
+        return result.get();
     }
 
 }
