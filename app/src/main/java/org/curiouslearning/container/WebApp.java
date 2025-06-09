@@ -73,7 +73,7 @@ public class WebApp extends BaseActivity {
     private static String lesonId = "";
     private String assetFolder = "web";
 
-    private static final String ZIP_BASE_URL = "https://github.com/chimple/curious-learning-assests/blob/main/";
+    private static final String ZIP_BASE_URL = "https://raw.githubusercontent.com/niteshmandal0/curious-learning-assests/main/";
     private FetchAsset fetchAsset;
 
 
