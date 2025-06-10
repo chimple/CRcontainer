@@ -31,6 +31,7 @@ import org.curiouslearning.container.utilities.AppUtils;
 import org.curiouslearning.container.utilities.ConnectionUtils;
 import org.curiouslearning.container.utilities.AudioPlayer;
 
+import org.curiouslearning.container.utilities.FetchAsset;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -45,6 +46,8 @@ import java.nio.file.Files;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public class WebApp extends BaseActivity {
 
@@ -70,6 +73,10 @@ public class WebApp extends BaseActivity {
     private static String lesonId = "";
     private String assetFolder = "ftm";
 
+    private static final String ZIP_BASE_URL = "https://github.com/chimple/curious-learning-assests/blob/main/";
+    private FetchAsset fetchAsset;
+
+
     // @Override
     // protected void onCreate(Bundle savedInstanceState) {
     //     super.onCreate(savedInstanceState);
@@ -92,6 +99,19 @@ protected void onCreate(Bundle savedInstanceState) {
     audioPlayer = new AudioPlayer();
     setContentView(R.layout.activity_web_app);
     getIntentData();
+    //example here to download the assets
+    fetchAsset = new FetchAsset(this, ZIP_BASE_URL);
+//    example code here
+    new Thread(() -> {
+        boolean ok = loadAsset("BeeandElephantPashto"); // put user lesson_id here
+        runOnUiThread(() -> {
+            if (ok) {
+                Log.d(TAG, "Assets downloaded successfully : " + ok);
+            } else {
+                Log.d(TAG, "Assets download failed : " + ok);
+            }
+        });
+    }).start();
 
     // Copy assets to internal storage
     copyAssetsToInternalStorage();
@@ -143,12 +163,16 @@ protected void onCreate(Bundle savedInstanceState) {
     if (intent != null) {
         urlIndex = intent.getStringExtra("appId");
         title = intent.getStringExtra("title");
-        appUrl = "http://localhost:8080/index.html";
         language = intent.getStringExtra("language");
         languageInEnglishName = intent.getStringExtra("languageInEnglishName");
-        String folder = intent.getStringExtra("assetFolder");
-        if (folder != null) assetFolder = folder;
-        Log.d(TAG, "appUrl : " + appUrl + ", assetFolder: " + assetFolder);
+
+        //call remoteAppUrl after initializing languageInEnglishName
+        String remoteAppUrl = !activity_id.isEmpty() ? getAppURL() : intent.getStringExtra("appUrl");
+        Log.d(TAG, "remoteAppUrl is: " + remoteAppUrl);
+        String queryString = getQueryString(remoteAppUrl);
+        Log.d(TAG, "remoteAppUrl queryString is: " + queryString);
+        //pass the queryString to locahost url
+        appUrl = "http://localhost:8080/index.html" + queryString;
     }
 }
 
@@ -204,6 +228,19 @@ protected void onCreate(Bundle savedInstanceState) {
                 return true;
             }
         });
+    }
+
+    private String getQueryString(String remoteAppUrl){
+        String queryString = "";
+        int index = remoteAppUrl.indexOf(".com");
+        if (index != -1) {
+            int start = index + 4;
+            if (start < remoteAppUrl.length()) {
+                if (remoteAppUrl.charAt(start) == '/') start++;
+                if (start < remoteAppUrl.length()) queryString = remoteAppUrl.substring(start);
+            }
+        }
+        return queryString;
     }
 
     private String addCrUserIdToUrl(String appUrl) {
@@ -454,6 +491,7 @@ protected void onCreate(Bundle savedInstanceState) {
             activity_id = "";
             return lesson_id;
         }
+
         @JavascriptInterface
         public void sendDataToContainer(String key, String payload) {
             Log.d(TAG, "Received gamePlayData from webapp " + appUrl + "--->" + payload);
@@ -661,45 +699,33 @@ protected void onCreate(Bundle savedInstanceState) {
     }
 
     private String getAppURL() {
-        String[] arr = activity_id.split("_");
+        String[] activityIdParts = activity_id.split("_");
 
-        for(String parts : arr) {
-            Log.d(TAG, "split data : " + parts);
+        //activity_id example:  ftm_hi_1
+        if(activityIdParts.length == 3){
+            String appName = activityIdParts[0];
+            String lessonId = activityIdParts[2];
+            return getAppUrlByName(appName, lessonId);
         }
-
-        String appName = arr[0];
-        String lessonId = arr[1];
-
-        String appUrldata = getAppUrlByName(appName, lessonId);
-        Log.d(TAG, "appUrlData : " + appUrldata);
-
-        return appUrldata;
+        else{
+            Log.e(TAG, "Invalid activity_id format");
+            return "-1";
+        }
     }
 
-    // private String getAppUrlByName(String appName, String lessonId) {
-
-    //     if(appName.equals("ftm")) {
-    //         activity_id = lessonId;
-    //         return "https://ibiza-stage-ftm-respect.firebaseapp.com/";
-    //     }
-    //     else if (appName.equals("assessment")) {
-    //         return "https://ibiza-stage-assessment-respect.web.app/?data=" + lessonId;
-    //     }
-    //     else if(appName.equals("storyBook")) {
-    //         return "https://ibiza-stage-story-respect.web.app/?book=" + lessonId;
-    //     }
-    //     return "-1";
-    // }
-
     private String getAppUrlByName(String appName, String lessonId) {
-        if(appName.equals("assessment")) {
+
+        if(appName.equals("ftm")) {
             activity_id = lessonId;
-            return "https://ibiza-stage-ftm-respect.firebaseapp.com/";
+            if(languageInEnglishName != null){ //check so that application doesn't crash
+                return "https://ibiza-stage-ftm-respect.firebaseapp.com/?cr_lang=" + languageInEnglishName.toLowerCase();
+            }
+            else{
+                return "https://ibiza-stage-ftm-respect.firebaseapp.com/";
+            }
         }
-        else if (appName.equals("ftm")) {
-            // Use local server URL
-            Log.d("anmol--------------------", "anmol started on port 8080");
-            return "http://localhost:8080/index.html";
+        else if (appName.equals("assessment")) {
+            return "https://ibiza-stage-assessment-respect.web.app/?data=" + lessonId;
         }
         else if(appName.equals("storyBook")) {
             return "https://ibiza-stage-story-respect.web.app/?book=" + lessonId;
@@ -753,6 +779,34 @@ protected void onCreate(Bundle savedInstanceState) {
         } catch (IOException e) {
             Log.e(TAG, "Error copying assets to internal storage", e);
         }
+    }
+
+    public boolean loadAsset(String lessonId) {
+        final CountDownLatch latch = new CountDownLatch(1);
+        final AtomicBoolean result = new AtomicBoolean(false);
+
+        fetchAsset.downloadAssets(lessonId, new FetchAsset.LessonCallBack() {
+            @Override
+            public void onSucccess(File lessonFolder) {
+                result.set(true);
+                latch.countDown();
+            }
+            @Override
+            public void onFalure(Exception e) {
+                result.set(false);
+                latch.countDown();
+            }
+        });
+
+        try {
+            // Wait until the callback calls countDown()
+            latch.await();
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+            return false;
+        }
+
+        return result.get();
     }
 
 }

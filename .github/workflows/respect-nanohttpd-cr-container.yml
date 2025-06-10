@@ -1,0 +1,45 @@
+name: Respect CR Container APK Upload to Drive
+
+on:
+  push:
+    branches:
+      - respect-nanohttpd
+
+jobs:
+  build:
+    name: Build and Upload APK
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Setup Java
+        uses: actions/setup-java@v1
+        with:
+          java-version: "17"
+
+      - name: Setup Android SDK
+        uses: android-actions/setup-android@v2
+
+      - name: Make gradlew Executable
+        run: chmod +x ./gradlew
+
+      - name: Build Debug APK
+        run: ./gradlew assembleDebug
+
+      - name: Upload to Google Drive
+        env:
+          SERVICE_ACCOUNT_JSON: ${{ secrets.GDRIVE_SERVICE_ACCOUNT_JSON }}
+          FOLDER_ID: ${{ secrets.GDRIVE_FOLDER_ID }}
+        run: |
+          sudo apt-get install -y unzip curl
+          curl -L -o gdrive.zip https://github.com/prasmussen/gdrive/releases/download/2.1.1/gdrive-linux-x64
+          chmod +x gdrive.zip
+          mv gdrive.zip gdrive
+
+          # Write the service account key
+          echo "${SERVICE_ACCOUNT_JSON}" > key.json
+
+          # Authenticate and upload
+          ./gdrive --service-account key.json upload --parent "$FOLDER_ID" app/build/outputs/apk/debug/app-debug.apk
