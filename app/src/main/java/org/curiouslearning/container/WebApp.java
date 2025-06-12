@@ -73,7 +73,7 @@ public class WebApp extends BaseActivity {
     private static String lesonId = "";
     private String assetFolder = "ftm";
 
-    private static final String ZIP_BASE_URL = "https://github.com/chimple/curious-learning-assests/blob/main/";
+    private static final String ZIP_BASE_URL = "https://raw.githubusercontent.com/chimple/curious-learning-assests/main/assessment/";
     private FetchAsset fetchAsset;
 
 
@@ -99,19 +99,26 @@ protected void onCreate(Bundle savedInstanceState) {
     audioPlayer = new AudioPlayer();
     setContentView(R.layout.activity_web_app);
     getIntentData();
-    //example here to download the assets
     fetchAsset = new FetchAsset(this, ZIP_BASE_URL);
-//    example code here
-    new Thread(() -> {
-        boolean ok = loadAsset("BeeandElephantPashto"); // put user lesson_id here
-        runOnUiThread(() -> {
-            if (ok) {
-                Log.d(TAG, "Assets downloaded successfully : " + ok);
-            } else {
-                Log.d(TAG, "Assets download failed : " + ok);
-            }
-        });
-    }).start();
+
+    // Use the remoteAppUrl for assessment check
+    String remoteAppUrl = getIntent().getStringExtra("appUrl");
+    if (remoteAppUrl != null && remoteAppUrl.contains("assessment")) {
+        Uri uri = Uri.parse(remoteAppUrl);
+        String lessonId = uri.getQueryParameter("data");
+        if (lessonId != null && !lessonId.isEmpty()) {
+            fetchAsset.downloadAssets(lessonId, new FetchAsset.LessonCallBack() {
+                @Override
+                public void onSucccess(File lessonFolder) {
+                    Log.d(TAG, "Assessment assets downloaded: " + lessonId);
+                }
+                @Override
+                public void onFalure(Exception e) {
+                    Log.e(TAG, "Assessment asset download failed: " + lessonId, e);
+                }
+            });
+        }
+    }
 
     // Copy assets to internal storage
     copyAssetsToInternalStorage();
