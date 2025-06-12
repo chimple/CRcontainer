@@ -159,55 +159,22 @@ protected void onCreate(Bundle savedInstanceState) {
 }
 
     private void getIntentData() {
-        Intent intent = getIntent();
-        Uri data = intent.getData();
+    Intent intent = getIntent();
+    if (intent != null) {
+        urlIndex = intent.getStringExtra("appId");
+        title = intent.getStringExtra("title");
+        language = intent.getStringExtra("language");
+        languageInEnglishName = intent.getStringExtra("languageInEnglishName");
 
-        if (data != null && data.getQuery() != null && !data.getQuery().isEmpty()) {
-            // Deeplink mode
-            urlIndex = intent.getStringExtra("appId");
-            title = intent.getStringExtra("title");
-            language = intent.getStringExtra("language");
-            languageInEnglishName = intent.getStringExtra("languageInEnglishName");
-
-            // Set assetFolder and appUrl based on activity_id if needed
-            String activityIdParam = data.getQueryParameter("activity_id");
-            if (activityIdParam != null) {
-                activity_id = activityIdParam;
-                String[] parts = activity_id.split("_");
-                if (parts.length >= 2) {
-                    String appName = parts[0].trim();
-                    String langCode = parts[1].trim();
-                    languageInEnglishName = getLanguageNameFromCode(langCode);
-                    appUrl = getAppURL();
-                }
-            } else {
-                // fallback: use localhost with query
-                appUrl = "http://localhost:8080/index.html?" + data.getQuery();
-            }
-            Log.d(TAG, "[Deeplink] appUrl: " + appUrl);
-        } else {
-            // Offline/manual mode
-            urlIndex = intent.getStringExtra("appId");
-            title = intent.getStringExtra("title");
-            language = intent.getStringExtra("language");
-            languageInEnglishName = intent.getStringExtra("languageInEnglishName");
-            String remoteAppUrl = null;
-            if (activity_id != null && !activity_id.isEmpty()) {
-                remoteAppUrl = getAppURL();
-            } else {
-                remoteAppUrl = intent.getStringExtra("appUrl");
-            }
-            Log.d(TAG, "remoteAppUrl is: " + remoteAppUrl);
-
-            String queryString = "";
-            if (remoteAppUrl != null) {
-                queryString = getQueryString(remoteAppUrl);
-            }
-            Log.d(TAG, "remoteAppUrl queryString is: " + queryString);
-            appUrl = "http://localhost:8080/index.html" + queryString;
-            Log.d(TAG, "[No Deeplink] appUrl: " + appUrl);
-        }
+        //call remoteAppUrl after initializing languageInEnglishName
+        String remoteAppUrl = !activity_id.isEmpty() ? getAppURL() : intent.getStringExtra("appUrl");
+        Log.d(TAG, "remoteAppUrl is: " + remoteAppUrl);
+        String queryString = getQueryString(remoteAppUrl);
+        Log.d(TAG, "remoteAppUrl queryString is: " + queryString);
+        //pass the queryString to locahost url
+        appUrl = "http://localhost:8080/index.html" + queryString;
     }
+}
 
     private void initViews() {
         sharedPref = getApplicationContext().getSharedPreferences(SHARED_PREFS_NAME, Context.MODE_PRIVATE);
@@ -734,6 +701,7 @@ protected void onCreate(Bundle savedInstanceState) {
     private String getAppURL() {
         String[] activityIdParts = activity_id.split("_");
 
+        //activity_id example:  ftm_hi_1
         if(activityIdParts.length == 3){
             String appName = activityIdParts[0];
             String lessonId = activityIdParts[2];
@@ -743,37 +711,13 @@ protected void onCreate(Bundle savedInstanceState) {
             Log.e(TAG, "Invalid activity_id format");
             return "-1";
         }
-
-    }
-
-    private String getLanguageNameFromCode(String langCode) {
-        try {
-            AssetManager assetManager = getAssets();
-            InputStream is = assetManager.open("languages.json");
-            int size = is.available();
-            byte[] buffer = new byte[size];
-            is.read(buffer);
-            is.close();
-            String json = new String(buffer, "UTF-8");
-            JSONObject obj = new JSONObject(json);
-            JSONArray webApps = obj.getJSONArray("web_apps");
-            for (int i = 0; i < webApps.length(); i++) {
-                JSONObject app = webApps.getJSONObject(i);
-                if (app.has("langCode") && app.getString("langCode").equalsIgnoreCase(langCode)) {
-                    return app.getString("languageInEnglishName");
-                }
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return langCode; // fallback
     }
 
     private String getAppUrlByName(String appName, String lessonId) {
+
         if(appName.equals("ftm")) {
             activity_id = lessonId;
-
-        if(languageInEnglishName != null){
+            if(languageInEnglishName != null){ //check so that application doesn't crash
                 return "https://ibiza-stage-ftm-respect.firebaseapp.com/?cr_lang=" + languageInEnglishName.toLowerCase();
             }
             else{
@@ -787,7 +731,6 @@ protected void onCreate(Bundle savedInstanceState) {
             return "https://ibiza-stage-story-respect.web.app/?book=" + lessonId;
         }
         return "-1";
-
     }
 
     @Override
@@ -808,7 +751,7 @@ protected void onCreate(Bundle savedInstanceState) {
         try {
             AssetManager assetManager = getAssets();
             String[] files = assetManager.list("");
-
+            
             for (String file : files) {
                 // Create directories if they don't exist
                 File destFile = new File(getFilesDir(), file);
@@ -817,17 +760,17 @@ protected void onCreate(Bundle savedInstanceState) {
                         // Create parent directories
                         destFile.getParentFile().mkdirs();
                     }
-
+                    
                     // Copy file from assets to internal storage
                     InputStream in = assetManager.open(file);
                     OutputStream out = Files.newOutputStream(destFile.toPath());
-
+                    
                     byte[] buffer = new byte[1024];
                     int read;
                     while ((read = in.read(buffer)) != -1) {
                         out.write(buffer, 0, read);
                     }
-
+                    
                     in.close();
                     out.flush();
                     out.close();
