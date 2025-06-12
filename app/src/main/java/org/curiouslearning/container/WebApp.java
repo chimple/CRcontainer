@@ -94,83 +94,133 @@ public class WebApp extends BaseActivity {
     // }
 
     @Override
-protected void onCreate(Bundle savedInstanceState) {
-    super.onCreate(savedInstanceState);
-    audioPlayer = new AudioPlayer();
-    setContentView(R.layout.activity_web_app);
-    getIntentData();
-    //example here to download the assets
-    fetchAsset = new FetchAsset(this, ZIP_BASE_URL);
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        audioPlayer = new AudioPlayer();
+        setContentView(R.layout.activity_web_app);
+        getIntentData();
+        //example here to download the assets
+        fetchAsset = new FetchAsset(this, ZIP_BASE_URL);
 //    example code here
-    new Thread(() -> {
-        boolean ok = loadAsset("BeeandElephantPashto"); // put user lesson_id here
-        runOnUiThread(() -> {
-            if (ok) {
-                Log.d(TAG, "Assets downloaded successfully : " + ok);
+        new Thread(() -> {
+            boolean ok = loadAsset("BeeandElephantPashto"); // put user lesson_id here
+            runOnUiThread(() -> {
+                if (ok) {
+                    Log.d(TAG, "Assets downloaded successfully : " + ok);
+                } else {
+                    Log.d(TAG, "Assets download failed : " + ok);
+                }
+            });
+        }).start();
+
+        // Copy assets to internal storage
+        copyAssetsToInternalStorage();
+
+        if (title != null) {
+            String lowerTitle = title.toLowerCase();
+            if (lowerTitle.contains("assessment")) {
+                assetFolder = "web2";
+            } else if (lowerTitle.contains("curious reader")) {
+                assetFolder = "web3";
             } else {
-                Log.d(TAG, "Assets download failed : " + ok);
+                assetFolder = "web";
             }
-        });
-    }).start();
-
-    // Copy assets to internal storage
-    copyAssetsToInternalStorage();
-
-    if (title != null) {
-        String lowerTitle = title.toLowerCase();
-        if (lowerTitle.contains("assessment")) {
-            assetFolder = "web2";
-        } else if (lowerTitle.contains("curious reader")) {
-            assetFolder = "web3";
         } else {
             assetFolder = "web";
         }
-    } else {
-        assetFolder = "web";
-    }
 
-    if(appUrl.equals("-1")) {
-        activity_id = "";
-        Toast.makeText(this, "Activity ID is Invalid!", Toast.LENGTH_SHORT).show();
-        finish();
-        return;
-    }
-    initViews();
-    logAppLaunchEvent();
-
-    // Start local server only for assessment or ftm or curious reader
-    if (appUrl.startsWith("http://localhost:8080")) {
-        try {
-            localWebServer = new org.curiouslearning.container.server.AppServer(this, 8080, assetFolder);
-            localWebServer.start();
-            Log.d("LocalWebServer", "Server started on port 8080 with assets: " + assetFolder);
-        } catch (IOException e) {
-            Log.e("LocalWebServer", "Failed to start server", e);
+        if(appUrl.equals("-1")) {
+            activity_id = "";
+            Toast.makeText(this, "Activity ID is Invalid!", Toast.LENGTH_SHORT).show();
+            finish();
+            return;
         }
+        initViews();
+        logAppLaunchEvent();
+
+        // Start local server only for assessment or ftm or curious reader
+        if (appUrl.startsWith("http://localhost:8080")) {
+            try {
+                localWebServer = new org.curiouslearning.container.server.AppServer(this, 8080, assetFolder);
+                localWebServer.start();
+                Log.d("LocalWebServer", "Server started on port 8080 with assets: " + assetFolder);
+            } catch (IOException e) {
+                Log.e("LocalWebServer", "Failed to start server", e);
+            }
+        }
+
+        // Load the WebView
+        webView = findViewById(R.id.web_app);
+        webView.setWebViewClient(new WebViewClient());
+        webView.getSettings().setJavaScriptEnabled(true);
+        webView.addJavascriptInterface(new WebAppInterface(this), "Android");
+        webView.getSettings().setDomStorageEnabled(true);
+        webView.loadUrl(appUrl);
     }
 
-    // Load the WebView
-    webView = findViewById(R.id.web_app);
-    webView.setWebViewClient(new WebViewClient());
-    webView.getSettings().setJavaScriptEnabled(true);
-    webView.addJavascriptInterface(new WebAppInterface(this), "Android");
-    webView.getSettings().setDomStorageEnabled(true);
-    webView.loadUrl(appUrl);
-}
+    private String getQueryString(String remoteAppUrl){
+        String queryString = "";
+        int index = remoteAppUrl.indexOf(".com");
+        if (index != -1) {
+            int start = index + 4;
+            if (start < remoteAppUrl.length()) {
+                if (remoteAppUrl.charAt(start) == '/') start++;
+                if (start < remoteAppUrl.length()) queryString = remoteAppUrl.substring(start);
+            }
+        }
+        return queryString;
+    }
 
     private void getIntentData() {
-    Intent intent = getIntent();
-    if (intent != null) {
-        urlIndex = intent.getStringExtra("appId");
-        title = intent.getStringExtra("title");
-        appUrl = "http://localhost:8080/index.html";
-        language = intent.getStringExtra("language");
-        languageInEnglishName = intent.getStringExtra("languageInEnglishName");
-        String folder = intent.getStringExtra("assetFolder");
-        if (folder != null) assetFolder = folder;
-        Log.d(TAG, "appUrl : " + appUrl + ", assetFolder: " + assetFolder);
+        Intent intent = getIntent();
+        Uri data = intent.getData();
+
+        if (data != null && data.getQuery() != null && !data.getQuery().isEmpty()) {
+            // Deeplink mode
+            urlIndex = intent.getStringExtra("appId");
+            title = intent.getStringExtra("title");
+            language = intent.getStringExtra("language");
+            languageInEnglishName = intent.getStringExtra("languageInEnglishName");
+
+            // Set assetFolder and appUrl based on activity_id if needed
+            String activityIdParam = data.getQueryParameter("activity_id");
+            if (activityIdParam != null) {
+                activity_id = activityIdParam;
+                String[] parts = activity_id.split("_");
+                if (parts.length >= 2) {
+                    String appName = parts[0].trim();
+                    String langCode = parts[1].trim();
+                    languageInEnglishName = getLanguageNameFromCode(langCode);
+                    appUrl = getAppURL();
+                }
+            } else {
+                // fallback: use localhost with query
+                appUrl = "http://localhost:8080/index.html?" + data.getQuery();
+            }
+            Log.d(TAG, "[Deeplink] appUrl: " + appUrl);
+        } else {
+            // Offline/manual mode
+            urlIndex = intent.getStringExtra("appId");
+            title = intent.getStringExtra("title");
+            language = intent.getStringExtra("language");
+            languageInEnglishName = intent.getStringExtra("languageInEnglishName");
+            String remoteAppUrl = null;
+            if (activity_id != null && !activity_id.isEmpty()) {
+                remoteAppUrl = getAppURL();
+            } else {
+                remoteAppUrl = intent.getStringExtra("appUrl");
+            }
+            Log.d(TAG, "remoteAppUrl is: " + remoteAppUrl);
+
+            String queryString = "";
+            if (remoteAppUrl != null) {
+                queryString = getQueryString(remoteAppUrl);
+            }
+            Log.d(TAG, "remoteAppUrl queryString is: " + queryString);
+            appUrl = "http://localhost:8080/index.html" + queryString;
+            Log.d(TAG, "[No Deeplink] appUrl: " + appUrl);
+        }
     }
-}
 
     private void initViews() {
         sharedPref = getApplicationContext().getSharedPreferences(SHARED_PREFS_NAME, Context.MODE_PRIVATE);
@@ -294,7 +344,7 @@ protected void onCreate(Bundle savedInstanceState) {
     }
 
 
- /****** Please don't remove any of the commented code and imports ****************/
+    /****** Please don't remove any of the commented code and imports ****************/
     private File createTempFileFromAssets(String assetFileName) throws IOException {
         AssetManager assetManager = this.getAssets();
         InputStream inputStream = assetManager.open(assetFileName);
@@ -681,50 +731,65 @@ protected void onCreate(Bundle savedInstanceState) {
     }
 
     private String getAppURL() {
-        String[] arr = activity_id.split("_");
+        String[] activityIdParts = activity_id.split("_");
 
-        for(String parts : arr) {
-            Log.d(TAG, "split data : " + parts);
+        if(activityIdParts.length == 3){
+            String appName = activityIdParts[0];
+            String lessonId = activityIdParts[2];
+            return getAppUrlByName(appName, lessonId);
+        }
+        else{
+            Log.e(TAG, "Invalid activity_id format");
+            return "-1";
         }
 
-        String appName = arr[0];
-        String lessonId = arr[1];
-
-        String appUrldata = getAppUrlByName(appName, lessonId);
-        Log.d(TAG, "appUrlData : " + appUrldata);
-
-        return appUrldata;
     }
 
-    // private String getAppUrlByName(String appName, String lessonId) {
-
-    //     if(appName.equals("ftm")) {
-    //         activity_id = lessonId;
-    //         return "https://ibiza-stage-ftm-respect.firebaseapp.com/";
-    //     }
-    //     else if (appName.equals("assessment")) {
-    //         return "https://ibiza-stage-assessment-respect.web.app/?data=" + lessonId;
-    //     }
-    //     else if(appName.equals("storyBook")) {
-    //         return "https://ibiza-stage-story-respect.web.app/?book=" + lessonId;
-    //     }
-    //     return "-1";
-    // }
+    private String getLanguageNameFromCode(String langCode) {
+        try {
+            AssetManager assetManager = getAssets();
+            InputStream is = assetManager.open("languages.json");
+            int size = is.available();
+            byte[] buffer = new byte[size];
+            is.read(buffer);
+            is.close();
+            String json = new String(buffer, "UTF-8");
+            JSONObject obj = new JSONObject(json);
+            JSONArray webApps = obj.getJSONArray("web_apps");
+            for (int i = 0; i < webApps.length(); i++) {
+                JSONObject app = webApps.getJSONObject(i);
+                if (app.has("langCode") && app.getString("langCode").equalsIgnoreCase(langCode)) {
+                    return app.getString("languageInEnglishName");
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return langCode; // fallback
+    }
 
     private String getAppUrlByName(String appName, String lessonId) {
-        if(appName.equals("assessment")) {
+        if(appName.equals("ftm")) {
             activity_id = lessonId;
-            return "https://ibiza-stage-ftm-respect.firebaseapp.com/";
+
+        if(languageInEnglishName != null){
+                return "https://ibiza-stage-ftm-respect.firebaseapp.com/?cr_lang=" + languageInEnglishName.toLowerCase();
+            }
+            else{
+                String[] activityIdParts = activity_id.split("_");
+                String langCode = (activityIdParts.length >= 2) ? activityIdParts[1] : null;
+                // String langName = getLanguageNameFromCode(langCode);
+                return "https://ibiza-stage-ftm-respect.firebaseapp.com/?cr_lang=" + languageInEnglishName.toLowerCase();
+            }
         }
-        else if (appName.equals("ftm")) {
-            // Use local server URL
-            Log.d("anmol--------------------", "anmol started on port 8080");
-            return "http://localhost:8080/index.html";
+        else if (appName.equals("assessment")) {
+            return "https://ibiza-stage-assessment-respect.web.app/?data=" + lessonId;
         }
         else if(appName.equals("storyBook")) {
             return "https://ibiza-stage-story-respect.web.app/?book=" + lessonId;
         }
         return "-1";
+
     }
 
     @Override
@@ -745,7 +810,7 @@ protected void onCreate(Bundle savedInstanceState) {
         try {
             AssetManager assetManager = getAssets();
             String[] files = assetManager.list("");
-            
+
             for (String file : files) {
                 // Create directories if they don't exist
                 File destFile = new File(getFilesDir(), file);
@@ -754,17 +819,17 @@ protected void onCreate(Bundle savedInstanceState) {
                         // Create parent directories
                         destFile.getParentFile().mkdirs();
                     }
-                    
+
                     // Copy file from assets to internal storage
                     InputStream in = assetManager.open(file);
                     OutputStream out = Files.newOutputStream(destFile.toPath());
-                    
+
                     byte[] buffer = new byte[1024];
                     int read;
                     while ((read = in.read(buffer)) != -1) {
                         out.write(buffer, 0, read);
                     }
-                    
+
                     in.close();
                     out.flush();
                     out.close();
