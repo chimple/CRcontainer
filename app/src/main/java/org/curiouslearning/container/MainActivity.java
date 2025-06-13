@@ -227,6 +227,12 @@ public class MainActivity extends BaseActivity {
                     selectedLanguage = languageFromDeepLink;
                 }
                 storeSelectLanguage(selectedLanguage);
+
+                Intent webAppIntent = new Intent(this, org.curiouslearning.container.WebApp.class);
+                webAppIntent.setData(getIntent().getData());
+                webAppIntent.putExtras(getIntent());
+                startActivity(webAppIntent);
+
                 Toast.makeText(this, "Launching the lesson. Please wait...", Toast.LENGTH_SHORT).show();
             }
             else {

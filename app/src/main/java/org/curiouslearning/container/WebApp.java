@@ -193,19 +193,43 @@ public class WebApp extends BaseActivity {
 
     private void getIntentData() {
         Intent intent = getIntent();
-        if (intent != null) {
+            // Set assetFolder and appUrl based on activity_id if needed
+            String activityIdParam = data.getQueryParameter("activity_id");
+            if (activityIdParam != null) {
+                activity_id = activityIdParam;
+                String[] parts = activity_id.split("_");
+                if (parts.length >= 2) {
+                    String appName = parts[0].trim();
+                    String langCode = parts[1].trim();
+                    languageInEnglishName = getLanguageNameFromCode(langCode);
+                    appUrl = getAppURL();
+                }
+            } else {
+                // fallback: use localhost with query
+                appUrl = "http://localhost:8080/index.html?" + data.getQuery();
+            }
+            Log.d(TAG, "[Deeplink] appUrl: " + appUrl);
+        } else {
+            // Offline/manual mode
             urlIndex = intent.getStringExtra("appId");
             title = intent.getStringExtra("title");
             language = intent.getStringExtra("language");
             languageInEnglishName = intent.getStringExtra("languageInEnglishName");
-
-            //call remoteAppUrl after initializing languageInEnglishName
-            String remoteAppUrl = !activity_id.isEmpty() ? getAppURL() : intent.getStringExtra("appUrl");
+            String remoteAppUrl = null;
+            if (activity_id != null && !activity_id.isEmpty()) {
+                remoteAppUrl = getAppURL();
+            } else {
+                remoteAppUrl = intent.getStringExtra("appUrl");
+            }
             Log.d(TAG, "remoteAppUrl is: " + remoteAppUrl);
-            String queryString = getQueryString(remoteAppUrl);
+
+            String queryString = "";
+            if (remoteAppUrl != null) {
+                queryString = getQueryString(remoteAppUrl);
+            }
             Log.d(TAG, "remoteAppUrl queryString is: " + queryString);
-            //pass the queryString to locahost url
             appUrl = "http://localhost:8080/index.html" + queryString;
+            Log.d(TAG, "[No Deeplink] appUrl: " + appUrl);
         }
     }
 
@@ -734,7 +758,6 @@ public class WebApp extends BaseActivity {
     private String getAppURL() {
         String[] activityIdParts = activity_id.split("_");
 
-        //activity_id example:  ftm_hi_1
         if(activityIdParts.length == 3){
             String appName = activityIdParts[0];
             String lessonId = activityIdParts[2];
@@ -744,13 +767,37 @@ public class WebApp extends BaseActivity {
             Log.e(TAG, "Invalid activity_id format");
             return "-1";
         }
+
+    }
+
+    private String getLanguageNameFromCode(String langCode) {
+        try {
+            AssetManager assetManager = getAssets();
+            InputStream is = assetManager.open("languages.json");
+            int size = is.available();
+            byte[] buffer = new byte[size];
+            is.read(buffer);
+            is.close();
+            String json = new String(buffer, "UTF-8");
+            JSONObject obj = new JSONObject(json);
+            JSONArray webApps = obj.getJSONArray("web_apps");
+            for (int i = 0; i < webApps.length(); i++) {
+                JSONObject app = webApps.getJSONObject(i);
+                if (app.has("langCode") && app.getString("langCode").equalsIgnoreCase(langCode)) {
+                    return app.getString("languageInEnglishName");
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return langCode; // fallback
     }
 
     private String getAppUrlByName(String appName, String lessonId) {
-
         if(appName.equals("ftm")) {
             activity_id = lessonId;
-            if(languageInEnglishName != null){ //check so that application doesn't crash
+
+        if(languageInEnglishName != null){
                 return "https://ibiza-stage-ftm-respect.firebaseapp.com/?cr_lang=" + languageInEnglishName.toLowerCase();
             }
             else{
@@ -764,6 +811,7 @@ public class WebApp extends BaseActivity {
             return "https://ibiza-stage-story-respect.web.app/?book=" + lessonId;
         }
         return "-1";
+
     }
 
     @Override
