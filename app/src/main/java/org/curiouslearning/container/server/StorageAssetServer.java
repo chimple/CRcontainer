@@ -45,7 +45,11 @@ public class StorageAssetServer extends NanoHTTPD {
         try {
             FileInputStream fis = new FileInputStream(fileToServe);
             Log.d("StorageAssetServer", "Serving file: " + fileToServe.getAbsolutePath());
-            return newChunkedResponse(Response.Status.OK, getMimeTypeForFile(uri), fis);
+            Response res = newChunkedResponse(Response.Status.OK, getMimeTypeForFile(uri), fis);
+            res.addHeader("Access-Control-Allow-Origin", "*");
+            res.addHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
+            res.addHeader("Access-Control-Allow-Headers", "origin, content-type, accept");
+            return res;
         } catch (IOException e) {
             Log.e("StorageAssetServer", "Error reading file: " + fileToServe.getAbsolutePath(), e);
             return newFixedLengthResponse(Response.Status.INTERNAL_ERROR, "text/plain", "Error reading file");
