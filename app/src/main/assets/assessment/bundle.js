@@ -82,16 +82,62 @@ var Bundle = (() => {
         exports.GlobalFlags = {
             isRespect: true,
         };
-        function fetchAppData(url) {
+//        function fetchAppData(url) {
+//            return __awaiter(this, void 0, void 0, function* () {
+//                if (exports.GlobalFlags.isRespect) {
+//                    const lessonId = (0, urlUtils_1.getDataFile)();
+//                    const furl = `/data/${lessonId}.json`;
+//                    return fetch(furl).then((response) => response.json());
+//                }
+//
+//                // ...existing code...
+//
+//                // Test: Try to fetch lesson data from StorageAssetServer (port 8401)
+//                fetch("http://localhost:8401/french-lettersounds.json")
+//                  .then(res => {
+//                    if (!res.ok) throw new Error("Failed to load from StorageAssetServer");
+//                    return res.json();
+//                  })
+//                  .then(data => {
+//                    console.log("[StorageAssetServer] Successfully loaded data:", data);
+//                  })
+//                  .catch(err => {
+//                    console.warn("[StorageAssetServer] Could not load asset:", err);
+//                  });
+//
+//                return loadData(url).then((data) => data);
+//            });
+//        }
+
+
+         function fetchAppData(url) {
             return __awaiter(this, void 0, void 0, function* () {
                 if (exports.GlobalFlags.isRespect) {
                     const lessonId = (0, urlUtils_1.getDataFile)();
+                    const storageUrl = `http://localhost:8401/french-lettersounds.json`;
+                    try {
+                        const res = yield fetch(storageUrl);
+                        if (res.ok) {
+                            const data = yield res.json();
+                            console.log("[StorageAssetServer] Successfully loaded data:", data);
+                            return data; // Use the data from storage if available
+                        } else {
+                            console.warn("[StorageAssetServer] Asset not found or failed to load, status:", res.status);
+                        }
+                    } catch (err) {
+                        console.warn("[StorageAssetServer] Could not load asset:----", err);
+                    }
+                    // If fetch from storage fails, fall back to normal behavior
+                    console.log("DATA_________________");
                     const furl = `/data/${lessonId}.json`;
                     return fetch(furl).then((response) => response.json());
                 }
+
+                // ...existing code for non-Respect mode...
                 return loadData(url).then((data) => data);
             });
         }
+
         exports.fetchAppData = fetchAppData;
         function fetchAppType(url) {
             return __awaiter(this, void 0, void 0, function* () {

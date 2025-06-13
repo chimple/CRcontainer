@@ -27,6 +27,7 @@ import androidx.appcompat.app.AlertDialog;
 
 import org.curiouslearning.container.firebase.AnalyticsUtils;
 import org.curiouslearning.container.presentation.base.BaseActivity;
+import org.curiouslearning.container.server.StorageAssetServer;
 import org.curiouslearning.container.utilities.AppUtils;
 import org.curiouslearning.container.utilities.ConnectionUtils;
 import org.curiouslearning.container.utilities.AudioPlayer;
@@ -64,6 +65,7 @@ public class WebApp extends BaseActivity {
     private boolean isDataCached;
     private String source;
     private String campaignId;
+    private StorageAssetServer storageServer;
 
     private static final String SHARED_PREFS_NAME = "appCached";
     private static final String UTM_PREFS_NAME = "utmPrefs";
@@ -94,94 +96,118 @@ public class WebApp extends BaseActivity {
     // }
 
     @Override
-protected void onCreate(Bundle savedInstanceState) {
-    super.onCreate(savedInstanceState);
-    audioPlayer = new AudioPlayer();
-    setContentView(R.layout.activity_web_app);
-    getIntentData();
-    fetchAsset = new FetchAsset(this, ZIP_BASE_URL);
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        audioPlayer = new AudioPlayer();
+        setContentView(R.layout.activity_web_app);
+        getIntentData();
+        fetchAsset = new FetchAsset(this, ZIP_BASE_URL);
 
-    // Use the remoteAppUrl for assessment check
-    String remoteAppUrl = getIntent().getStringExtra("appUrl");
-    if (remoteAppUrl != null && remoteAppUrl.contains("assessment")) {
-        Uri uri = Uri.parse(remoteAppUrl);
-        String lessonId = uri.getQueryParameter("data");
-        if (lessonId != null && !lessonId.isEmpty()) {
-            fetchAsset.downloadAssets(lessonId, new FetchAsset.LessonCallBack() {
-                @Override
-                public void onSucccess(File lessonFolder) {
-                    Log.d(TAG, "Assessment assets downloaded: " + lessonId);
-                }
-                @Override
-                public void onFalure(Exception e) {
-                    Log.e(TAG, "Assessment asset download failed: " + lessonId, e);
-                }
-            });
+        // Use the remoteAppUrl for assessment check
+        String remoteAppUrl = getIntent().getStringExtra("appUrl");
+        if (remoteAppUrl != null && remoteAppUrl.contains("assessment")) {
+            Uri uri = Uri.parse(remoteAppUrl);
+            String lessonId = uri.getQueryParameter("data");
+            if (lessonId != null && !lessonId.isEmpty()) {
+                fetchAsset.downloadAssets(lessonId, new FetchAsset.LessonCallBack() {
+                    @Override
+                    public void onSucccess(File lessonFolder) {
+                        Log.d(TAG, "Assessment assets downloaded: " + lessonId);
+                        if (storageServer != null) {
+                            storageServer.stop();
+                            Log.d("StorageAssetServer", "Previous server stopped.");
+                        }
+                        storageServer = new StorageAssetServer(8401, lessonFolder);
+                        try {
+                            storageServer.start();
+                            Log.d("StorageAssetServer", "Server started at http://localhost:8401/");
+                            // --- Make a test HTTP request to trigger serve() ---
+                            new Thread(() -> {
+                                try {
+                                    java.net.URL url = new java.net.URL("http://127.0.0.1:8401/french-lettersounds.json");
+                                    java.net.HttpURLConnection conn = (java.net.HttpURLConnection) url.openConnection();
+                                    conn.setRequestMethod("GET");
+                                    int responseCode = conn.getResponseCode();
+                                    Log.d("StorageAssetServer", "Test HTTP GET /french-lettersounds.json, response: " + responseCode);
+                                } catch (Exception e) {
+                                    Log.e("StorageAssetServer", "Test HTTP request failed", e);
+                                }
+                            }).start();
+                            // ---------------------------------------------------
+                        } catch (IOException e) {
+                            Log.e("StorageAssetServer", "Failed to start server", e);
+                        }
+                    }
+                    @Override
+                    public void onFalure(Exception e) {
+                        Log.e(TAG, "Assessment asset download failed: " + lessonId, e);
+                    }
+                });
+            }
         }
-    }
 
-    // Copy assets to internal storage
-    copyAssetsToInternalStorage();
+        // Copy assets to internal storage
+        copyAssetsToInternalStorage();
 
-    if (title != null) {
-        String lowerTitle = title.toLowerCase();
-        if (lowerTitle.contains("assessment")) {
-            assetFolder = "assessment";
-        } else if (lowerTitle.contains("curious reader")) {
-            assetFolder = "story";
+        if (title != null) {
+            String lowerTitle = title.toLowerCase();
+            if (lowerTitle.contains("assessment")) {
+                assetFolder = "assessment";
+            } else if (lowerTitle.contains("curious reader")) {
+                assetFolder = "story";
+            } else {
+                assetFolder = "ftm";
+            }
         } else {
             assetFolder = "ftm";
         }
-    } else {
-        assetFolder = "ftm";
-    }
 
-    if(appUrl.equals("-1")) {
-        activity_id = "";
-        Toast.makeText(this, "Activity ID is Invalid!", Toast.LENGTH_SHORT).show();
-        finish();
-        return;
-    }
-    initViews();
-    logAppLaunchEvent();
-
-    // Start local server only for assessment or ftm or curious reader
-    if (appUrl.startsWith("http://localhost:8080")) {
-        try {
-            localWebServer = new org.curiouslearning.container.server.AppServer(this, 8080, assetFolder);
-            localWebServer.start();
-            Log.d("LocalWebServer", "Server started on port 8080 with assets: " + assetFolder);
-        } catch (IOException e) {
-            Log.e("LocalWebServer", "Failed to start server", e);
+        if(appUrl.equals("-1")) {
+            activity_id = "";
+            Toast.makeText(this, "Activity ID is Invalid!", Toast.LENGTH_SHORT).show();
+            finish();
+            return;
         }
-    }
+        initViews();
+        logAppLaunchEvent();
 
-    // Load the WebView
-    webView = findViewById(R.id.web_app);
-    webView.setWebViewClient(new WebViewClient());
-    webView.getSettings().setJavaScriptEnabled(true);
-    webView.addJavascriptInterface(new WebAppInterface(this), "Android");
-    webView.getSettings().setDomStorageEnabled(true);
-    webView.loadUrl(appUrl);
-}
+        // Start local server only for assessment or ftm or curious reader
+        if (appUrl.startsWith("http://localhost:8080")) {
+            try {
+                localWebServer = new org.curiouslearning.container.server.AppServer(this, 8080, assetFolder);
+                localWebServer.start();
+                Log.d("LocalWebServer", "Server started on port 8080 with assets: " + assetFolder);
+            } catch (IOException e) {
+                Log.e("LocalWebServer", "Failed to start server", e);
+            }
+        }
+
+        // Load the WebView
+        webView = findViewById(R.id.web_app);
+        webView.setWebViewClient(new WebViewClient());
+        webView.getSettings().setJavaScriptEnabled(true);
+        webView.addJavascriptInterface(new WebAppInterface(this), "Android");
+        webView.getSettings().setDomStorageEnabled(true);
+        webView.loadUrl(appUrl);
+    }
 
     private void getIntentData() {
-    Intent intent = getIntent();
-    if (intent != null) {
-        urlIndex = intent.getStringExtra("appId");
-        title = intent.getStringExtra("title");
-        language = intent.getStringExtra("language");
-        languageInEnglishName = intent.getStringExtra("languageInEnglishName");
+        Intent intent = getIntent();
+        if (intent != null) {
+            urlIndex = intent.getStringExtra("appId");
+            title = intent.getStringExtra("title");
+            language = intent.getStringExtra("language");
+            languageInEnglishName = intent.getStringExtra("languageInEnglishName");
 
-        //call remoteAppUrl after initializing languageInEnglishName
-        String remoteAppUrl = !activity_id.isEmpty() ? getAppURL() : intent.getStringExtra("appUrl");
-        Log.d(TAG, "remoteAppUrl is: " + remoteAppUrl);
-        String queryString = getQueryString(remoteAppUrl);
-        Log.d(TAG, "remoteAppUrl queryString is: " + queryString);
-        //pass the queryString to locahost url
-        appUrl = "http://localhost:8080/index.html" + queryString;
+            //call remoteAppUrl after initializing languageInEnglishName
+            String remoteAppUrl = !activity_id.isEmpty() ? getAppURL() : intent.getStringExtra("appUrl");
+            Log.d(TAG, "remoteAppUrl is: " + remoteAppUrl);
+            String queryString = getQueryString(remoteAppUrl);
+            Log.d(TAG, "remoteAppUrl queryString is: " + queryString);
+            //pass the queryString to locahost url
+            appUrl = "http://localhost:8080/index.html" + queryString;
+        }
     }
-}
 
     private void initViews() {
         sharedPref = getApplicationContext().getSharedPreferences(SHARED_PREFS_NAME, Context.MODE_PRIVATE);
@@ -318,7 +344,7 @@ protected void onCreate(Bundle savedInstanceState) {
     }
 
 
- /****** Please don't remove any of the commented code and imports ****************/
+    /****** Please don't remove any of the commented code and imports ****************/
     private File createTempFileFromAssets(String assetFileName) throws IOException {
         AssetManager assetManager = this.getAssets();
         InputStream inputStream = assetManager.open(assetFileName);
@@ -758,7 +784,7 @@ protected void onCreate(Bundle savedInstanceState) {
         try {
             AssetManager assetManager = getAssets();
             String[] files = assetManager.list("");
-            
+
             for (String file : files) {
                 // Create directories if they don't exist
                 File destFile = new File(getFilesDir(), file);
@@ -767,17 +793,17 @@ protected void onCreate(Bundle savedInstanceState) {
                         // Create parent directories
                         destFile.getParentFile().mkdirs();
                     }
-                    
+
                     // Copy file from assets to internal storage
                     InputStream in = assetManager.open(file);
                     OutputStream out = Files.newOutputStream(destFile.toPath());
-                    
+
                     byte[] buffer = new byte[1024];
                     int read;
                     while ((read = in.read(buffer)) != -1) {
                         out.write(buffer, 0, read);
                     }
-                    
+
                     in.close();
                     out.flush();
                     out.close();
