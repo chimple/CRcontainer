@@ -174,7 +174,7 @@ public class WebApp extends BaseActivity {
     String appType = "ftm"; // default
     if (activity_id != null && !activity_id.isEmpty()) {
         String[] parts = activity_id.split("_");
-        if (parts.length >= 1) {
+        if (parts.length > 1) {
             appType = parts[0].trim();
         }
     }
@@ -182,7 +182,7 @@ public class WebApp extends BaseActivity {
     try {
             if (appType.equalsIgnoreCase("ftm")) {
                 localWebServer = new AppServer(this, 8080, "web");
-                    localWebServer.start();
+                localWebServer.start();
                 Log.d("LocalWebServer", "Server started on port 8080 with assets: web");
             } else if (appType.equalsIgnoreCase("assessment")) {
                 localWebServer = new AppServer(this, 8081, "web2");
