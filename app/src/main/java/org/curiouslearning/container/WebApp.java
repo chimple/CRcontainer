@@ -138,15 +138,30 @@ protected void onCreate(Bundle savedInstanceState) {
     initViews();
     logAppLaunchEvent();
 
-    // Start local server only for assessment or ftm or curious reader
-    if (appUrl.startsWith("http://localhost:8080")) {
-        try {
-            localWebServer = new org.curiouslearning.container.server.AppServer(this, 8080, assetFolder);
-            localWebServer.start();
-            Log.d("LocalWebServer", "Server started on port 8080 with assets: " + assetFolder);
-        } catch (IOException e) {
-            Log.e("LocalWebServer", "Failed to start server", e);
+    String appType = "ftm"; // default
+    if (activity_id != null && !activity_id.isEmpty()) {
+        String[] parts = activity_id.split("_");
+        if (parts.length >= 1) {
+            appType = parts[0].trim();
         }
+    }
+
+    try {
+        if (appType.equalsIgnoreCase("ftm")) {
+            localWebServer = new AppServer(this, 8080, "web");
+            localWebServer.start();
+            Log.d("LocalWebServer", "Server started on port 8080 with assets: web");
+        } else if (appType.equalsIgnoreCase("assessment")) {
+            localWebServer = new AppServer(this, 8081, "web2");
+            localWebServer.start();
+            Log.d("LocalWebServer", "Server started on port 8081 with assets: web2");
+        } else if (appType.equalsIgnoreCase("storyBook")) {
+            localWebServer = new AppServer(this, 8082, "web3");
+            localWebServer.start();
+            Log.d("LocalWebServer", "Server started on port 8082 with assets: web3");
+        }
+    } catch (IOException e) {
+        Log.e("LocalWebServer", "Failed to start server", e);
     }
 
     // Load the WebView
@@ -769,22 +784,83 @@ protected void onCreate(Bundle savedInstanceState) {
         return langCode; // fallback
     }
 
+    private boolean isLocalContentAvailable(String appName, String languageOrLessonId) {
+        AssetManager assetManager = getAssets();
+        try {
+            switch (appName) {
+                case "ftm": {
+                    // Check for language folder inside assets/web/lang
+                    String[] langs = assetManager.list("web/lang");
+                    if (langs != null) {
+                        for (String lang : langs) {
+                            if (lang.equalsIgnoreCase(languageOrLessonId)) {
+                                return true;
+                            }
+                        }
+                    }
+                    return false;
+                }
+                case "assessment": {
+                    // Check for lesson folder inside assets/web2/audio
+                    String[] datas = assetManager.list("web2/data");
+                    if (datas != null) {
+                        for (String data : datas) {
+                            if (data != null && data.toLowerCase().endsWith(".json")) {
+                                data = data.substring(0, data.length() - 5);
+                            }
+                            if (data.equalsIgnoreCase(languageOrLessonId)) {
+                                return true;
+                            }
+                        }
+                    }
+                    return false;
+                }
+                case "storyBook": {
+                    // Check for book folder inside assets/web3/BookContent
+                    String[] books = assetManager.list("web3/BookContent");
+                    if (books != null) {
+                        for (String book : books) {
+                            if (book.equalsIgnoreCase(languageOrLessonId)) {
+                                return true;
+                            }
+                        }
+                    }
+                    return false;
+                }
+                default:
+                    return false;
+            }
+        } catch (IOException e) {
+            Log.e(TAG, "Error checking local content in assets", e);
+            return false;
+        }
+    }
+
     private String getAppUrlByName(String appName, String lessonId) {
         if(appName.equals("ftm")) {
             activity_id = lessonId;
-
-        if(languageInEnglishName != null){
+            if(languageInEnglishName != null && isLocalContentAvailable("ftm", languageInEnglishName)){
+                // Serve from local server if available
+                return "http://localhost:8080/index.html?cr_lang=" + languageInEnglishName.toLowerCase();
+            } else if(languageInEnglishName != null){
                 return "https://ibiza-stage-ftm-respect.firebaseapp.com/?cr_lang=" + languageInEnglishName.toLowerCase();
-            }
-            else{
+            } else{
                 return "https://ibiza-stage-ftm-respect.firebaseapp.com/";
             }
         }
         else if (appName.equals("assessment")) {
-            return "https://ibiza-stage-assessment-respect.web.app/?data=" + lessonId;
+            if (isLocalContentAvailable("assessment", lessonId)) {
+                return "http://localhost:8081/index.html?data=" + lessonId;
+            } else {
+                return "https://ibiza-stage-assessment-respect.web.app/?data=" + lessonId;
+            }
         }
         else if(appName.equals("storyBook")) {
-            return "https://ibiza-stage-story-respect.web.app/?book=" + lessonId;
+            if (isLocalContentAvailable("storyBook", lessonId)) {
+                return "http://localhost:8082/index.html?book=" + lessonId;
+            } else {
+                return "https://ibiza-stage-story-respect.web.app/?book=" + lessonId;
+            }
         }
         return "-1";
 

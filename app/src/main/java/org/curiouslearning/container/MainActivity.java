@@ -231,7 +231,9 @@ public class MainActivity extends BaseActivity {
                 Intent webAppIntent = new Intent(this, org.curiouslearning.container.WebApp.class);
                 webAppIntent.setData(getIntent().getData());
                 webAppIntent.putExtras(getIntent());
+                webAppIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
                 startActivity(webAppIntent);
+                finish();
 
                 Toast.makeText(this, "Launching the lesson. Please wait...", Toast.LENGTH_SHORT).show();
             }
