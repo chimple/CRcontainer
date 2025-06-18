@@ -3,7 +3,12 @@ package org.curiouslearning.container.server;
 import android.content.Context;
 import android.content.res.AssetManager;
 import android.util.Log;
+import android.widget.Toast;
+import android.os.Handler;
+import android.os.Looper;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -13,6 +18,7 @@ public class AppServer extends NanoHTTPD {
     private final Context context;
     private final String baseAssetFolder;
     private final String TAG = "AppServer";
+    private boolean isOpenAPK = false;
 
     public AppServer(Context context, int port, String baseAssetFolder) {
         super(port);
@@ -25,59 +31,75 @@ public class AppServer extends NanoHTTPD {
         } catch (Exception e) {
             android.util.Log.e("LocalWebServer", "bundle.js is NOT accessible in " + baseAssetFolder + "!", e);
         }
-//        Log.d(TAG, "rootDirectory is "+ )
     }
 
-    @Override
-    public Response serve(IHTTPSession session) {
-        String uri = session.getUri();
-        android.util.Log.d("LocalWebServer", "Requested asset-----------" + uri);
-        if (uri.equals("/")) {
-            uri = "/index.html";
-        }
-        String assetPath = baseAssetFolder + uri;
-        android.util.Log.d("LocalWebServer", "Requested asset: " + assetPath);
-        try {
-            android.util.Log.d("LocalWebServer", "Requested asset-----------");
-            AssetManager assetManager = context.getAssets();
-            InputStream is = assetManager.open(assetPath);
-            String mime = resolveMimeType(uri);
-            return newChunkedResponse(Response.Status.OK, mime, is);
-        } catch (IOException e) {
-            // Try lessonAsset in assets
+@Override
+public Response serve(IHTTPSession session) {
+    String uri = session.getUri();
+    Log.d(TAG, "Requested asset-----------" + uri);
+    if (uri.equals("/")) {
+        uri = "/index.html";
+    }
+    String assetPath = baseAssetFolder + uri;
+    Log.d(TAG, "Requested asset: " + assetPath);
+
+    // Always try baseAssetFolder first
+    try {
+        AssetManager assetManager = context.getAssets();
+        InputStream is = assetManager.open(assetPath);
+        String mime = resolveMimeType(uri);
+        return newChunkedResponse(Response.Status.OK, mime, is);
+    } catch (IOException e) {
+        // Now check lessonAsset or storage based on isOpenAPK value
+        if (isOpenAPK) {
             String lessonAssetPath = "lessonAsset" + uri;
-            android.util.Log.d("LocalWebServer",
-                    "Asset not found in baseAssetFolder, trying lessonAsset: " + lessonAssetPath);
+            Log.d(TAG, "isOpenAPK true, checking lessonAsset: " + lessonAssetPath);
+            showToast("Checking lessonAsset");
             try {
                 AssetManager assetManager = context.getAssets();
                 InputStream is = assetManager.open(lessonAssetPath);
                 String mime = resolveMimeType(uri);
                 return newChunkedResponse(Response.Status.OK, mime, is);
             } catch (IOException e2) {
-                // Try file system (external files dir)
-//                java.io.File storageFile = new java.io.File(context.getExternalFilesDir(null),"assessment" + uri);
-                java.io.File storageFile = new java.io.File(context.getExternalFilesDir(null), uri);//adjust as needed
-                android.util.Log.d("LocalWebServer",
-                        "Asset not found in lessonAsset, trying storage: " + storageFile.getAbsolutePath());
-                if (storageFile.exists() && storageFile.isFile()) {
-                    try {
-                        java.io.FileInputStream fis = new java.io.FileInputStream(storageFile);
-                        String mime = resolveMimeType(uri);
-                        return newChunkedResponse(Response.Status.OK, mime, fis);
-                    } catch (IOException e3) {
-                        android.util.Log.e("LocalWebServer",
-                                "Error reading file from storage: " + storageFile.getAbsolutePath(), e3);
-                    }
-                }
-                android.util.Log.e("LocalWebServer", "Asset not found anywhere: " + lessonAssetPath, e2);
+                Log.e(TAG, "Asset not found in lessonAsset: " + lessonAssetPath, e2);
+                showToast("File not found in lessonAsset:");
                 return newFixedLengthResponse(Response.Status.NOT_FOUND, "text/plain", "404 Not Found");
             }
-        } catch (Exception e) {
-            android.util.Log.e("LocalWebServer", "Server error: " + assetPath, e);
-            return newFixedLengthResponse(Response.Status.INTERNAL_ERROR, "text/plain", "500 Internal Server Error");
+        } else {
+            Log.d(TAG, "isOpenAPK false, checking storage.");
+            showToast("Checking Storage");
+            return serveFromStorage(uri);
         }
+    } catch (Exception e) {
+        Log.e(TAG, "Server error: " + assetPath, e);
+        return newFixedLengthResponse(Response.Status.INTERNAL_ERROR, "text/plain", "500 Internal Server Error");
+    }
+}
+    private Response serveFromStorage(String uri) {
+        File storageFile = new File(context.getExternalFilesDir(null), uri); // adjust as needed
+        Log.d(TAG, "Trying storage: " + storageFile.getAbsolutePath());
+        if (storageFile.exists() && storageFile.isFile()) {
+            try {
+                FileInputStream fis = new FileInputStream(storageFile);
+                String mime = resolveMimeType(uri);
+                Log.d(TAG, "Serving file from storage: " + storageFile.getAbsolutePath());
+                return newChunkedResponse(Response.Status.OK, mime, fis);
+            } catch (IOException e3) {
+                Log.e(TAG, "Error reading file from storage: " + storageFile.getAbsolutePath(), e3);
+            }
+        } else {
+            Log.e(TAG, "File not found in storage: " + storageFile.getAbsolutePath());
+            showToast("File not found in storage");
+        }
+        return newFixedLengthResponse(Response.Status.NOT_FOUND, "text/plain", "404 Not Found");
     }
 
+    private void showToast(final String message) {
+        //Toast is for testing purpose
+        new Handler(Looper.getMainLooper()).post(() ->
+                Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
+        );
+    }
     private String resolveMimeType(String path) {
         if (path.endsWith(".html")) return "text/html";
         if (path.endsWith(".js")) return "application/javascript";
