@@ -75,7 +75,7 @@ public class WebApp extends BaseActivity {
     private static String lesonId = "";
     private String assetFolder = "web";
 
-    private static final String ZIP_BASE_URL = "https://raw.githubusercontent.com/chimple/curious-learning-assests/main/assessment/";
+    private String ZIP_BASE_URL = "https://raw.githubusercontent.com/chimple/curious-learning-assests/main/";
     private FetchAsset fetchAsset;
 
 
@@ -101,18 +101,46 @@ public class WebApp extends BaseActivity {
         audioPlayer = new AudioPlayer();
         setContentView(R.layout.activity_web_app);
         getIntentData();
+        if (title != null) {
+            String lowerTitle = title.toLowerCase();
+            if (lowerTitle.contains("assessment")) {
+                assetFolder = "web2";
+                ZIP_BASE_URL += "assessment/"; // Update ZIP_BASE_URL for assessment
+            } else if (lowerTitle.contains("curious reader")) {
+                assetFolder = "web3";
+                ZIP_BASE_URL += "story/";
+            } else {
+                assetFolder = "web";
+                ZIP_BASE_URL += "ftm/";
+            }
+            Log.d(TAG, "Anuj Base Url set to: " + ZIP_BASE_URL);
+        } else {
+            assetFolder = "web";
+        }
         fetchAsset = new FetchAsset(this, ZIP_BASE_URL);
 
         // Use the remoteAppUrl for assessment check
         String remoteAppUrl = getIntent().getStringExtra("appUrl");
-        if (remoteAppUrl != null && remoteAppUrl.contains("assessment")) {
+        if (remoteAppUrl != null && (remoteAppUrl.contains("story") || remoteAppUrl.contains("assessment"))) {
             Uri uri = Uri.parse(remoteAppUrl);
-            String lessonId = uri.getQueryParameter("data");
+            String lessonId;
+            String suffix;
+            String testFile;
+            if (remoteAppUrl.contains("story")) {
+                lessonId = uri.getQueryParameter("book");
+                suffix = "story/";
+                testFile = "content.json";
+            } else {
+                lessonId = uri.getQueryParameter("data");
+                suffix = "assessment/";
+                testFile = "french-lettersounds.json";
+            }
+            ZIP_BASE_URL += suffix;
             if (lessonId != null && !lessonId.isEmpty()) {
                 fetchAsset.downloadAssets(lessonId, new FetchAsset.LessonCallBack() {
                     @Override
                     public void onSucccess(File lessonFolder) {
-                        Log.d(TAG, "Assessment assets downloaded: " + lessonId);
+                        Log.d(TAG, "Assets downloaded: " + lessonId);
                         if (storageServer != null) {
                             storageServer.stop();
                             Log.d("StorageAssetServer", "Previous server stopped.");
@@ -124,11 +152,11 @@ public class WebApp extends BaseActivity {
                             // --- Make a test HTTP request to trigger serve() ---
                             new Thread(() -> {
                                 try {
-                                    java.net.URL url = new java.net.URL("http://127.0.0.1:8401/french-lettersounds.json");
+                                    java.net.URL url = new java.net.URL("http://127.0.0.1:8401/" + testFile);
                                     java.net.HttpURLConnection conn = (java.net.HttpURLConnection) url.openConnection();
                                     conn.setRequestMethod("GET");
                                     int responseCode = conn.getResponseCode();
-                                    Log.d("StorageAssetServer", "Test HTTP GET /french-lettersounds.json, response: " + responseCode);
+                                    Log.d("StorageAssetServer", "Test HTTP GET /" + testFile + ", response: " + responseCode);
                                 } catch (Exception e) {
                                     Log.e("StorageAssetServer", "Test HTTP request failed", e);
                                 }
@@ -140,7 +168,7 @@ public class WebApp extends BaseActivity {
                     }
                     @Override
                     public void onFalure(Exception e) {
-                        Log.e(TAG, "Assessment asset download failed: " + lessonId, e);
+                        Log.e(TAG, "Asset download failed: " + lessonId, e);
                     }
                 });
             }
@@ -148,19 +176,6 @@ public class WebApp extends BaseActivity {
 
         // Copy assets to internal storage
         copyAssetsToInternalStorage();
-
-        if (title != null) {
-            String lowerTitle = title.toLowerCase();
-            if (lowerTitle.contains("assessment")) {
-                assetFolder = "web2";
-            } else if (lowerTitle.contains("curious reader")) {
-                assetFolder = "web3";
-            } else {
-                assetFolder = "web";
-            }
-        } else {
-            assetFolder = "web";
-        }
 
         if(appUrl.equals("-1")) {
             activity_id = "";
