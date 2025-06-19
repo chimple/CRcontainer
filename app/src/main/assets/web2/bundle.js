@@ -86,7 +86,7 @@ var Bundle = (() => {
             return __awaiter(this, void 0, void 0, function* () {
                 if (exports.GlobalFlags.isRespect) {
                     const lessonId = (0, urlUtils_1.getDataFile)();
-                    const furl = `/data/${lessonId}.json`;
+                    const furl = `/${lessonId}/${lessonId}.json`;
                     return fetch(furl).then((response) => response.json());
                 }
                 return loadData(url).then((data) => data);
@@ -126,7 +126,7 @@ var Bundle = (() => {
         }
         exports.fetchAssessmentBuckets = fetchAssessmentBuckets;
         function getDataURL(url) {
-            return '/data/' + url + '.json';
+            return `/${url}/` + url + '.json';
         }
         exports.getDataURL = getDataURL;
         function getCaseIndependentLangList() {
@@ -151,7 +151,7 @@ var Bundle = (() => {
                 this.allAudios = {};
                 this.allImages = {};
                 this.dataURL = '';
-                this.correctSoundPath = 'audio/Correct.wav';
+                this.correctSoundPath = '/Correct.wav';
                 this.feedbackAudio = null;
                 this.correctAudio = null;
             }
@@ -162,7 +162,7 @@ var Bundle = (() => {
             }
             static PrepareAudioAndImagesForSurvey(questionsData, dataURL) {
                 AudioController.getInstance().dataURL = dataURL;
-                const feedbackSoundPath = 'audio/' + AudioController.getInstance().dataURL + '/answer_feedback.mp3';
+                const feedbackSoundPath = AudioController.getInstance().dataURL + '/answer_feedback.mp3';
                 AudioController.getInstance().wavToCache.push(feedbackSoundPath);
                 AudioController.getInstance().correctAudio.src = feedbackSoundPath;
                 for (var questionIndex in questionsData) {
@@ -202,10 +202,10 @@ var Bundle = (() => {
                 console.log('Filtered: ' + newAudioURL);
                 let newAudio = new Audio();
                 if ((0, jsonUtils_1.getCaseIndependentLangList)().includes(AudioController.getInstance().dataURL.split('-')[0])) {
-                    newAudio.src = 'audio/' + AudioController.getInstance().dataURL + '/' + newAudioURL;
+                    newAudio.src = AudioController.getInstance().dataURL + '/' + newAudioURL;
                 }
                 else {
-                    newAudio.src = 'audio/' + AudioController.getInstance().dataURL + '/' + newAudioURL;
+                    newAudio.src = AudioController.getInstance().dataURL + '/' + newAudioURL;
                 }
                 AudioController.getInstance().allAudios[newAudioURL] = newAudio;
                 console.log(newAudio.src);
@@ -213,7 +213,7 @@ var Bundle = (() => {
             static PreloadBucket(newBucket, dataURL) {
                 AudioController.getInstance().dataURL = dataURL;
                 AudioController.getInstance().correctAudio.src =
-                    'audio/' + AudioController.getInstance().dataURL + '/answer_feedback.mp3';
+                     AudioController.getInstance().dataURL + '/answer_feedback.mp3';
                 for (var itemIndex in newBucket.items) {
                     var item = newBucket.items[itemIndex];
                     AudioController.FilterAndAddAudioToAllAudios(item.itemName.toLowerCase());
@@ -2031,16 +2031,16 @@ var Bundle = (() => {
                                             if (data['quizName'].includes('Luganda') ||
                                                 data['quizName'].toLowerCase().includes('west african english')) {
                                                 audioItemURL =
-                                                    '/audio/' + this.dataURL + '/' + buckets[i].items[j].itemName.toLowerCase().trim() + '.mp3';
+                                                     this.dataURL + '/' + buckets[i].items[j].itemName.toLowerCase().trim() + '.mp3';
                                             }
                                             else {
-                                                audioItemURL = '/audio/' + this.dataURL + '/' + buckets[i].items[j].itemName.trim() + '.mp3';
+                                                audioItemURL = this.dataURL + '/' + buckets[i].items[j].itemName.trim() + '.mp3';
                                             }
                                             this.cacheModel.addItemToAudioVisualResources(audioItemURL);
                                         }
                                     }
-                                    this.cacheModel.addItemToAudioVisualResources('/audio/' + this.dataURL + '/answer_feedback.mp3');
-                                    this.cacheModel.addItemToAudioVisualResources('/audio/Correct.wav');
+                                    this.cacheModel.addItemToAudioVisualResources(this.dataURL + '/answer_feedback.mp3');
+                                    this.cacheModel.addItemToAudioVisualResources('/Correct.wav');
                                     this.game = new assessment_1.Assessment(this.dataURL, this.unityBridge);
                                 }
                                 this.game.unityBridge = this.unityBridge;
