@@ -54,11 +54,23 @@ public class FetchAsset {
 
     public void downloadAssets(String lessonId, LessonCallBack callback) {
         Log.d(TAG, "Starting asset download for lessonId: " + lessonId);
-        File assetFolder = new File(context.getExternalFilesDir(null), lessonId);
+        // Determine asset folder based on zipBaseUrl
+        File baseDir = context.getExternalFilesDir(null);
+        String subDir = "";
+        if (zipBaseUrl.contains("assessment")) {
+            subDir = "assessment";
+        } else if (zipBaseUrl.contains("story")) {
+            subDir = "story";
+        } else if (zipBaseUrl.contains("ftm")) {
+            subDir = "ftm";
+        }
+        File assetFolder = new File(baseDir, subDir);
+        assetFolder = new File(assetFolder, lessonId);
 
         if (assetFolder.exists() && assetFolder.list().length > 0) {
             Log.d(TAG, "Assets already exist for lessonId: " + lessonId);
-            mainHandler.post(() -> callback.onSucccess(assetFolder));
+            File finalAssetFolder = assetFolder;
+            mainHandler.post(() -> callback.onSucccess(finalAssetFolder));
             return;
         }
 
@@ -71,6 +83,7 @@ public class FetchAsset {
         String zipUrl = zipBaseUrl + lessonId + ".zip";
         Log.d(TAG, "Downloading assets from URL: " + zipUrl);
 
+        File finalAssetFolder1 = assetFolder;
         apiService.downloadLesson(zipUrl).enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
@@ -88,15 +101,16 @@ public class FetchAsset {
                         fos.write(response.body().bytes());
                     }
 
-                    Log.d(TAG, "Unzipping assets to: " + assetFolder.getAbsolutePath());
-                    unzipLesson(tempZipFile, assetFolder);
+                    Log.d(TAG, "Unzipping assets to: " + finalAssetFolder1.getAbsolutePath());
+                    unzipLesson(tempZipFile, finalAssetFolder1);
                     tempZipFile.delete();
 
                     Log.d(TAG, "Asset download and extraction completed successfully");
-                    mainHandler.post(() -> callback.onSucccess(assetFolder));
+                    Log.d(TAG, "Final asset folder: " + finalAssetFolder1.getAbsolutePath());
+                    mainHandler.post(() -> callback.onSucccess(finalAssetFolder1));
                 } catch (Exception e) {
                     Log.e(TAG, "Error while downloading or unzipping", e);
-                    deleteFolder(assetFolder);
+                    deleteFolder(finalAssetFolder1);
                     mainHandler.post(() -> callback.onFalure(e));
                 }
             }

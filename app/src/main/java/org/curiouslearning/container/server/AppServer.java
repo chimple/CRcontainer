@@ -17,14 +17,19 @@ import fi.iki.elonen.NanoHTTPD;
 public class AppServer extends NanoHTTPD {
     private final Context context;
     private final String baseAssetFolder;
+    private final String subAppName;
     private final String TAG = "AppServer";
     private boolean isOpenAPK = false;
 
     public AppServer(Context context, int port, String baseAssetFolder) {
+        this(context, port, baseAssetFolder, "unknown");
+    }
+
+    public AppServer(Context context, int port, String baseAssetFolder, String subAppName) {
         super(port);
         this.context = context;
         this.baseAssetFolder = baseAssetFolder;
-
+        this.subAppName = subAppName;
         try {
             context.getAssets().open(baseAssetFolder + "/bundle.js").close();
             android.util.Log.d("LocalWebServer", "bundle.js is accessible in " + baseAssetFolder + "!");
@@ -66,8 +71,13 @@ public Response serve(IHTTPSession session) {
                 return newFixedLengthResponse(Response.Status.NOT_FOUND, "text/plain", "404 Not Found");
             }
         } else {
-            Log.d(TAG, "isOpenAPK false, checking storage.");
-            showToast("Checking Storage");
+            Log.d(TAG, "isOpenAPK false, checking storage for subapp: " + subAppName);
+            showToast("Checking Storage for " + subAppName);
+            if (uri.contains("/lang/")) {
+                uri = uri.replaceFirst("/lang/", "/");
+            }
+            uri = "/" + subAppName + uri;
+
             return serveFromStorage(uri);
         }
     } catch (Exception e) {
