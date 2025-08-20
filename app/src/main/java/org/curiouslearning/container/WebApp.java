@@ -113,7 +113,7 @@ public class WebApp extends BaseActivity {
                 assetFolder = "web";
                 ZIP_BASE_URL = "https://raw.githubusercontent.com/chimple/curious-learning-assests/main/ftm/";
             }
-            Log.d(TAG, "Anuj Base Url set to: " + ZIP_BASE_URL);
+            Log.d(TAG, "Base Url set to: " + ZIP_BASE_URL);
         } else {
             assetFolder = "web";
         }
@@ -121,7 +121,8 @@ public class WebApp extends BaseActivity {
 
         // Use the remoteAppUrl for assessment check
         String remoteAppUrl = getIntent().getStringExtra("appUrl");
-        if (remoteAppUrl != null && (remoteAppUrl.contains("story") || remoteAppUrl.contains("assessment"))) {
+        Log.d(TAG, "remoteAppUrl is: " + remoteAppUrl);
+        if (remoteAppUrl != null && (remoteAppUrl.contains("story") || remoteAppUrl.contains("assessment") || remoteAppUrl.contains("ftm"))) {
             Uri uri = Uri.parse(remoteAppUrl);
             String lessonId;
             String suffix;
@@ -130,10 +131,14 @@ public class WebApp extends BaseActivity {
                 lessonId = uri.getQueryParameter("book");
                 suffix = "story/";
                 filename = "content.json";
-            } else {
+            } else if (remoteAppUrl.contains("assessment")) {
                 lessonId = uri.getQueryParameter("data");
                 suffix = "assessment/";
                 filename = lessonId + ".json";
+            } else {
+                lessonId = uri.getQueryParameter("cr_lang");
+                suffix = "ftm/";
+                filename = "ftm_" + lessonId + ".json";
             }
             ZIP_BASE_URL += suffix;
             if (lessonId != null && !lessonId.isEmpty()) {
@@ -188,10 +193,18 @@ public class WebApp extends BaseActivity {
 
         // Start local server only for assessment or ftm or curious reader
         if (appUrl.startsWith("http://localhost:8080")) {
+            String subAppName = "unknown";
+            if (remoteAppUrl.contains("ftm") || remoteAppUrl.contains("feedthemonster") || remoteAppUrl.contains("cr_lang")) {
+                subAppName = "ftm";
+            } else if (remoteAppUrl.contains("assessment")) {
+                subAppName = "assessment";
+            } else if (remoteAppUrl.contains("story")) {
+                subAppName = "story";
+            }
             try {
-                localWebServer = new org.curiouslearning.container.server.AppServer(this, 8080, assetFolder);
+                localWebServer = new org.curiouslearning.container.server.AppServer(this, 8080, assetFolder, subAppName);
                 localWebServer.start();
-                Log.d("LocalWebServer", "Server started on port 8080 with assets: " + assetFolder);
+                Log.d("LocalWebServer", "Server started on port 8080 with assets: " + assetFolder + ", subApp: " + subAppName);
             } catch (IOException e) {
                 Log.e("LocalWebServer", "Failed to start server", e);
             }
