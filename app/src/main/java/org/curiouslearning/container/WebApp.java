@@ -268,6 +268,7 @@ public class WebApp extends BaseActivity {
             appUrl = "http://localhost:8080/index.html" + queryString;
             Log.d(TAG, "[No Deeplink] appUrl: " + appUrl);
         }
+        MainActivity.activity_id = "";
     }
 
     private void initViews() {
@@ -831,22 +832,23 @@ public class WebApp extends BaseActivity {
     }
 
     private String getAppUrlByName(String appName, String lessonId) {
-        if(appName.equals("web")) {
+        if(appName.equals("ftm")) {
             activity_id = lessonId;
 
             if(languageInEnglishName != null){
-                return "https://ibiza-stage-ftm-respect.firebaseapp.com/?cr_lang=" + languageInEnglishName.toLowerCase();
+                return "https://curiousreader-respect-ftm.firebaseapp.com/?lang=" + languageInEnglishName.toLowerCase();
             }
             else{
-                return "https://ibiza-stage-ftm-respect.firebaseapp.com/";
+                return "https://curiousreader-respect-ftm.firebaseapp.com/";
             }
         }
         else if (appName.equals("assessment")) {
             return "https://ibiza-stage-assessment-respect.web.app/?data=" + lessonId;
         }
-        else if(appName.equals("storyBook")) {
+        else if(appName.equals("story")) {
             return "https://ibiza-stage-story-respect.web.app/?book=" + lessonId;
         }
+        Log.e(TAG, "Unknown appName: ");
         return "-1";
 
     }

@@ -232,7 +232,7 @@ public class MainActivity extends BaseActivity {
                 webAppIntent.setData(getIntent().getData());
                 webAppIntent.putExtras(getIntent());
                 startActivity(webAppIntent);
-
+                activity_id = "";
                 Toast.makeText(this, "Launching the lesson. Please wait...", Toast.LENGTH_SHORT).show();
             }
             else {
