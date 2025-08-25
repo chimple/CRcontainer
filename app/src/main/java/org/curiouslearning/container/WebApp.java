@@ -102,6 +102,7 @@ public class WebApp extends BaseActivity {
         setContentView(R.layout.activity_web_app);
         getIntentData();
         if (title != null) {
+            Log.d(TAG, "title is: " + title);
             String lowerTitle = title.toLowerCase();
             if (lowerTitle.contains("assessment")) {
                 assetFolder = "web2";
@@ -220,6 +221,7 @@ public class WebApp extends BaseActivity {
     }
 
     private void getIntentData() {
+        Log.d(TAG, "inside getintentData");
         Intent intent = getIntent();
         Uri data = intent.getData();
 
@@ -239,11 +241,14 @@ public class WebApp extends BaseActivity {
                     String appName = parts[0].trim();
                     String langCode = parts[1].trim();
                     languageInEnglishName = getLanguageNameFromCode(langCode);
+                    Log.d(TAG, "Language in English Name: " + languageInEnglishName);
                     appUrl = getAppURL();
+                    Log.d(TAG, "appurl " + appUrl);
                 }
             } else {
                 // fallback: use localhost with query
                 appUrl = "http://localhost:8080/index.html?" + data.getQuery();
+                Log.d(TAG, "using fallback appUrl: " + appUrl);
             }
             Log.d(TAG, "[Deeplink] appUrl: " + appUrl);
         } else {
@@ -268,6 +273,7 @@ public class WebApp extends BaseActivity {
             appUrl = "http://localhost:8080/index.html" + queryString;
             Log.d(TAG, "[No Deeplink] appUrl: " + appUrl);
         }
+        MainActivity.activity_id = "";
     }
 
     private void initViews() {
@@ -831,22 +837,27 @@ public class WebApp extends BaseActivity {
     }
 
     private String getAppUrlByName(String appName, String lessonId) {
-        if(appName.equals("web")) {
+        if(appName.equals("ftm")) {
             activity_id = lessonId;
 
             if(languageInEnglishName != null){
-                return "https://ibiza-stage-ftm-respect.firebaseapp.com/?cr_lang=" + languageInEnglishName.toLowerCase();
+                Log.e(TAG, "appName: "+ appName);
+                return "https://curiousreader-respect-ftm.firebaseapp.com/?lang=" + languageInEnglishName.toLowerCase();
             }
             else{
-                return "https://ibiza-stage-ftm-respect.firebaseapp.com/";
+                Log.e(TAG, "appName: "+ appName);
+                return "https://curiousreader-respect-ftm.firebaseapp.com/";
             }
         }
         else if (appName.equals("assessment")) {
+            Log.e(TAG, "appName: "+ appName);
             return "https://ibiza-stage-assessment-respect.web.app/?data=" + lessonId;
         }
-        else if(appName.equals("storyBook")) {
+        else if(appName.equals("story")) {
+            Log.e(TAG, "appName: "+ appName);
             return "https://ibiza-stage-story-respect.web.app/?book=" + lessonId;
         }
+        Log.e(TAG, "Unknown appName: ");
         return "-1";
 
     }
