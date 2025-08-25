@@ -102,7 +102,6 @@ public class WebApp extends BaseActivity {
         setContentView(R.layout.activity_web_app);
         getIntentData();
         if (title != null) {
-            Log.d(TAG, "title is: " + title);
             String lowerTitle = title.toLowerCase();
             if (lowerTitle.contains("assessment")) {
                 assetFolder = "web2";
@@ -221,7 +220,6 @@ public class WebApp extends BaseActivity {
     }
 
     private void getIntentData() {
-        Log.d(TAG, "inside getintentData");
         Intent intent = getIntent();
         Uri data = intent.getData();
 
@@ -241,14 +239,11 @@ public class WebApp extends BaseActivity {
                     String appName = parts[0].trim();
                     String langCode = parts[1].trim();
                     languageInEnglishName = getLanguageNameFromCode(langCode);
-                    Log.d(TAG, "Language in English Name: " + languageInEnglishName);
                     appUrl = getAppURL();
-                    Log.d(TAG, "appurl " + appUrl);
                 }
             } else {
                 // fallback: use localhost with query
                 appUrl = "http://localhost:8080/index.html?" + data.getQuery();
-                Log.d(TAG, "using fallback appUrl: " + appUrl);
             }
             Log.d(TAG, "[Deeplink] appUrl: " + appUrl);
         } else {
@@ -841,20 +836,16 @@ public class WebApp extends BaseActivity {
             activity_id = lessonId;
 
             if(languageInEnglishName != null){
-                Log.e(TAG, "appName: "+ appName);
                 return "https://curiousreader-respect-ftm.firebaseapp.com/?lang=" + languageInEnglishName.toLowerCase();
             }
             else{
-                Log.e(TAG, "appName: "+ appName);
                 return "https://curiousreader-respect-ftm.firebaseapp.com/";
             }
         }
         else if (appName.equals("assessment")) {
-            Log.e(TAG, "appName: "+ appName);
             return "https://ibiza-stage-assessment-respect.web.app/?data=" + lessonId;
         }
         else if(appName.equals("story")) {
-            Log.e(TAG, "appName: "+ appName);
             return "https://ibiza-stage-story-respect.web.app/?book=" + lessonId;
         }
         Log.e(TAG, "Unknown appName: ");
