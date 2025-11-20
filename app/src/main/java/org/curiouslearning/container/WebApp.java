@@ -140,6 +140,7 @@ public class WebApp extends BaseActivity {
                 suffix = "ftm/";
                 filename = "ftm_" + lessonId + ".json";
             }
+            WebApp.lessonId = lessonId;
             ZIP_BASE_URL += suffix;
             if (lessonId != null && !lessonId.isEmpty()) {
                 fetchAsset.downloadAssets(lessonId, new FetchAsset.LessonCallBack() {
@@ -202,7 +203,7 @@ public class WebApp extends BaseActivity {
                 subAppName = "story";
             }
             try {
-                localWebServer = new org.curiouslearning.container.server.AppServer(this, 8080, assetFolder, subAppName);
+                localWebServer = new org.curiouslearning.container.server.AppServer(this, 8080, assetFolder, subAppName, lessonId);
                 localWebServer.start();
                 Log.d("LocalWebServer", "Server started on port 8080 with assets: " + assetFolder + ", subApp: " + subAppName);
             } catch (IOException e) {
