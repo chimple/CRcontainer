@@ -52,6 +52,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 public class WebApp extends BaseActivity {
 
+    private static String lessonId;
     private String title;
     private String appUrl;
     private WebView webView;
