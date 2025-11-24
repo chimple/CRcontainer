@@ -78,7 +78,6 @@ public Response serve(IHTTPSession session) {
             }
         } else {
             Log.d(TAG, "isOpenAPK false, checking storage for subapp: " + subAppName);
-            showToast("Checking Storage for " + subAppName);
             if (uri.contains("/lang/") && lessonId != null) {
                 uri = "/" + subAppName + "/" + lessonId + "/" + uri.substring(uri.lastIndexOf("/") + 1);
             } else {
