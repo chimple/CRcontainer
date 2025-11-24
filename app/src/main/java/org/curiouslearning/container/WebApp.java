@@ -96,11 +96,17 @@ public class WebApp extends BaseActivity {
     //     loadWebView();
     // }
 
+    private android.widget.ProgressBar loadingIndicator;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         audioPlayer = new AudioPlayer();
         setContentView(R.layout.activity_web_app);
+        
+        loadingIndicator = findViewById(R.id.loading_indicator);
+        webView = findViewById(R.id.web_app);
+        
         getIntentData();
         if (title != null) {
             String lowerTitle = title.toLowerCase();
@@ -123,6 +129,9 @@ public class WebApp extends BaseActivity {
         // Use the remoteAppUrl for assessment check
         String remoteAppUrl = getIntent().getStringExtra("appUrl");
         Log.d(TAG, "remoteAppUrl is: " + remoteAppUrl);
+        
+        boolean isDownloadNeeded = false;
+        
         if (remoteAppUrl != null && (remoteAppUrl.contains("story") || remoteAppUrl.contains("assessment") || remoteAppUrl.contains("ftm"))) {
             Uri uri = Uri.parse(remoteAppUrl);
             String lessonId;
@@ -144,6 +153,7 @@ public class WebApp extends BaseActivity {
             WebApp.lessonId = lessonId;
             ZIP_BASE_URL += suffix;
             if (lessonId != null && !lessonId.isEmpty()) {
+                isDownloadNeeded = true;
                 fetchAsset.downloadAssets(lessonId, new FetchAsset.LessonCallBack() {
                     @Override
                     public void onSucccess(File lessonFolder) {
@@ -172,14 +182,27 @@ public class WebApp extends BaseActivity {
                         } catch (IOException e) {
                             Log.e("StorageAssetServer", "Failed to start server", e);
                         }
+                        
+                        runOnUiThread(() -> onAssetsReady(remoteAppUrl));
                     }
                     @Override
                     public void onFalure(Exception e) {
                         Log.e(TAG, "Asset download failed: " + lessonId, e);
+                        // Handle failure? For now maybe just try to load anyway or show error
+                        runOnUiThread(() -> onAssetsReady(remoteAppUrl));
                     }
                 });
             }
         }
+
+        if (!isDownloadNeeded) {
+            onAssetsReady(remoteAppUrl);
+        }
+    }
+
+    private void onAssetsReady(String remoteAppUrl) {
+        loadingIndicator.setVisibility(View.GONE);
+        webView.setVisibility(View.VISIBLE);
 
         // Copy assets to internal storage
         copyAssetsToInternalStorage();
@@ -196,11 +219,12 @@ public class WebApp extends BaseActivity {
         // Start local server only for assessment or ftm or curious reader
         if (appUrl.startsWith("http://localhost:8080")) {
             String subAppName = "unknown";
-            if (remoteAppUrl.contains("ftm") || remoteAppUrl.contains("feedthemonster") || remoteAppUrl.contains("cr_lang")) {
+            Log.d(TAG, "remoteAppUrl is: " + remoteAppUrl);
+            if (remoteAppUrl != null && (remoteAppUrl.contains("ftm") || remoteAppUrl.contains("feedthemonster") || remoteAppUrl.contains("cr_lang"))) {
                 subAppName = "ftm";
-            } else if (remoteAppUrl.contains("assessment")) {
+            } else if (remoteAppUrl != null && remoteAppUrl.contains("assessment")) {
                 subAppName = "assessment";
-            } else if (remoteAppUrl.contains("story")) {
+            } else if (remoteAppUrl != null && remoteAppUrl.contains("story")) {
                 subAppName = "story";
             }
             try {
@@ -213,7 +237,6 @@ public class WebApp extends BaseActivity {
         }
 
         // Load the WebView
-        webView = findViewById(R.id.web_app);
         webView.setWebViewClient(new WebViewClient());
         webView.getSettings().setJavaScriptEnabled(true);
         webView.addJavascriptInterface(new WebAppInterface(this), "Android");
