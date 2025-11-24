@@ -52,7 +52,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 public class WebApp extends BaseActivity {
 
-    private static String lessonId;
+    private String lessonId;
     private String title;
     private String appUrl;
     private WebView webView;
@@ -149,7 +149,7 @@ public class WebApp extends BaseActivity {
                 suffix = "ftm/";
                 filename = "ftm_" + lessonId + ".json";
             }
-            WebApp.lessonId = lessonId;
+            this.lessonId = lessonId;
             ZIP_BASE_URL += suffix;
             if (lessonId != null && !lessonId.isEmpty()) {
                 isDownloadNeeded = true;
@@ -187,8 +187,14 @@ public class WebApp extends BaseActivity {
                     @Override
                     public void onFalure(Exception e) {
                         Log.e(TAG, "Asset download failed: " + lessonId, e);
-                        // Handle failure? For now maybe just try to load anyway or show error
-                        runOnUiThread(() -> onAssetsReady(remoteAppUrl));
+                        runOnUiThread(() -> {
+                            new AlertDialog.Builder(WebApp.this)
+                                    .setTitle("Download Failed")
+                                    .setMessage("Could not download the required assets. Please check your internet connection.")
+                                    .setPositiveButton("OK", (dialog, which) -> finish())
+                                    .setCancelable(false)
+                                    .show();
+                        });
                     }
                 });
             }
