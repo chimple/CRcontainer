@@ -8,9 +8,15 @@
     <WebView
         android:id="@+id/web_app"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
-    </WebView>
+        android:layout_height="match_parent"
+        android:visibility="invisible" />
 
+    <ProgressBar
+        android:id="@+id/loading_indicator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:visibility="visible" />
 
     <ImageView
         android:id="@+id/button2"
@@ -19,8 +25,6 @@
         android:layout_gravity="center"
         android:contentDescription="@string/back"
         android:padding="4dp"
-        android:src="@drawable/cancel">
-    </ImageView>
-
+        android:src="@drawable/cancel" />
 
 </RelativeLayout>
