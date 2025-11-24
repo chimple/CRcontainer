@@ -110,10 +110,10 @@ public class WebApp extends BaseActivity {
         getIntentData();
         if (title != null) {
             String lowerTitle = title.toLowerCase();
-            if (lowerTitle.contains("assessment")) {
+            if (Uri.parse(appUrl).getQueryParameter("assessment") != null) {
                 assetFolder = "web2";
                 ZIP_BASE_URL = "https://raw.githubusercontent.com/chimple/curious-learning-assests/main/assessment/"; // Update ZIP_BASE_URL for assessment
-            } else if (lowerTitle.contains("curious reader")) {
+            } else if (Uri.parse(appUrl).getQueryParameter("book") != null) {
                 assetFolder = "web3";
                 ZIP_BASE_URL = "https://raw.githubusercontent.com/chimple/curious-learning-assests/main/story/";
             } else {
