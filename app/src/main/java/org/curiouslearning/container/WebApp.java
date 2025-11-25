@@ -52,6 +52,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 public class WebApp extends BaseActivity {
 
+    private String lessonId;
     private String title;
     private String appUrl;
     private WebView webView;
@@ -95,18 +96,23 @@ public class WebApp extends BaseActivity {
     //     loadWebView();
     // }
 
+    private android.widget.ProgressBar loadingIndicator;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         audioPlayer = new AudioPlayer();
         setContentView(R.layout.activity_web_app);
+        
+        loadingIndicator = findViewById(R.id.loading_indicator);
+        webView = findViewById(R.id.web_app);
+        
         getIntentData();
-        if (title != null) {
-            String lowerTitle = title.toLowerCase();
-            if (lowerTitle.contains("assessment")) {
+        if (appUrl != null) {
+            if (Uri.parse(appUrl).getQueryParameter("assessment") != null) {
                 assetFolder = "web2";
-                ZIP_BASE_URL = "https://raw.githubusercontent.com/chimple/curious-learning-assests/main/assessment/"; // Update ZIP_BASE_URL for assessment
-            } else if (lowerTitle.contains("curious reader")) {
+                ZIP_BASE_URL = "https://raw.githubusercontent.com/chimple/curious-learning-assests/main/assessment/";
+            } else if (Uri.parse(appUrl).getQueryParameter("book") != null) {
                 assetFolder = "web3";
                 ZIP_BASE_URL = "https://raw.githubusercontent.com/chimple/curious-learning-assests/main/story/";
             } else {
@@ -122,6 +128,9 @@ public class WebApp extends BaseActivity {
         // Use the remoteAppUrl for assessment check
         String remoteAppUrl = getIntent().getStringExtra("appUrl");
         Log.d(TAG, "remoteAppUrl is: " + remoteAppUrl);
+        
+        boolean isDownloadNeeded = false;
+        
         if (remoteAppUrl != null && (remoteAppUrl.contains("story") || remoteAppUrl.contains("assessment") || remoteAppUrl.contains("ftm"))) {
             Uri uri = Uri.parse(remoteAppUrl);
             String lessonId;
@@ -140,8 +149,10 @@ public class WebApp extends BaseActivity {
                 suffix = "ftm/";
                 filename = "ftm_" + lessonId + ".json";
             }
+            this.lessonId = lessonId;
             ZIP_BASE_URL += suffix;
             if (lessonId != null && !lessonId.isEmpty()) {
+                isDownloadNeeded = true;
                 fetchAsset.downloadAssets(lessonId, new FetchAsset.LessonCallBack() {
                     @Override
                     public void onSucccess(File lessonFolder) {
@@ -170,14 +181,33 @@ public class WebApp extends BaseActivity {
                         } catch (IOException e) {
                             Log.e("StorageAssetServer", "Failed to start server", e);
                         }
+                        
+                        runOnUiThread(() -> onAssetsReady(remoteAppUrl));
                     }
                     @Override
                     public void onFalure(Exception e) {
                         Log.e(TAG, "Asset download failed: " + lessonId, e);
+                        runOnUiThread(() -> {
+                            new AlertDialog.Builder(WebApp.this)
+                                    .setTitle("Download Failed")
+                                    .setMessage("Could not download the required assets. Please check your internet connection.")
+                                    .setPositiveButton("OK", (dialog, which) -> finish())
+                                    .setCancelable(false)
+                                    .show();
+                        });
                     }
                 });
             }
         }
+
+        if (!isDownloadNeeded) {
+            onAssetsReady(remoteAppUrl);
+        }
+    }
+
+    private void onAssetsReady(String remoteAppUrl) {
+        loadingIndicator.setVisibility(View.GONE);
+        webView.setVisibility(View.VISIBLE);
 
         // Copy assets to internal storage
         copyAssetsToInternalStorage();
@@ -194,15 +224,16 @@ public class WebApp extends BaseActivity {
         // Start local server only for assessment or ftm or curious reader
         if (appUrl.startsWith("http://localhost:8080")) {
             String subAppName = "unknown";
-            if (remoteAppUrl.contains("ftm") || remoteAppUrl.contains("feedthemonster") || remoteAppUrl.contains("cr_lang")) {
+            Log.d(TAG, "remoteAppUrl is: " + remoteAppUrl);
+            if (remoteAppUrl != null && (remoteAppUrl.contains("ftm") || remoteAppUrl.contains("feedthemonster") || remoteAppUrl.contains("cr_lang"))) {
                 subAppName = "ftm";
-            } else if (remoteAppUrl.contains("assessment")) {
+            } else if (remoteAppUrl != null && remoteAppUrl.contains("assessment")) {
                 subAppName = "assessment";
-            } else if (remoteAppUrl.contains("story")) {
+            } else if (remoteAppUrl != null && remoteAppUrl.contains("story")) {
                 subAppName = "story";
             }
             try {
-                localWebServer = new org.curiouslearning.container.server.AppServer(this, 8080, assetFolder, subAppName);
+                localWebServer = new org.curiouslearning.container.server.AppServer(this, 8080, assetFolder, subAppName, lessonId);
                 localWebServer.start();
                 Log.d("LocalWebServer", "Server started on port 8080 with assets: " + assetFolder + ", subApp: " + subAppName);
             } catch (IOException e) {
@@ -211,7 +242,6 @@ public class WebApp extends BaseActivity {
         }
 
         // Load the WebView
-        webView = findViewById(R.id.web_app);
         webView.setWebViewClient(new WebViewClient());
         webView.getSettings().setJavaScriptEnabled(true);
         webView.addJavascriptInterface(new WebAppInterface(this), "Android");
