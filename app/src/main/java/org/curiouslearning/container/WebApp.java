@@ -109,7 +109,7 @@ public class WebApp extends BaseActivity {
         
         getIntentData();
         if (appUrl != null) {
-            if (Uri.parse(appUrl).getQueryParameter("assessment") != null) {
+            if (Uri.parse(appUrl).getQueryParameter("data") != null) {
                 assetFolder = "web2";
                 ZIP_BASE_URL = "https://raw.githubusercontent.com/chimple/curious-learning-assests/main/assessment/";
             } else if (Uri.parse(appUrl).getQueryParameter("book") != null) {
